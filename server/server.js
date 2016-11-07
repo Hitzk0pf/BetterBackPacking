@@ -2,6 +2,7 @@ import Express from 'express';
 import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+var Sequelize = require('sequelize');
 import path from 'path';
 import IntlWrapper from '../client/modules/Intl/IntlWrapper';
 
@@ -33,13 +34,22 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import posts from './routes/post.routes';
+import users from './routes/user.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
 
-// MongoDB Connection
+// Sequelize and (still) MongoDB Connection
+
+//const User = sequelize.import('./models/user');
+//const User = userModel(sequelize, Sequelize);
+
+//User.findAll().then(function(users) {
+//	  console.log("USERS: ", users);
+//})
+
 mongoose.connect(serverConfig.mongoURL, (error) => {
   if (error) {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
@@ -56,6 +66,7 @@ app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
 app.use('/api', posts);
+app.use('/api', users);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
