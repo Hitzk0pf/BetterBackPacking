@@ -5,7 +5,16 @@ const UserModel = (sequelize, Sequelize) => {
 	  },
 	  lastName: {
 	    type: Sequelize.STRING
-	  }
+	  },
+	  mail: {
+	    type: Sequelize.STRING
+	  },
+	  password: {
+	    type: Sequelize.STRING
+	  },
+	  birthDate: {
+	    type: Sequelize.DATE
+	  },
 	});
 
 	// force: true will drop the table if it already exists
@@ -13,7 +22,10 @@ const UserModel = (sequelize, Sequelize) => {
 	  // Table created
 	  return User.create({
 	    firstName: 'John',
-	    lastName: 'Hancock'
+	    lastName: 'Hancock',
+	    mail: 'hancock@gmail.com',
+	    password: 'plain',
+	    birthDate: new Date(1980, 6, 20),
 	  });
 	});
 

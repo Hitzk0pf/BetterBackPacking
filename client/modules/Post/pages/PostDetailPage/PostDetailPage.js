@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import CheckBox from 'grommet/components/CheckBox';
 
 // Import Style
 import styles from '../../components/PostListItem/PostListItem.css';
@@ -12,11 +13,16 @@ import { fetchPost } from '../../PostActions';
 // Import Selectors
 import { getPost } from '../../PostReducer';
 
+const test = () => {
+	alert('test');
+}
+
 export function PostDetailPage(props) {
   return (
     <div>
       <Helmet title={props.post.title} />
       <div className={`${styles['single-post']} ${styles['post-detail']}`}>
+        <CheckBox label="label" checked={true} onChange={test} />
         <h3 className={styles['post-title']}>{props.post.title}</h3>
         <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.name}</p>
         <p className={styles['post-desc']}>{props.post.content}</p>
