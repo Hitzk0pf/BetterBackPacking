@@ -10,9 +10,13 @@ import models from '../models/index';
  * @returns void
  */
 export function getUsers(req, res) {
-    models.User.findAll().then(function(users) {
+    models.User.findAll().then((users) => {
+      console.log("SUCCESS", users);
       res.json(users);
-    })
+    }).catch((err) => {
+      console.log("FUCKED UP", err);
+    });
+
 }
 
 /**
@@ -40,6 +44,13 @@ export function addUser(req, res) {
     
     console.log("userCreate: ", newUser);
 
+    models.User.create({
+      firstname: newUser.firstname,
+      lastname: newUser.lastname,
+    });
+
+
+
     models.User.create({...newUser}).then(user => {
       res.json({ User: user });
     }).catch(err => {
@@ -55,12 +66,15 @@ export function addUser(req, res) {
  * @returns void
  */
 export function getUser(req, res) {
-  User.findOne({ cuid: req.params.cuid }).exec((err, User) => {
-    if (err) {
-      res.status(500).send(err);
+
+  models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
+    if(user) {
+      res.json({user});
+    } else {
+      res.status(404).send();
     }
-    res.json({ User });
-  });
+  }).catch(err => res.status(500).send(err));
+
 }
 
 /**

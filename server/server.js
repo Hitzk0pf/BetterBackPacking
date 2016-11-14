@@ -37,6 +37,7 @@ import posts from './routes/post.routes';
 import users from './routes/user.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
+var passport = require('passport');
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -65,7 +66,12 @@ app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
-app.use('/api', posts);
+
+//initialize passport
+app.use(passport.initialize());
+require('./auth/auth.js')(passport);
+
+//app.use('/api', posts);
 app.use('/api', users);
 
 // Render Initial HTML

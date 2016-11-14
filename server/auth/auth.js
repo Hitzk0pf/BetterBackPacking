@@ -18,7 +18,6 @@ module.exports = function(passport) {
     },
 
     function(username, password, done) {
-      console.log("username: " + username + " and pw: " + password);
       models.User.findOne({ where: {email: username} }).then(user => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
@@ -38,16 +37,16 @@ module.exports = function(passport) {
   opts.secretOrKey = config.secret;
 
   passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    models.User.findOne({ cuid: jwt_payload.cuid }, function(err, user) {
-    console.log('JWT auth with user: ', jwt_payload);
-      if (err) {
-        return done(err, false);
-      }
-      if (user) {
-        done(null, user);
-      } else {
-        done(null, false);
-      }
-    });
+      models.User.findOne({ where: {cuid: jwt_payload.cuid} }).then(user => {
+        if(user) {
+          done(null, user);
+        } else {
+          done(null, false);
+        }
+      }).catch(err => {
+        if(err) {
+          done(err, false);
+        }
+      });
   }));
 }

@@ -80,7 +80,7 @@ const UserModel = (sequelize, Sequelize) => {
           }
 
           //hash pw with 16 iterations
-          bcrypt.hash(user.get('password'), 16, function(err, hash) {
+          bcrypt.hash(user.get('password'), 10, function(err, hash) {
                   if (err) return callback(err);
                   user.set('password_digest', hash);
                   return callback(null, options);
