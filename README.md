@@ -143,8 +143,8 @@ Modules are the way of organising different domain-specific modules in the proje
       | - PostViewPage
           | - PostViewPage.js
           | - PostViewPage.css
-  | - PostReducer.js
-  | - PostActions.js
+  | - UserReducer.js
+  | - UserActions.js
 ```
 
 ## Misc
