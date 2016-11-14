@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './App';
 import { configureStore } from './store';
-//import 'grommet/scss/vanilla/index.scss';
+//import 'grommet/scss/vanilla/index.scss'; we're going to compile this manually, no need for webpack to do that for us
 import 'grommet/grommet.min.css';
 
 // Initialize store

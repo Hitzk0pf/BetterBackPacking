@@ -60,10 +60,10 @@ module.exports = {
 	      exclude: /node_modules/,
 	      loaders: ['babel']
       },
-      {
-	     test: /\.scss$/,
-	     loader: 'style!css!sass?outputStyle=compressed'
-      }
+		{
+		    test: /\.scss$/,
+		    loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!sass-loader?sourceMap',
+		},
     ],
   },
 

@@ -4,73 +4,78 @@ import sanitizeHtml from 'sanitize-html';
 import models from '../models/index';
 
 /**
- * Get all posts
+ * Get all User
  * @param req
  * @param res
  * @returns void
  */
 export function getUsers(req, res) {
-	models.User.findAll().then(function(users) {
-	  res.json(users);
-	})
+    models.User.findAll().then(function(users) {
+      res.json(users);
+    })
 }
 
 /**
- * Save a post
+ * Save a User
  * @param req
  * @param res
  * @returns void
  */
-export function addPost(req, res) {
-  if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
+export function addUser(req, res) {
+  if (!req.body.user.firstname || !req.body.user.lastname || !req.body.user.email || !req.body.user.password || !req.body.user.password_confirmation || !req.body.user.birthdate) {
     res.status(403).end();
   }
+  else
+  {
+    const requestUser = req.body.user;
+    const newUser = {};
 
-  const newPost = new Post(req.body.post);
+    //only pick out attributes that we want (who knows what attributes a hacker sends to our api endpoints) 
+    newUser.firstname = requestUser.firstname;
+    newUser.lastname = requestUser.lastname;
+    newUser.email = requestUser.email;
+    newUser.birthdate = requestUser.birthdate;
+    newUser.password = requestUser.password;
+    newUser.password_confirmation = requestUser.password_confirmation;
+    
+    console.log("userCreate: ", newUser);
 
-  // Let's sanitize inputs
-  newPost.title = sanitizeHtml(newPost.title);
-  newPost.name = sanitizeHtml(newPost.name);
-  newPost.content = sanitizeHtml(newPost.content);
-
-  newPost.slug = slug(newPost.title.toLowerCase(), { lowercase: true });
-  newPost.cuid = cuid();
-  newPost.save((err, saved) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ post: saved });
-  });
+    models.User.create({...newUser}).then(user => {
+      res.json({ User: user });
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+  }
 }
 
 /**
- * Get a single post
+ * Get a single User
  * @param req
  * @param res
  * @returns void
  */
-export function getPost(req, res) {
-  Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
+export function getUser(req, res) {
+  User.findOne({ cuid: req.params.cuid }).exec((err, User) => {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ post });
+    res.json({ User });
   });
 }
 
 /**
- * Delete a post
+ * Delete a User
  * @param req
  * @param res
  * @returns void
  */
-export function deletePost(req, res) {
-  Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
+export function deleteUser(req, res) {
+  User.findOne({ cuid: req.params.cuid }).exec((err, User) => {
     if (err) {
       res.status(500).send(err);
     }
 
-    post.remove(() => {
+    User.remove(() => {
       res.status(200).end();
     });
   });

@@ -35,10 +35,10 @@ module.exports = {
                 exclude: /node_modules/,
                 loaders: ['babel']
             },
-            {
-                test: /\.scss$/,
-                loader: 'style!css!sass?outputStyle=compressed'
-            }
+		{
+		    test: /\.scss$/,
+		    loaders: 'css-loader/locals?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1!sass-loader',
+		},
         ],
         sassLoader: {
             includePaths: [

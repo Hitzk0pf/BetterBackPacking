@@ -1,12 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
-<<<<<<< HEAD
 import { FormattedMessage } from 'react-intl';
-=======
-import {FormattedMessage} from 'react-intl';
-// import 'grommet/scss/vanilla/index';
->>>>>>> afa68b354c535f20a80899c0dc27cba936f63d62
 import CheckBox from 'grommet/components/CheckBox';
 
 // Import Style
@@ -22,12 +17,7 @@ const test = () => {
     alert("test");
 };
 
-const test = () => {
-	alert('test');
-}
-
 export function PostDetailPage(props) {
-<<<<<<< HEAD
   return (
     <div>
       <Helmet title={props.post.title} />
@@ -39,21 +29,6 @@ export function PostDetailPage(props) {
       </div>
     </div>
   );
-=======
-    return (
-        <div>
-            <Helmet title={props.post.title}/>
-            <div className={`${styles['single-post']} ${styles['post-detail']}`}>
-                <h3 className={styles['post-title']}>{props.post.title}</h3>
-                <div>
-                    <CheckBox label="Label" checked={true} onChange={test}/>
-                </div>
-                <p className={styles['author-name']}><FormattedMessage id="by"/> {props.post.name}</p>
-                <p className={styles['post-desc']}>{props.post.content}</p>
-            </div>
-        </div>
-    );
->>>>>>> afa68b354c535f20a80899c0dc27cba936f63d62
 }
 
 // Actions required to provide data for this component to render in sever side.
