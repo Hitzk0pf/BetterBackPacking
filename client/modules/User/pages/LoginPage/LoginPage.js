@@ -2,29 +2,60 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
-import CheckBox from 'grommet/components/CheckBox';
 import LoginForm from 'grommet/components/LoginForm';
+
+import {loginRequest} from '../../UserActions';
 
 export function LoginPage(props) {
 
-    const submit = () => {
-        alert("login...");
+    const styles = {
+
+        wrapper: {
+            display: "inline-block",
+            margin: "auto",
+            textAlign: "left"
+        }
+
+    };
+
+    const submit = (user) => {
+
+        // send login request
+        props.loginRequest(user);
+
+        console.log("login", "called loginRequest function")
+
     };
 
     return (
-        <div>
+        <div style={{textAlign: "center"}}>
+
             <Helmet title={"Login"}/>
-            <LoginForm onSubmit={this.submit}/>
+
+            <div style={styles.wrapper}>
+
+                <LoginForm onSubmit={(user) => submit(user)} />
+
+            </div>
+
         </div>
     );
 
 }
 
 // Retrieve data from store as props
-function mapStateToProps(state, props) {
-    return {};
-}
+const mapStateToProps = (store) => {
+    return {
+        // form: store.form
+    };
+};
 
-LoginPage.propTypes = {};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginRequest: (user) => {
+            dispatch(loginRequest(user));
+        }
+    }
+};
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
