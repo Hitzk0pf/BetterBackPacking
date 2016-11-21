@@ -41,11 +41,12 @@ router.route('/login').post(
 
 router.route('/failedLogin').get((req, res) => { res.status(403).end(); });
 
-router.route('/auth/facebook').get(passport.authenticate('facebook'));
-router.route('/auth/facebook/callback').get(
+router.route('/login/facebook').get(passport.authenticate('facebook', { scope: ['email', 'user_birthday'] }));
+router.route('/login/facebook/callback').get(
       passport.authenticate('facebook', { failureRedirect: '/login' }),
       function(req, res) {
         // Successful authentication, redirect home.
+        console.log("FB CALLS CALLBACK WITH:", req);
         res.json({ loginSuccess: true });
       }
 );

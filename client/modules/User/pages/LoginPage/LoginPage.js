@@ -38,6 +38,8 @@ export function LoginPage(props) {
 
             </div>
 
+            <a href="/api/login/facebook">LOGIN WITH FB</a>
+
         </div>
     );
 
