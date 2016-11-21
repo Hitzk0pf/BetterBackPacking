@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
@@ -6,47 +6,66 @@ import LoginForm from 'grommet/components/LoginForm';
 
 import {loginRequest} from '../../UserActions';
 
-export function LoginPage(props) {
+export class LoginPage extends Component {
 
-    const styles = {
+    render() {
 
-        wrapper: {
-            display: "inline-block",
-            margin: "auto",
-            textAlign: "left"
+        const styles = {
+
+            wrapper: {
+                display: "inline-block",
+                margin: "auto",
+                textAlign: "left"
+            }
+
+        };
+
+        const submit = (user) => {
+
+            // send login request
+            this.props.loginRequest(user);
+
+        };
+
+        let message = "";
+
+        if (this.props.attemptedLogin) {
+            if(this.props.loginSuccess) {
+                message = "OK";
+            } else {
+                message = "ERROR";
+            }
         }
 
-    };
+        return (
+            <div style={{textAlign: "center"}}>
 
-    const submit = (user) => {
+                <Helmet title={"Login"}/>
 
-        // send login request
-        props.loginRequest(user);
+                <div style={styles.wrapper}>
 
-        console.log("login", "called loginRequest function")
+                    <LoginForm onSubmit={(user) => submit(user)}/>
 
-    };
+                    <div>
+                        {message}
+                    </div>
 
-    return (
-        <div style={{textAlign: "center"}}>
-
-            <Helmet title={"Login"}/>
-
-            <div style={styles.wrapper}>
-
-                <LoginForm onSubmit={(user) => submit(user)} />
+                </div>
 
             </div>
+        );
 
-        </div>
-    );
+    }
 
 }
+
 
 // Retrieve data from store as props
 const mapStateToProps = (store) => {
     return {
-        // form: store.form
+        loginSuccess: store.user.loginSuccess,
+        loggedIn: store.user.loggedIn,
+        attemptedLogin: store.user.attemptedLogin
     };
 };
 
