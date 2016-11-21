@@ -35,6 +35,7 @@ export function addUser(req, res) {
     const newUser = {};
 
     //only pick out attributes that we want (who knows what attributes a hacker sends to our api endpoints) 
+    newUser.cuid = cuid();
     newUser.firstname = requestUser.firstname;
     newUser.lastname = requestUser.lastname;
     newUser.email = requestUser.email;
@@ -43,13 +44,6 @@ export function addUser(req, res) {
     newUser.password_confirmation = requestUser.password_confirmation;
     
     console.log("userCreate: ", newUser);
-
-    models.User.create({
-      firstname: newUser.firstname,
-      lastname: newUser.lastname,
-    });
-
-
 
     models.User.create({...newUser}).then(user => {
       res.json({ User: user });
