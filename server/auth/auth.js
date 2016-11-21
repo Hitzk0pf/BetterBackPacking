@@ -1,5 +1,6 @@
 import models from '../models/index'
 import config from '../config';
+let colors = require('colors');
 
 //Login User
 var passport = require('passport')
@@ -19,6 +20,7 @@ module.exports = function(passport) {
     },
 
     function(username, password, done) {
+      console.log(colors.green('hello'));
       models.User.findOne({ where: {email: username} }).then(user => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });

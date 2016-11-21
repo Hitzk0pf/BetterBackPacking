@@ -39,7 +39,7 @@ router.route('/login').post(
   }
 );
 
-router.route('/failedLogin').get((req, res) => { res.json({ loginSuccess: false })});
+router.route('/failedLogin').get((req, res) => { res.status(403).end(); });
 
 router.route('/auth/facebook').get(passport.authenticate('facebook'));
 router.route('/auth/facebook/callback').get(
