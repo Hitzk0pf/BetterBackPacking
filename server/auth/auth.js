@@ -5,6 +5,7 @@ import config from '../config';
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 var JsonStrategy = require('passport-json').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -49,4 +50,16 @@ module.exports = function(passport) {
         }
       });
   }));
+
+  passport.use(new FacebookStrategy({
+      clientID: "690372471129415",
+      clientSecret: "c9f794ac0617a347a89921af263db4ba",
+      callbackURL: "http://localhost:8000/api/auth/facebook/callback"
+    },
+    function(accessToken, refreshToken, profile, cb) {
+      models.User.findOrCreate({ where: {facebookId: profile.id} }).then(user => {
+        return cb(null, user);
+      }).catch(err => { return cb(err, null); });
+    }
+  ));
 }

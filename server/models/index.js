@@ -1,6 +1,10 @@
 var Sequelize = require("sequelize");
 
-var sequelize = new Sequelize("BBP", "root", "root");
+//mysql: var sequelize = new Sequelize("BBP", "root", "root");
+
+//postgresql:
+//change username and pw
+var sequelize = new Sequelize('postgres://root:root@localhost:5432/BBP');
 
 sequelize
   .authenticate()

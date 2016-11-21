@@ -41,6 +41,17 @@ router.route('/login').post(
 
 router.route('/failedLogin').get((req, res) => { res.json({ loginSuccess: false })});
 
+router.route('/auth/facebook').get(passport.authenticate('facebook'));
+router.route('/auth/facebook/callback').get(
+      passport.authenticate('facebook', { failureRedirect: '/login' }),
+      function(req, res) {
+        // Successful authentication, redirect home.
+        res.json({ loginSuccess: true });
+      }
+);
+
+
+
 // Delete a post by cuid
 //router.route('/users/:cuid').delete(UserController.deleteUser);
 
