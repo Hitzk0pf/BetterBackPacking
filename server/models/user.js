@@ -10,6 +10,10 @@ const UserModel = (sequelize, Sequelize) => {
                         notEmpty: true,
                 }
         },
+	facebook_id: {
+		type: Sequelize.BIGINT,
+		allowNull: true,
+	},
 	firstname: {
 		type: Sequelize.STRING,
 		allowNull: false,
@@ -89,6 +93,9 @@ const UserModel = (sequelize, Sequelize) => {
 
   User.beforeCreate(function(user, options, callback) {
           user.email = user.email.toLowerCase();
+          if (!user.cuid) {
+            user.cuid = cuid();
+          }
           if (user.password)
                   hasSecurePassword(user, options, callback);
           else

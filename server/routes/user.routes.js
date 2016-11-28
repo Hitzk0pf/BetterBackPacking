@@ -35,22 +35,11 @@ router.route('/login').post(
     const jwtClaim = JSON.stringify(userForJWT);
     var token = jwt.sign(jwtClaim, config.secret);
 
-    res.json({ loginSuccess: true, user: req.user, token: 'JWT ' + token });
+    res.json({ loginSuccess: true, user: userForJWT, token: 'JWT ' + token });
   }
 );
 
 router.route('/failedLogin').get((req, res) => { res.status(403).end(); });
-
-router.route('/auth/facebook').get(passport.authenticate('facebook'));
-router.route('/auth/facebook/callback').get(
-      passport.authenticate('facebook', { failureRedirect: '/login' }),
-      function(req, res) {
-        // Successful authentication, redirect home.
-        res.json({ loginSuccess: true });
-      }
-);
-
-
 
 // Delete a post by cuid
 //router.route('/users/:cuid').delete(UserController.deleteUser);

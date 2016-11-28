@@ -52,9 +52,10 @@ export class LoginPage extends Component {
 
                 </div>
 
-            </div>
-        );
+            <a href="/api/login/facebook">LOGIN WITH FB</a>
 
+        </div>
+    );
     }
 
 }
