@@ -18,10 +18,10 @@ const UserModel = (sequelize, Sequelize) => {
             type: Sequelize.BLOB,
             allowNull: true,
             /*
-            validate: {
-                notEmpty: true
-            }
-            */
+             validate: {
+             notEmpty: true
+             }
+             */
         },
         firstname: {
             type: Sequelize.STRING,
@@ -109,14 +109,15 @@ const UserModel = (sequelize, Sequelize) => {
             hasSecurePassword(user, options, callback);
         else
             return callback(null, options);
-    })
+    });
+
     User.beforeUpdate(function (user, options, callback) {
         user.email = user.email.toLowerCase();
         if (user.password)
             hasSecurePassword(user, options, callback);
         else
             return callback(null, options);
-    })
+    });
 
     User.sync({force: true}).then(function () {
         // Table created, add a test user when the server starts
