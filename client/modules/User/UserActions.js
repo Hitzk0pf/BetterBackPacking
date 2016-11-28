@@ -3,6 +3,8 @@ import callApi from '../../util/apiCaller';
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 
+import cookie from 'react-cookie';
+
 export function loginRequest(user) {
     return (dispatch) => {
 
@@ -16,14 +18,18 @@ export function loginRequest(user) {
             if(!res.loginSuccess) {
                 dispatch(loginFailed());
             } else {
-                dispatch(loginSuccess());
+                dispatch(loginSuccess(res.token));
             }
 
         });
     };
 }
 
-export function loginSuccess() {
+export function loginSuccess(token) {
+
+    // save cookie
+    cookie.save('token', token, { path: '/' });
+
     return {
         type: LOGIN_SUCCESS
     };
