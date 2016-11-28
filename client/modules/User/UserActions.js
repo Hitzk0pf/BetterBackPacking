@@ -5,10 +5,21 @@ export const LOGIN_FAILED = "LOGIN_FAILED";
 
 export function loginRequest(user) {
     return (dispatch) => {
-        return callApi('login', 'post', {
-            emai: user.email,
+
+        var loginUser = {
+            email: user.username,
             password: user.password
-        }).then(res => dispatch(loginSuccess(res))).catch(res => dispatch(loginFailed()));
+        };
+
+        return callApi('login', 'post', loginUser).then(res => {
+
+            if(!res.loginSuccess) {
+                dispatch(loginFailed());
+            } else {
+                dispatch(loginSuccess());
+            }
+
+        });
     };
 }
 
