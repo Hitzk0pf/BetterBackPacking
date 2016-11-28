@@ -8,17 +8,17 @@ export function loginRequest(user) {
         return callApi('login', 'post', {
             emai: user.email,
             password: user.password
-        }).then(res => loginSuccess()).catch(res => loginFailed());
+        }).then(res => dispatch(loginSuccess(res))).catch(res => dispatch(loginFailed()));
     };
 }
 
-function loginSuccess() {
+export function loginSuccess() {
     return {
         type: LOGIN_SUCCESS
     };
 }
 
-function loginFailed() {
+export function loginFailed() {
     return {
         type: LOGIN_FAILED
     };
