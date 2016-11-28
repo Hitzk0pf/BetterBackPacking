@@ -35,6 +35,7 @@ import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import posts from './routes/post.routes';
 import users from './routes/user.routes';
+import authRoutes from './routes/auth.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
 var passport = require('passport');
@@ -73,6 +74,7 @@ require('./auth/auth.js')(passport);
 
 //app.use('/api', posts);
 app.use('/api', users);
+app.use('', authRoutes);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
