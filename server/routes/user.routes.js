@@ -53,7 +53,7 @@ router.route('/auth/facebook/callback').get(
 
 
 // Delete a post by cuid
-//router.route('/users/:cuid').delete(UserController.deleteUser);
+router.route('/users/:cuid').delete(UserController.deleteUser);
 
 export default router;
 

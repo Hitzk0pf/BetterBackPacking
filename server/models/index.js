@@ -4,7 +4,7 @@ var Sequelize = require("sequelize");
 
 //postgresql:
 //change username and pw
-var sequelize = new Sequelize('postgres://root:root@localhost:5432/BBP');
+var sequelize = new Sequelize('postgres://root:root@localhost:5432/bbp');
 
 sequelize
   .authenticate()
@@ -17,9 +17,12 @@ sequelize
 
 // import models - add new models if existing
 var User = sequelize.import('./user.js');
-var db        = {
+var Tour = sequelize.import('./tour.js');
+var db   = {
 	User,
+	Tour,
 };
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
