@@ -17,9 +17,12 @@ sequelize
 
 // import models - add new models if existing
 var User = sequelize.import('./user.js');
-var db        = {
+var Tour = sequelize.import('./tour.js');
+var db   = {
 	User,
+	Tour,
 };
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

@@ -19,6 +19,7 @@ router.route('/auth').post(passport.authenticate('jwt', {session: false}), (req,
 // Get all Users
 router.route('/users').get(UserController.getUsers);
 
+// get all guides
 // Get one post by cuid
 router.route('/users/:cuid').get(UserController.getUser);
 
@@ -44,7 +45,7 @@ router.route('/failedLogin').get((req, res) => {
 });
 
 // Delete a post by cuid
-//router.route('/users/:cuid').delete(UserController.deleteUser);
+router.route('/users/:cuid').delete(UserController.deleteUser);
 
 export default router;
 
