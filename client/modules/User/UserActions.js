@@ -3,22 +3,39 @@ import callApi from '../../util/apiCaller';
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 
+import cookie from 'react-cookie';
+
 export function loginRequest(user) {
     return (dispatch) => {
-        return callApi('login', 'post', {
-            emai: user.email,
+
+        var loginUser = {
+            email: user.username,
             password: user.password
-        }).then(res => loginSuccess()).catch(res => loginFailed());
+        };
+
+        return callApi('login', 'post', loginUser).then(res => {
+
+            if(!res.loginSuccess) {
+                dispatch(loginFailed());
+            } else {
+                dispatch(loginSuccess(res.token));
+            }
+
+        });
     };
 }
 
-function loginSuccess() {
+export function loginSuccess(token) {
+
+    // save cookie
+    cookie.save('token', token, { path: '/' });
+
     return {
         type: LOGIN_SUCCESS
     };
 }
 
-function loginFailed() {
+export function loginFailed() {
     return {
         type: LOGIN_FAILED
     };

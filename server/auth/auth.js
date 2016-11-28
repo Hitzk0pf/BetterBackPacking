@@ -1,5 +1,8 @@
 import models from '../models/index'
 import config from '../config';
+let cuid = require('cuid');
+let colors = require('colors');
+let FB = require('fb');
 
 //Login User
 var passport = require('passport')
@@ -40,7 +43,11 @@ module.exports = function(passport) {
   passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
       models.User.findOne({ where: {cuid: jwt_payload.cuid} }).then(user => {
         if(user) {
-          done(null, user);
+          if(user.facebook_id) {
+            done("facebook", false);
+          } else {
+            done(null, user);
+          }
         } else {
           done(null, false);
         }
@@ -54,12 +61,53 @@ module.exports = function(passport) {
   passport.use(new FacebookStrategy({
       clientID: "690372471129415",
       clientSecret: "c9f794ac0617a347a89921af263db4ba",
-      callbackURL: "http://localhost:8000/api/auth/facebook/callback"
+      callbackURL: "http://localhost:8000/api/login/facebook/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
-      models.User.findOrCreate({ where: {facebookId: profile.id} }).then(user => {
-        return cb(null, user);
-      }).catch(err => { return cb(err, null); });
+      //console.log(JSON.parse(JSON.stringify(profile.birthday)));
+      console.log(colors.green(accessToken));
+
+      let user = {};
+
+      //call FB api to get user info
+      FB.setAccessToken(accessToken);
+      FB.api('/me', { fields: ['id', 'name', 'email', 'birthday', 'first_name', 'last_name'] }, function (res) {
+        if(!res || res.error) {
+          console.log(!res ? 'error occurred' : res.error);
+          return;
+        }
+
+        user.cuid = cuid();
+        user.firstname = res.first_name;
+        user.lastname = res.last_name;
+        user.birthdate = res.birthday;
+        user.email = res.email;
+        user.password = "facebookPassword";
+        user.password_confirmation = "facebookPassword";
+
+        if(!user.email) {
+          user.email = "test@email.com";
+        }
+
+        models.User
+          .findOrCreate({where: {facebook_id: profile.id}, defaults: {...user}})
+          .spread(function(user, created) {
+            console.log(user.get({
+              plain: true
+            }))
+            console.log(created)
+            return cb(null, user);
+        })
+
+      });
     }
   ));
+
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
 }

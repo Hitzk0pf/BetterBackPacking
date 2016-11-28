@@ -31,6 +31,7 @@ export default (
                 });
             }}
         />
+
         <Route
             path="/posts/:slug-:cuid"
             getComponent={(nextState, cb) => {
@@ -39,6 +40,7 @@ export default (
                 });
             }}
         />
+
         <Route
             path="/login"
             getComponent={(nextState, cb) => {
@@ -47,5 +49,15 @@ export default (
                 });
             }}
         />
+
+        <Route
+            path="/guide/:guideCuid"
+            getComponent={(nextState, cb) => {
+                require.ensure([], require => {
+                    cb(null, require('./modules/Guide/pages/ProfilePage/ProfilePage').default);
+                });
+            }}
+        />
+
     </Route>
 );
