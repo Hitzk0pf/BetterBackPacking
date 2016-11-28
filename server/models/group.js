@@ -1,8 +1,7 @@
-var bcrypt = require('bcrypt');
 var cuid = require('cuid');
 
 const GroupModel = (sequelize, Sequelize) => {
-    const Group = sequelize.define('user', {
+    const Group = sequelize.define('group', {
         cuid: {
             type: Sequelize.STRING,
             primaryKey: true,
@@ -23,7 +22,6 @@ const GroupModel = (sequelize, Sequelize) => {
         indexes: [],
         instanceMethods: {}
     });
-
 
     Group.sync({force: true}).then(function () {
         return Group.create({
