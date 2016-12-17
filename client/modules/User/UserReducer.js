@@ -1,7 +1,9 @@
 import {
-  LOGIN_SUCCESS,
-  LOGIN_FAILED,
-  AUTH_SUCCESS
+    LOGIN_SUCCESS,
+    LOGIN_FAILED,
+    AUTH_SUCCESS,
+    REGISTER_USER_SUCCESS,
+    REGISTER_USER_FAILED
 } from './UserActions';
 
 // Initial State
@@ -9,11 +11,23 @@ const initialState = {
     loginSuccess: false,
     authenticated: false,
     loggedIn: false,
-    attemptedLogin: false
+    attemptedLogin: false,
+    registerSuccess: false
 };
 
 const UserReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case REGISTER_USER_SUCCESS :
+            return Object.assign({}, state, {
+                registerSuccess: true
+            });
+
+        case REGISTER_USER_FAILED :
+            return Object.assign({}, state, {
+                registerSuccess: false
+            });
+
         case AUTH_SUCCESS :
 
             return Object.assign({}, state, {
@@ -42,6 +56,7 @@ const UserReducer = (state = initialState, action) => {
 
         default:
             return state;
+
     }
 };
 

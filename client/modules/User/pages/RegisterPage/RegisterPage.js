@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
-import LoginForm from 'grommet/components/LoginForm';
 import Form from 'grommet/components/Form';
 import Header from 'grommet/components/Header';
 import Footer from 'grommet/components/Footer';
@@ -12,10 +11,25 @@ import Button from 'grommet/components/Button';
 import FormField from 'grommet/components/FormField';
 import TextInput from 'grommet/components/TextInput';
 import DateTime from 'grommet/components/DateTime';
+import {registerRequest} from '../../UserActions';
 
 import {loginRequest} from '../../UserActions';
 
 export class LoginPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstName: "",
+            lastName: "",
+            birthDate: "",
+            email: "",
+            password: "",
+            passwordRepeat: ""
+        };
+
+        // this.handleChange = this.handleChange.bind(this);
+    }
 
     render() {
 
@@ -29,14 +43,22 @@ export class LoginPage extends Component {
 
         };
 
-        const submit = (data) => {
-            console.log("submit", data);
+        const submit = () => {
+            this.props.registerRequest(this.state);
+        };
+
+        const handleChange = (event) => {
+
+            var newState = {};
+            newState[event.target.name] = event.target.value;
+            this.setState(newState);
+
         };
 
         return (
             <div style={{textAlign: "center"}}>
 
-                <Helmet title={"Login"}/>
+                <Helmet title={"Register"}/>
 
                 <div style={styles.wrapper}>
 
@@ -50,31 +72,31 @@ export class LoginPage extends Component {
 
                         <FormFields>
 
-                            <FormField label="Vorname" htmlFor="firstName">
-                                <TextInput />
+                            <FormField label="Vorname">
+                                <TextInput name="firstName" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Nachname" htmlFor="lastName">
-                                <TextInput />
+                            <FormField label="Nachname">
+                                <TextInput name="lastName" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Geburtsdatum" htmlFor="birthDate">
+                            <FormField label="Geburtsdatum">
                                 <DateTime id="id"
-                                          name="name"
+                                          name="birthDate"
                                           format="D/M/YYYY"
                                 />
                             </FormField>
 
-                            <FormField label="E-Mail" htmlFor="email">
-                                <TextInput />
+                            <FormField label="E-Mail">
+                                <TextInput name="email" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Passwort" htmlFor="password">
-                                <TextInput type="password"/>
+                            <FormField label="Passwort">
+                                <TextInput name="password" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Passwort wiederholen" htmlFor="passwordRepeat">
-                                <TextInput type="password"/>
+                            <FormField label="Passwort wiederholen">
+                                <TextInput name="passwordRepeat" onDOMChange={handleChange}/>
                             </FormField>
 
                         </FormFields>
@@ -99,16 +121,13 @@ export class LoginPage extends Component {
 // Retrieve data from store as props
 const mapStateToProps = (store) => {
     return {
-        loginSuccess: store.user.loginSuccess,
-        loggedIn: store.user.loggedIn,
-        attemptedLogin: store.user.attemptedLogin
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginRequest: (user) => {
-            dispatch(loginRequest(user));
+        registerRequest: (user) => {
+            dispatch(registerRequest(user));
         }
     }
 };

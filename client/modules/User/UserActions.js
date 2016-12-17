@@ -8,6 +8,34 @@ export const SAVE_FB_TOKEN = "SAVE_FB_TOKEN";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const AUTH_FAILED = "AUTH_FAILED";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
+export const REGISTER_USER_FAILED = "REGISTER_USER_FAILED";
+
+export function registerRequest(user) {
+    return (dispatch) => {
+
+        return callApi('register', 'post', '', user).then(res => {
+
+            if(!res.registerSuccess) {
+                dispatch(registerFailed());
+            } else {
+                dispatch(registerSuccess());
+            }
+        });
+    };
+}
+
+export function registerSuccess() {
+    return {
+        type: REGISTER_USER_SUCCESS
+    };
+}
+
+export function registerFailed() {
+    return {
+        type: REGISTER_USER_FAILED
+    };
+}
 
 export function loginRequest(user) {
     return (dispatch) => {
@@ -26,6 +54,21 @@ export function loginRequest(user) {
             }
 
         });
+    };
+}
+
+export function loginSuccess(token) {
+    // save cookie
+    cookie.save('token', token, { path: '/' });
+
+    return {
+        type: LOGIN_SUCCESS
+    };
+}
+
+export function loginFailed() {
+    return {
+        type: LOGIN_FAILED
     };
 }
 
@@ -80,19 +123,4 @@ export function saveFBToken(token) {
       dispatch(authUser());
       //browserHistory.push('/login');
     }
-}
-
-export function loginSuccess(token) {
-    // save cookie
-    cookie.save('token', token, { path: '/' });
-
-    return {
-        type: LOGIN_SUCCESS
-    };
-}
-
-export function loginFailed() {
-    return {
-        type: LOGIN_FAILED
-    };
 }
