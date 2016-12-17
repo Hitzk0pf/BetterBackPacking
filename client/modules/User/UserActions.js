@@ -9,6 +9,8 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const AUTH_FAILED = "AUTH_FAILED";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 
+import cookie from 'react-cookie';
+
 export function loginRequest(user) {
     return (dispatch) => {
 
@@ -22,7 +24,7 @@ export function loginRequest(user) {
             if(!res.loginSuccess) {
                 dispatch(loginFailed());
             } else {
-                dispatch(loginSuccess());
+                dispatch(loginSuccess(res.token));
             }
 
         });
@@ -82,7 +84,10 @@ export function saveFBToken(token) {
     }
 }
 
-export function loginSuccess() {
+export function loginSuccess(token) {
+    // save cookie
+    cookie.save('token', token, { path: '/' });
+
     return {
         type: LOGIN_SUCCESS
     };
