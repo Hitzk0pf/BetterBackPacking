@@ -1,18 +1,33 @@
-import {LOGIN_SUCCESS, LOGIN_FAILED} from './UserActions';
+import {
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  AUTH_SUCCESS
+} from './UserActions';
 
 // Initial State
 const initialState = {
     loginSuccess: false,
+    authenticated: false,
     loggedIn: false,
     attemptedLogin: false
 };
 
 const UserReducer = (state = initialState, action) => {
     switch (action.type) {
+        case AUTH_SUCCESS :
+
+            return Object.assign({}, state, {
+                loginSuccess: true,
+                authenticated: true,
+                loggedIn: true,
+                attemptedLogin: true
+            });
+
         case LOGIN_SUCCESS :
 
             return Object.assign({}, state, {
                 loginSuccess: true,
+                authenticated: true,
                 loggedIn: true,
                 attemptedLogin: true
             });
@@ -21,6 +36,7 @@ const UserReducer = (state = initialState, action) => {
 
             return Object.assign({}, state, {
                 loginSuccess: false,
+                authenticated: false,
                 attemptedLogin: true
             });
 

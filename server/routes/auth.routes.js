@@ -11,6 +11,7 @@ router.route('/api/login/facebook/callback').get(
       passport.authenticate('facebook', { failureRedirect: '/api/login' }),
       function(req, res) {
         let userForJWT = req.user;
+        console.log("user:", req.user);
 
         userForJWT['password_digest'] = ''; //remove password from JWT (obvious why)
         userForJWT['password'] = ''; //remove password from JWT (obvious why)
@@ -18,11 +19,22 @@ router.route('/api/login/facebook/callback').get(
         const jwtClaim = JSON.stringify(userForJWT);
         var token = jwt.sign(jwtClaim, config.secret);
         // Successful authentication, redirect to completeFBLogin.
-        req.loginSuccess = true;
-        req.userForJWT = userForJWT;
-        req.token = 'JWT ' + token;
+        token = 'JWT ' + token;
 
-        res.redirect('/login');
+        let user = req.user.dataValues;
+
+        for (let attr in user) {
+            if (user.hasOwnProperty(attr)) {
+              console.log("attr", user[attr]);
+              if(!user[attr]) {
+                  token = token + "," + attr;
+              }
+            }
+        }
+
+        let uriToken = encodeURIComponent(token);
+
+        res.redirect('/fbLogin/' + uriToken);
       }
 );
 

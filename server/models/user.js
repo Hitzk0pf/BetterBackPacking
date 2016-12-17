@@ -16,53 +16,34 @@ const UserModel = (sequelize, Sequelize) => {
 	},
 	firstname: {
 		type: Sequelize.STRING,
-		allowNull: false,
-		validate: {
-			notEmpty: true,
-			len: [1,50]
-		}
+		allowNull: true,
 	},
 	lastname: {
 		type: Sequelize.STRING,
-		allowNull: false,
-		validate: {
-			notEmpty: true,
-			len: [1,50]
-		}
+		allowNull: true,
 	},
 	birthdate: {
 		type: Sequelize.DATE,
-		allowNull: false,
-		validate: {
-			notEmpty: true
-		}
+		allowNull: true,
 	},
 	email: {
 		type: Sequelize.STRING,
                 unique: true,
-		allowNull: false,
-		validate: {
-			isEmail: true,
-			notEmpty: true,
-			len: [1,255]
-		}
+		allowNull: true,
 	},
 	password_digest: {
 		type: Sequelize.STRING,
-		validate: {
-			notEmpty: true
-		}
 	},
 	password: {
 		type: Sequelize.VIRTUAL,
-		allowNull: false,
-		validate: {
-			notEmpty: true,
-			len: [6, Infinity]
-		}
+		allowNull: true,
 	},
 	password_confirmation: {
 		type: Sequelize.VIRTUAL
+	},
+	missingAttributes: {
+		type: Sequelize.BOOLEAN,
+		defaultValue: false
 	}
   }, {
 	tableName: 'users',
@@ -92,7 +73,10 @@ const UserModel = (sequelize, Sequelize) => {
   };
 
   User.beforeCreate(function(user, options, callback) {
-          user.email = user.email.toLowerCase();
+          if(user.email) {
+            user.email = user.email.toLowerCase();
+          }
+
           if (!user.cuid) {
             user.cuid = cuid();
           }

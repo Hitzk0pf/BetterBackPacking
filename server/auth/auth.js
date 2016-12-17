@@ -44,7 +44,7 @@ module.exports = function(passport) {
       models.User.findOne({ where: {cuid: jwt_payload.cuid} }).then(user => {
         if(user) {
           if(user.facebook_id) {
-            done("facebook", false);
+            done(null, user);
           } else {
             done(null, user);
           }
@@ -82,12 +82,9 @@ module.exports = function(passport) {
         user.lastname = res.last_name;
         user.birthdate = res.birthday;
         user.email = res.email;
-        user.password = "facebookPassword";
-        user.password_confirmation = "facebookPassword";
-
-        if(!user.email) {
-          user.email = "test@email.com";
-        }
+        user.missingAttributes = true;
+        user.password = "";
+        user.password_confirmation = "";
 
         models.User
           .findOrCreate({where: {facebook_id: profile.id}, defaults: {...user}})

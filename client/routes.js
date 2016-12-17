@@ -40,6 +40,14 @@ export default (
             }}
         />
         <Route
+            path="/fbLogin/:token"
+            getComponent={(nextState, cb) => {
+                require.ensure([], require => {
+                    cb(null, require('./modules/User/pages/LoginPage/FacebookLoginPage').default);
+                });
+            }}
+        />
+        <Route
             path="/login"
             getComponent={(nextState, cb) => {
                 require.ensure([], require => {
