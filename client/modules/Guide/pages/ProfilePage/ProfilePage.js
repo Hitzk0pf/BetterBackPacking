@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
 import Box from 'grommet/components/Box';
+import Button from 'grommet/components/Button';
 import Title from 'grommet/components/Title';
 import Headline from 'grommet/components/Headline';
 import Heading from 'grommet/components/Heading';
@@ -30,20 +31,56 @@ export class LoginPage extends Component {
 
                 <div>
                     <Box direction="row">
-                        <Box basis="1/3" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small" pad="medium" align="center" justify="center" colorIndex="neutral-2">
-                            ProfilePic
+                        <Box basis="1/3" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small" pad="medium" align="center" justify="center">
+                            <Box basis="3/4" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} colorIndex="neutral-1">
+                                ProfilePic
+                            </Box>
+                            <Box basis="1/4" size={{"width": {"min": "medium"}}} pad="medium" colorIndex="neutral-2">
+                                Rating
+                            </Box>
                         </Box>
                         <Box basis="2/3" size={{"height": {"min": "medium"}}}> 
                             <Box basis="1/4" margin="small" align="start" justify="center" separator="bottom">
                                 <Heading>Daryl Dixon</Heading>
-                              </Box>
-                              <Box basis="3/4" margin="small" align="start" justify="start" textAlign="left">
+                            </Box>
+                            <Box basis="1/2" margin="small" align="start" justify="start" textAlign="left">
                                 Age: 22 <br />
                                 Language(s): English, German <br />
                                 Area(s): North India <br />
                                 Difficulty: Easy, Medium <br />
                                 Tourstyle: City, Sightseeing
-                              </Box>
+                            </Box>
+                            <Box basis="1/4">
+                                <Button label="CONTACT ME!" href="#" accent={false} secondary={false} primary={true}/>
+                            </Box>
+                        </Box>
+                    </Box>
+                </div>
+
+                <div>
+                    <Box direction="row">
+                        <Box basis="1/3" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small" pad="medium" align="center" justify="center">
+                            <Box basis="3/4" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} colorIndex="neutral-1">
+                                ProfilePic
+                            </Box>
+                            <Box basis="1/4" size={{"width": {"min": "medium"}}} pad="medium" colorIndex="neutral-2">
+                                Rating
+                            </Box>
+                        </Box>
+                        <Box basis="2/3" size={{"height": {"min": "medium"}}}> 
+                            <Box basis="1/4" margin="small" align="start" justify="center" separator="bottom">
+                                <Heading>Daryl Dixon</Heading>
+                            </Box>
+                            <Box basis="1/2" margin="small" align="start" justify="start" textAlign="left">
+                                Age: 22 <br />
+                                Language(s): English, German <br />
+                                Area(s): North India <br />
+                                Difficulty: Easy, Medium <br />
+                                Tourstyle: City, Sightseeing
+                            </Box>
+                            <Box basis="1/4">
+                                <Button label="CONTACT ME!" href="#" accent={false} secondary={false} primary={true}/>
+                            </Box>
                         </Box>
                     </Box>
                 </div>
