@@ -8,6 +8,39 @@ export const SAVE_FB_TOKEN = "SAVE_FB_TOKEN";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const AUTH_FAILED = "AUTH_FAILED";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const ADD_USER_FINISHED = "ADD_USER_FINISHED";
+export const ADD_USER_ERROR = "ADD_USER_ERROR";
+
+export function checkAddUser(user) {
+  return (dispatch) => {
+    console.log(user);
+    if(user) {
+      if(user.cuid) {
+        dispatch(addUserFinished());
+      }
+    } else {
+      dispatch(addUserError());
+    }
+  }
+}
+export function addUserFinished() {
+  return {
+    type: ADD_USER_FINISHED,
+  };
+}
+
+export function addUserError() {
+  return {
+    type: ADD_USER_ERROR,
+  };
+}
+
+export function addUser(user) {
+  return (dispatch) => {
+    return callApi('users', 'post', '', { user }).then(res => dispatch(checkAddUser(res.user)));    
+  };
+}
+
 
 export function loginRequest(user) {
     return (dispatch) => {

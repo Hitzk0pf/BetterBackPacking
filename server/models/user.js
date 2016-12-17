@@ -50,10 +50,6 @@ const UserModel = (sequelize, Sequelize) => {
 	password_confirmation: {
 		type: Sequelize.VIRTUAL
 	},
-	missingAttributes: {
-		type: Sequelize.BOOLEAN,
-		defaultValue: false
-	}
   }, {
 	tableName: 'users',
 	freezeTableName: true,
