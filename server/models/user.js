@@ -10,7 +10,6 @@ const UserModel = (sequelize, Sequelize) => {
                 notEmpty: true,
             }
         },
-<<<<<<< HEAD
 	facebook_id: {
 		type: Sequelize.BIGINT,
 		allowNull: true,

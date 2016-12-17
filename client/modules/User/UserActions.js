@@ -9,8 +9,6 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const AUTH_FAILED = "AUTH_FAILED";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 
-import cookie from 'react-cookie';
-
 export function loginRequest(user) {
     return (dispatch) => {
 
