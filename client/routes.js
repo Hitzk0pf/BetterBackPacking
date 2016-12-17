@@ -57,6 +57,14 @@ export default (
                 });
             }}
         />
+        <Route
+            path="/register"
+            getComponent={(nextState, cb) => {
+                require.ensure([], require => {
+                    cb(null, require('./modules/User/pages/RegisterPage/RegisterPage').default);
+                });
+            }}
+        />
 
         <Route
             path="/guide/:guideCuid"
