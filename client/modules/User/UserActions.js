@@ -14,7 +14,7 @@ export const REGISTER_USER_FAILED = "REGISTER_USER_FAILED";
 
 export function registerRequest(user) {
     return (dispatch) => {
-
+        
         return callApi('user', 'post', '', user).then(res => {
 
             if(!res.registerSuccess) {
@@ -38,6 +38,7 @@ export function registerFailed() {
     };
 }
 
+/*
 export const ADD_USER_FINISHED = "ADD_USER_FINISHED";
 export const ADD_USER_ERROR = "ADD_USER_ERROR";
 
@@ -53,6 +54,7 @@ export function checkAddUser(user) {
     }
   }
 }
+
 export function addUserFinished() {
   return {
     type: ADD_USER_FINISHED,
@@ -70,6 +72,7 @@ export function addUser(user) {
     return callApi('users', 'post', '', { user }).then(res => dispatch(checkAddUser(res.user)));    
   };
 }
+*/
 
 export function loginRequest(user) {
     return (dispatch) => {
