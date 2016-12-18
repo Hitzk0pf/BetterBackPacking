@@ -3,7 +3,9 @@ import {
     LOGIN_FAILED,
     AUTH_SUCCESS,
     REGISTER_USER_SUCCESS,
-    REGISTER_USER_FAILED
+    REGISTER_USER_FAILED,
+    ADD_USER_FINISHED,
+    ADD_USER_ERROR,
 } from './UserActions';
 
 // Initial State
@@ -12,12 +14,13 @@ const initialState = {
     authenticated: false,
     loggedIn: false,
     attemptedLogin: false,
-    registerSuccess: false
+    registerSuccess: false,
+    addUserFinished: false,
+    addUserError: false
 };
 
 const UserReducer = (state = initialState, action) => {
     switch (action.type) {
-
         case REGISTER_USER_SUCCESS :
             return Object.assign({}, state, {
                 registerSuccess: true
@@ -26,6 +29,20 @@ const UserReducer = (state = initialState, action) => {
         case REGISTER_USER_FAILED :
             return Object.assign({}, state, {
                 registerSuccess: false
+            });
+
+        case ADD_USER_FINISHED :
+
+            return Object.assign({}, state, {
+                addUserFinished: true,
+                addUserError: false,
+            });
+
+        case ADD_USER_ERROR :
+
+            return Object.assign({}, state, {
+                addUserError: true,
+                addUserFinished: false
             });
 
         case AUTH_SUCCESS :

@@ -42,7 +42,7 @@ export default (
         />
 
         <Route
-            path="/fbLogin/:token"
+            path="/fbLogin"
             getComponent={(nextState, cb) => {
                 require.ensure([], require => {
                     cb(null, require('./modules/User/pages/LoginPage/FacebookLoginPage').default);
