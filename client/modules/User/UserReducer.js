@@ -3,9 +3,7 @@ import {
     LOGIN_FAILED,
     AUTH_SUCCESS,
     REGISTER_USER_SUCCESS,
-    REGISTER_USER_FAILED,
-    ADD_USER_FINISHED,
-    ADD_USER_ERROR,
+    REGISTER_USER_FAILED
 } from './UserActions';
 
 // Initial State
@@ -14,9 +12,7 @@ const initialState = {
     authenticated: false,
     loggedIn: false,
     attemptedLogin: false,
-    registerSuccess: false,
-    addUserFinished: false,
-    addUserError: false
+    registerSuccess: false
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -31,19 +27,21 @@ const UserReducer = (state = initialState, action) => {
                 registerSuccess: false
             });
 
-        case ADD_USER_FINISHED :
+        /*
+         case ADD_USER_FINISHED :
 
-            return Object.assign({}, state, {
-                addUserFinished: true,
-                addUserError: false,
-            });
+         return Object.assign({}, state, {
+         addUserFinished: true,
+         addUserError: false,
+         });
 
-        case ADD_USER_ERROR :
+         case ADD_USER_ERROR :
 
-            return Object.assign({}, state, {
-                addUserError: true,
-                addUserFinished: false
-            });
+         return Object.assign({}, state, {
+         addUserError: true,
+         addUserFinished: false
+         });
+         */
 
         case AUTH_SUCCESS :
 
