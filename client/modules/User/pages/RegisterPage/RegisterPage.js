@@ -13,22 +13,22 @@ import TextInput from 'grommet/components/TextInput';
 import DateTime from 'grommet/components/DateTime';
 import {registerRequest} from '../../UserActions';
 
-import {loginRequest} from '../../UserActions';
-
 export class LoginPage extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             firstName: "",
             lastName: "",
-            birthDate: "",
             email: "",
             password: "",
-            passwordRepeat: ""
+            passwordRepeat: "",
+            birthDay: "",
+            birthMonth: "",
+            birthYear: ""
         };
 
-        // this.handleChange = this.handleChange.bind(this);
     }
 
     render() {
@@ -55,6 +55,29 @@ export class LoginPage extends Component {
 
         };
 
+        //birthday selection
+
+        //day
+        let days = [];
+        let months = [];
+        let years = [];
+
+        for (let i = 1; i <= 31; i++) {
+            days.push(i);
+        }
+
+        for (let i = 1; i <= 12; i++) {
+            months.push(i);
+
+        }
+
+        let diff = new Date().getFullYear() - 111;
+        let cj = new Date().getFullYear();
+
+        for (let i = cj; i >= diff; i--) {
+            years.push(i);
+        }
+
         return (
             <div style={{textAlign: "center"}}>
 
@@ -80,23 +103,46 @@ export class LoginPage extends Component {
                                 <TextInput name="lastName" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Geburtsdatum">
-                                <DateTime id="id"
-                                          name="birthDate"
-                                          format="D/M/YYYY"
-                                />
-                            </FormField>
+                            <select name="birthDay" onChange={handleChange}>
+                                <option selected disabled>Tag</option>
+                                {
+                                    days.map(function (day) {
+                                        return <option key={"day." + day}
+                                                       value={day}>{day}</option>;
+                                    })
+                                }
+                            </select>
+
+                            <select name="birthMonth" onChange={handleChange}>
+                                <option selected disabled>Monat</option>
+                                {
+                                    months.map(function (month) {
+                                        return <option key={"month." + month}
+                                                       value={month}>{month}</option>;
+                                    })
+                                }
+                            </select>
+
+                            <select name="birthYear" onChange={handleChange}>
+                                <option selected disabled>Jahr</option>
+                                {
+                                    years.map(function (year) {
+                                        return <option key={"year." + year}
+                                                       value={year}>{year}</option>;
+                                    })
+                                }
+                            </select>
 
                             <FormField label="E-Mail">
                                 <TextInput name="email" onDOMChange={handleChange}/>
                             </FormField>
 
                             <FormField label="Passwort">
-                                <TextInput name="password" onDOMChange={handleChange}/>
+                                <TextInput type="password" name="password" onDOMChange={handleChange}/>
                             </FormField>
 
                             <FormField label="Passwort wiederholen">
-                                <TextInput name="passwordRepeat" onDOMChange={handleChange}/>
+                                <TextInput type="password" name="passwordRepeat" onDOMChange={handleChange}/>
                             </FormField>
 
                         </FormFields>
@@ -120,8 +166,7 @@ export class LoginPage extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = (store) => {
-    return {
-    };
+    return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
