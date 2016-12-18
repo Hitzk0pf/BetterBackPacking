@@ -12,6 +12,7 @@ import FormField from 'grommet/components/FormField';
 import TextInput from 'grommet/components/TextInput';
 import DateTime from 'grommet/components/DateTime';
 import {registerRequest} from '../../UserActions';
+import CheckBox from 'grommet/components/CheckBox';
 
 export class LoginPage extends Component {
 
@@ -26,7 +27,8 @@ export class LoginPage extends Component {
             passwordRepeat: "",
             birthDay: "",
             birthMonth: "",
-            birthYear: ""
+            birthYear: "",
+            isGuide: ""
         };
 
     }
@@ -50,14 +52,18 @@ export class LoginPage extends Component {
         const handleChange = (event) => {
 
             var newState = {};
-            newState[event.target.name] = event.target.value;
+
+            if(event.target.type == "checkbox") {
+                newState[event.target.name] = event.target.checked;
+            } else {
+                newState[event.target.name] = event.target.value;
+            }
+
             this.setState(newState);
 
         };
 
         //birthday selection
-
-        //day
         let days = [];
         let months = [];
         let years = [];
@@ -135,6 +141,20 @@ export class LoginPage extends Component {
 
                             <FormField label="E-Mail">
                                 <TextInput name="email" onDOMChange={handleChange}/>
+                            </FormField>
+
+                            <FormField label="Bist du ein Back Packer oder ein Guide?">
+                                <CheckBox label="Ich möchte als Guide Angebote erstellen"
+                                          toggle={true}
+                                          disabled={false}
+                                          reverse={false}
+                                          name="isGuide"
+                                          defaultChecked={false}
+                                          onChange={handleChange}
+                                />
+                                {
+                                    // <input type="checkbox" checked={this.state.chkbox} onChange={this.handleChangeChk} />
+                                }
                             </FormField>
 
                             <FormField label="Passwort">
