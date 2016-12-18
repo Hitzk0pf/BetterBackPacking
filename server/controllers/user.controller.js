@@ -26,32 +26,43 @@ export function getUsers(req, res) {
  * @returns void
  */
 export function addUser(req, res) {
-  if (!req.body.user.firstname || !req.body.user.lastname || !req.body.user.email || !req.body.user.password || !req.body.user.password_confirmation || !req.body.user.birthdate) {
+  if (!req.body.user.firstname || !req.body.user.lastname || !req.body.user.email || !req.body.user.birthdate) {
     res.status(403).end();
-  }
-  else
-  {
-    const requestUser = req.body.user;
-    const newUser = {};
+  } else if(!req.body.user.password || !req.body.user.password_confirmation) {
+    if(!req.body.user.facebook_id) {
+      res.status(403).end();
+    } else {
 
-    //only pick out attributes that we want (who knows what attributes a hacker sends to our api endpoints) 
-    newUser.cuid = cuid();
-    newUser.firstname = requestUser.firstname;
-    newUser.lastname = requestUser.lastname;
-    newUser.email = requestUser.email;
-    newUser.birthdate = requestUser.birthdate;
-    newUser.password = requestUser.password;
-    newUser.password_confirmation = requestUser.password_confirmation;
-    
-    console.log("userCreate: ", newUser);
+      const requestUser = req.body.user;
+      const newUser = {};
 
-    models.User.create({...newUser}).then(user => {
-      res.json({ User: user });
-    }).catch(err => {
-        res.status(500).send(err);
-    });
+      //only pick out attributes that we want (who knows what attributes a hacker sends to our api endpoints) 
+      newUser.cuid = cuid();
+      newUser.firstname = requestUser.firstname;
+      newUser.lastname = requestUser.lastname;
+      newUser.email = requestUser.email;
+      newUser.avatar = requestUser.avatar;
+      newUser.birthdate = requestUser.birthdate;
+      if(!req.body.user.facebook_id) {
+        newUser.password = requestUser.password;
+        newUser.password_confirmation = requestUser.password_confirmation;
+      } else {
+        newUser.password = "";
+        newUser.password_confirmation = "";
+        newUser.facebook_id = req.body.user.facebook_id;
+      }
+      
+      console.log("userCreate: ", newUser);
+
+      models.User.create({...newUser}).then(user => {
+        res.json({ user });
+      }).catch(err => {
+          res.status(500).send(err);
+      });
+    }
   }
 }
+
 
 /**
  * Get a single User

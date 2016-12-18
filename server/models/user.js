@@ -10,10 +10,10 @@ const UserModel = (sequelize, Sequelize) => {
                 notEmpty: true,
             }
         },
-        facebook_id: {
-            type: Sequelize.BIGINT,
-            allowNull: true,
-        },
+	facebook_id: {
+		type: Sequelize.BIGINT,
+		allowNull: true,
+	},
         avatar: {
             type: Sequelize.BLOB,
             allowNull: true,
@@ -23,76 +23,53 @@ const UserModel = (sequelize, Sequelize) => {
              }
              */
         },
-        firstname: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                len: [1, 50]
-            }
-        },
-        lastname: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                len: [1, 50]
-            }
-        },
-        birthdate: {
-            type: Sequelize.DATE,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
-        email: {
-            type: Sequelize.STRING,
-            unique: true,
-            allowNull: false,
-            validate: {
-                isEmail: true,
-                notEmpty: true,
-                len: [1, 255]
-            }
-        },
-        password_digest: {
-            type: Sequelize.STRING,
-            validate: {
-                notEmpty: true
-            }
-        },
-        password: {
-            type: Sequelize.VIRTUAL,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                len: [6, Infinity]
-            }
-        },
-        password_confirmation: {
-            type: Sequelize.VIRTUAL
-        }
-    }, {
-        tableName: 'users',
-        freezeTableName: true,
-        indexes: [{unique: true, fields: ['email']}],
-        instanceMethods: {
-            authenticate: function (value) {
-                if (bcrypt.compareSync(value, this.password_digest))
-                    return this;
-                else
-                    return false;
-            }
-        }
-    });
+	firstname: {
+		type: Sequelize.STRING,
+		allowNull: true,
+	},
+	lastname: {
+		type: Sequelize.STRING,
+		allowNull: true,
+	},
+	birthdate: {
+		type: Sequelize.DATE,
+		allowNull: true,
+	},
+	email: {
+		type: Sequelize.STRING,
+                unique: true,
+		allowNull: true,
+	},
+	password_digest: {
+		type: Sequelize.STRING,
+	},
+	password: {
+		type: Sequelize.VIRTUAL,
+		allowNull: true,
+	},
+	password_confirmation: {
+		type: Sequelize.VIRTUAL
+	},
+  }, {
+	tableName: 'users',
+	freezeTableName: true,
+	indexes: [{unique: true, fields: ['email']}],
+	instanceMethods: {
+		authenticate: function(value) {
+			if (bcrypt.compareSync(value, this.password_digest))
+				return this;
+			else
+				return false;
+		}
+	}
+  });
 
-    var hasSecurePassword = function (user, options, callback) {
+    let hasSecurePassword = function (user, options, callback) {
         if (user.password != user.password_confirmation) {
             throw new Error("Password confirmation doesn't match Password");
         }
 
-        //hash pw with 16 iterations
+        //hash pw with 10 iterations
         bcrypt.hash(user.get('password'), 10, function (err, hash) {
             if (err) return callback(err);
             user.set('password_digest', hash);
@@ -100,15 +77,19 @@ const UserModel = (sequelize, Sequelize) => {
         });
     };
 
-    User.beforeCreate(function (user, options, callback) {
-        user.email = user.email.toLowerCase();
-        if (!user.cuid) {
+  User.beforeCreate(function(user, options, callback) {
+          if(user.email) {
+            user.email = user.email.toLowerCase();
+          }
+
+          if (!user.cuid) {
             user.cuid = cuid();
-        }
-        if (user.password)
-            hasSecurePassword(user, options, callback);
-        else
-            return callback(null, options);
+          }
+
+          if (user.password)
+              hasSecurePassword(user, options, callback);
+          else
+              return callback(null, options);
     });
 
     User.beforeUpdate(function (user, options, callback) {

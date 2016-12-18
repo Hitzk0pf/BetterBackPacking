@@ -42,10 +42,26 @@ export default (
         />
 
         <Route
+            path="/fbLogin"
+            getComponent={(nextState, cb) => {
+                require.ensure([], require => {
+                    cb(null, require('./modules/User/pages/LoginPage/FacebookLoginPage').default);
+                });
+            }}
+        />
+        <Route
             path="/login"
             getComponent={(nextState, cb) => {
                 require.ensure([], require => {
                     cb(null, require('./modules/User/pages/LoginPage/LoginPage').default);
+                });
+            }}
+        />
+        <Route
+            path="/register"
+            getComponent={(nextState, cb) => {
+                require.ensure([], require => {
+                    cb(null, require('./modules/User/pages/RegisterPage/RegisterPage').default);
                 });
             }}
         />
