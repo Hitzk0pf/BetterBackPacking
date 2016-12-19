@@ -8,8 +8,15 @@ import Title from 'grommet/components/Title';
 import Headline from 'grommet/components/Headline';
 import Heading from 'grommet/components/Heading';
 import Paragraph from 'grommet/components/Paragraph';
+import Columns from 'grommet/components/Columns';
+import Hero from 'grommet/components/Hero';
+import Image from 'grommet/components/Image';
+import TextInput from 'grommet/components/TextInput';
+import FormField from 'grommet/components/FormField';
 
 import InfoIcon from 'grommet/components/icons/base/Info';
+import StarIcon from 'grommet/components/icons/base/Star';
+import StarHalfIcon from 'grommet/components/icons/base/StarHalf';
 
 import {loginRequest} from '../../GuideActions';
 
@@ -38,8 +45,11 @@ export class LoginPage extends Component {
                             <Box basis="3/4" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} colorIndex="neutral-1">
                                 ProfilePic
                             </Box>
-                            <Box basis="1/4" size={{"width": {"min": "medium"}}} pad="medium" colorIndex="neutral-2">
-                                Rating
+                            <Box basis="1/4" direction="row" size={{"width": {"min": "medium"}}} pad="medium" align="center" justify="center">
+                                <StarIcon size="large" colorIndex="accent-2"/>
+                                <StarIcon size="large" colorIndex="accent-2"/>
+                                <StarIcon size="large" colorIndex="accent-2"/>
+                                <StarHalfIcon size="large" colorIndex="accent-2"/>
                             </Box>
                         </Box>
                         <Box basis="2/3" size={{"height": {"min": "medium"}}}> 
@@ -61,7 +71,7 @@ export class LoginPage extends Component {
                 </div>
 
                 <div>
-                    <Box direction="column" justify="center" align="center">
+                    <Box direction="column" justify="center" align="center" margin="medium">
                         <Box size={{"height": {"min": "medium"}}, {"width": {"max": "medium"}}} margin="small" align="center" justify="center" separator="bottom">
                             <Heading strong={true}>
                                 About Me
@@ -70,7 +80,7 @@ export class LoginPage extends Component {
                         <Box direction="row" size={{"height": {"min": "medium"}}, {"width": {"min": "large"}}} align="center" justify="center">
                             <Box basis="1/3" colorIndex="light-2" margin="medium" pad="medium">
                                 <Box direction="column" align="center" justify="center">
-                                    <Box>
+                                    <Box pad="small">
                                         <InfoIcon size="large" colorIndex="accent-2"/>
                                     </Box>
                                     <Box size={{"width": {"max": "small"}}} separator="bottom">
@@ -85,7 +95,7 @@ export class LoginPage extends Component {
                             </Box>
                             <Box basis="1/3" colorIndex="light-2" margin="medium" pad="medium">
                                 <Box direction="column" align="center" justify="center">
-                                    <Box>
+                                    <Box pad="small">
                                         <InfoIcon size="large" colorIndex="accent-2"/>
                                     </Box>
                                     <Box size={{"width": {"max": "small"}}} separator="bottom">
@@ -100,7 +110,7 @@ export class LoginPage extends Component {
                             </Box>
                             <Box basis="1/3" colorIndex="light-2" margin="medium" pad="medium">
                                 <Box direction="column" align="center" justify="center">
-                                    <Box>
+                                    <Box pad="small">
                                         <InfoIcon size="large" colorIndex="accent-2"/>
                                     </Box>
                                     <Box size={{"width": {"max": "small"}}} separator="bottom">
@@ -116,6 +126,217 @@ export class LoginPage extends Component {
                         </Box>
                         <Box size={{"width": {"min": "small"}}}>
                             <Button label="Get in touch" href="#" accent={false} secondary={false} primary={true}/>
+                        </Box>
+                    </Box>
+                </div>
+
+                <div>
+                    <Box justify="center" align="center" margin="medium">
+                        <Box size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small" align="center" justify="center" separator="bottom">
+                            <Heading strong={true}>
+                                My Tours
+                            </Heading>
+                        </Box>
+                        <Box size={{"height": {"min": "medium"}}, {"width": {"min": "xxlarge"}}} margin="small" pad="medium" align="start" justify="start">
+                            <Title separator="bottom">
+                                Region
+                            </Title>
+                        </Box>
+                        <Columns justify="center">
+                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                Title
+                            </Box>
+                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                Title
+                            </Box>
+                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                Title
+                            </Box>
+                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                Title
+                            </Box>
+                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                Title
+                            </Box>
+                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                Title
+                            </Box>
+                        </Columns>
+                    </Box>
+                </div>
+
+                <div>
+                    <Box direction="column" justify="center" align="center" margin="medium">
+                        <Box size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small" align="center" justify="center" separator="bottom">
+                            <Heading strong={true}>
+                                Reviews
+                            </Heading>
+                        </Box>
+                        <Columns justify="center">
+                            <Box direction="row" align="start" pad="medium" margin="small" colorIndex="light-2">
+                                <Box basis="1/4" colorIndex="brand">
+                                    Thumbnail
+                                </Box>
+                                <Box direction="column" basis="3/4" textAlign="left">
+                                    <Box direction="row">
+                                        <Box basis="3/4">
+                                            <Heading tag="h4" strong="true">
+                                                Max Muster
+                                            </Heading>
+                                        </Box>
+                                        <Box basis="1/4" direction="row" textAlign="right" >
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarHalfIcon size="medium" colorIndex="accent-2"/>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                    </Box>
+                                </Box>
+                            </Box>
+                            <Box direction="row" align="start" pad="medium" margin="small" colorIndex="light-2">
+                                <Box basis="1/4" colorIndex="brand">
+                                    Thumbnail
+                                </Box>
+                                <Box direction="column" basis="3/4" textAlign="left">
+                                    <Box direction="row">
+                                        <Box basis="3/4">
+                                            <Heading tag="h4" strong="true">
+                                                Max Muster
+                                            </Heading>
+                                        </Box>
+                                        <Box basis="1/4" direction="row" textAlign="right" >
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarHalfIcon size="medium" colorIndex="accent-2"/>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                    </Box>
+                                </Box>
+                            </Box>
+                            <Box direction="row" align="start" pad="medium" margin="small" colorIndex="light-2">
+                                <Box basis="1/4" colorIndex="brand">
+                                    Thumbnail
+                                </Box>
+                                <Box direction="column" basis="3/4" textAlign="left">
+                                    <Box direction="row">
+                                        <Box basis="3/4">
+                                            <Heading tag="h4" strong="true">
+                                                Max Muster
+                                            </Heading>
+                                        </Box>
+                                        <Box basis="1/4" direction="row" textAlign="right" >
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarHalfIcon size="medium" colorIndex="accent-2"/>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                    </Box>
+                                </Box>
+                            </Box>
+                            <Box direction="row" align="start" pad="medium" margin="small" colorIndex="light-2">
+                                <Box basis="1/4" colorIndex="brand">
+                                    Thumbnail
+                                </Box>
+                                <Box direction="column" basis="3/4" textAlign="left">
+                                    <Box direction="row">
+                                        <Box basis="3/4">
+                                            <Heading tag="h4" strong="true">
+                                                Max Muster
+                                            </Heading>
+                                        </Box>
+                                        <Box basis="1/4" direction="row" textAlign="right" >
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarHalfIcon size="medium" colorIndex="accent-2"/>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                    </Box>
+                                </Box>
+                            </Box>
+                            <Box direction="row" align="start" pad="medium" margin="small" colorIndex="light-2">
+                                <Box basis="1/4" colorIndex="brand">
+                                    Thumbnail
+                                </Box>
+                                <Box direction="column" basis="3/4" textAlign="left">
+                                    <Box direction="row">
+                                        <Box basis="3/4">
+                                            <Heading tag="h4" strong="true">
+                                                Max Muster
+                                            </Heading>
+                                        </Box>
+                                        <Box basis="1/4" direction="row" textAlign="right" >
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarHalfIcon size="medium" colorIndex="accent-2"/>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                    </Box>
+                                </Box>
+                            </Box>
+                            <Box direction="row" align="start" pad="medium" margin="small" colorIndex="light-2">
+                                <Box basis="1/4" colorIndex="brand">
+                                    Thumbnail
+                                </Box>
+                                <Box direction="column" basis="3/4" textAlign="left">
+                                    <Box direction="row">
+                                        <Box basis="3/4">
+                                            <Heading tag="h4" strong="true">
+                                                Max Muster
+                                            </Heading>
+                                        </Box>
+                                        <Box basis="1/4" direction="row" textAlign="right" >
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarIcon size="medium" colorIndex="accent-2"/>
+                                            <StarHalfIcon size="medium" colorIndex="accent-2"/>
+                                        </Box>
+                                    </Box>
+                                    <Box>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                    </Box>
+                                </Box>
+                            </Box> 
+                        </Columns>
+                        <Box direction="row" size={{"width": "xlarge"}} colorIndex="light-2">
+                            <Box basis="1/4" colorIndex="brand">
+                                Thumbnail
+                            </Box>
+                            <Box direction="column" basis="3/4" textAlign="left">
+                                <Box direction="row">
+                                    <Box basis="3/4">
+                                        <Heading tag="h4" strong="true">
+                                            Max Muster
+                                        </Heading>
+                                    </Box>
+                                    <Box basis="1/4" direction="row" textAlign="right" >
+                                        <StarIcon size="medium" colorIndex="accent-2"/>
+                                        <StarIcon size="medium" colorIndex="accent-2"/>
+                                        <StarIcon size="medium" colorIndex="accent-2"/>
+                                        <StarIcon size="medium" colorIndex="accent-2"/>
+                                        <StarIcon size="medium" colorIndex="accent-2"/>
+                                    </Box>
+                                </Box>
+                                <Box>
+                                    <FormField>
+                                        <TextInput id="item1" name="item-1" placeholder="Write a comment..." />
+                                    </FormField>
+                                </Box>
+                            </Box>
                         </Box>
                     </Box>
                 </div>
