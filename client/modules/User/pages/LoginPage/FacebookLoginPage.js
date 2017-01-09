@@ -30,7 +30,7 @@ export class FacebookLoginPage extends Component {
         errorMsg: "",
         stateMsg: "",
       };
-    }  
+    }
 
 
     componentWillMount() {
@@ -91,9 +91,9 @@ export class FacebookLoginPage extends Component {
 
         this.setState({stateMsg: "Error"});
         this.setState({errorMsg: "The following fields require valid values: " + errorFields.toString()});
-      
+
       } else {
-        
+
         this.setState({stateMsg: ""});
         this.setState({errorMsg: ""});
 
@@ -190,7 +190,7 @@ export class FacebookLoginPage extends Component {
                     multiple={false}
                     options={days}
                     value={this.state.day}
-                    onChange={string => this.setState({day: string})} 
+                    onChange={string => this.setState({day: string})}
                   />␃
                   <Select placeHolder="Month"
                     name="month"
@@ -206,7 +206,7 @@ export class FacebookLoginPage extends Component {
                     multiple={false}
                     options={years}
                     value={this.state.year}
-                    onChange={string => this.setState({year: string})} 
+                    onChange={string => this.setState({year: string})}
                   />␃
                 </FormField>
               );
@@ -222,13 +222,13 @@ export class FacebookLoginPage extends Component {
 
         if(this.props.authenticated) {
           mainElement = <Notification message="Awesome!"
-                               state="You're now logged in." 
+                               state="You're now logged in."
                                status="ok" />
         }
 
         if(missingAttributes.length >= 1) {
 
-          mainElement = 
+          mainElement =
                   <Form onSubmit={(event) => {
                     event.preventDefault();
                     this.addFBUser();
@@ -243,7 +243,7 @@ export class FacebookLoginPage extends Component {
                     </FormFields>
                     <Footer pad={{"vertical": "medium"}}>
                         <Button label="Submit"
-                          primary={true} 
+                          primary={true}
                           onClick={() => this.addFBUser()}
                         />
                     </Footer>
@@ -259,18 +259,18 @@ export class FacebookLoginPage extends Component {
         if(this.props.addUserFinished) {
           mainNotification = <div>
                                 <Notification message="Awesome!"
-                                    state="Please login again to confirm registration." 
+                                    state="Please login again to confirm registration."
                                     status="ok" />
                                 <Button icon={<SocialFacebook />}
                                     label="Login with Facebook"
                                     href="/api/login/facebook"
                                     primary={true} />
-                              </div> 
+                              </div>
         }
-        
+
         if(this.props.addUserError) {
           mainNotification = <Notification message="Oops!"
-                                    state="Something went wrong while creating your user..." 
+                                    state="Something went wrong while creating your user..."
                                     status="critical" />
         }
 

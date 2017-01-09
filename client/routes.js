@@ -58,6 +58,14 @@ export default (
             }}
         />
         <Route
+            path="/uploadProfilePicture"
+            getComponent={(nextState, cb) => {
+                require.ensure([], require => {
+                    cb(null, require('./modules/Guide/pages/InitialPageWizard/UploadProfilePicture').default);
+                });
+            }}
+        />
+        <Route
             path="/register"
             getComponent={(nextState, cb) => {
                 require.ensure([], require => {

@@ -8,37 +8,6 @@ export const SAVE_FB_TOKEN = "SAVE_FB_TOKEN";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const AUTH_FAILED = "AUTH_FAILED";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
-
-export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
-export const REGISTER_USER_FAILED = "REGISTER_USER_FAILED";
-
-export function registerRequest(user) {
-    return (dispatch) => {
-        
-        return callApi('user', 'post', '', user).then(res => {
-
-            if(!res.registerSuccess) {
-                dispatch(registerFailed());
-            } else {
-                dispatch(registerSuccess());
-            }
-        });
-    };
-}
-
-export function registerSuccess() {
-    return {
-        type: REGISTER_USER_SUCCESS
-    };
-}
-
-export function registerFailed() {
-    return {
-        type: REGISTER_USER_FAILED
-    };
-}
-
-/*
 export const ADD_USER_FINISHED = "ADD_USER_FINISHED";
 export const ADD_USER_ERROR = "ADD_USER_ERROR";
 
@@ -69,10 +38,9 @@ export function addUserError() {
 
 export function addUser(user) {
   return (dispatch) => {
-    return callApi('users', 'post', '', { user }).then(res => dispatch(checkAddUser(res.user)));    
+    return callApi('users', 'post', '', { user }).then(res => dispatch(checkAddUser(res.user)));
   };
 }
-*/
 
 export function loginRequest(user) {
     return (dispatch) => {
@@ -147,7 +115,7 @@ export function authSuccess(user) {
 export function authFailed() {
   //remove cookie with JWT token
   cookie.remove('token', { path: '/' });
-      
+
   return {
     type: AUTH_FAILED,
   };

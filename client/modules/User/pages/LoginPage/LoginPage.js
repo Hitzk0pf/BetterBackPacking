@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import Helmet from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
 import LoginForm from 'grommet/components/LoginForm';
+import SocialFacebook from 'grommet/components/icons/base/SocialFacebook';
+import Button from 'grommet/components/Button';
 
 import {loginRequest} from '../../UserActions';
 
@@ -50,9 +52,12 @@ export class LoginPage extends Component {
                         {message}
                     </div>
 
-                </div>
+                    <Button icon={<SocialFacebook />}
+                        label="Login with Facebook"
+                        href="/api/login/facebook"
+                        primary={true} />
 
-            <a href="/api/login/facebook">LOGIN WITH FB</a>
+                </div>
 
         </div>
     );
