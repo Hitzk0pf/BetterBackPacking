@@ -143,23 +143,83 @@ export class LoginPage extends Component {
                             </Title>
                         </Box>
                         <Columns justify="center">
-                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
-                                Title
+                            <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                <Box separator="bottom">
+                                    <Heading strong={true} tag="h2">
+                                        Tajmahal
+                                    </Heading>
+                                    <Box direction="row" alignSelf="center">
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarHalfIcon size="medium" colorIndex="light-1"/>
+                                    </Box>
+                                </Box>
                             </Box>
-                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
-                                Title
+                            <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                <Box separator="bottom">
+                                    <Heading strong={true} tag="h2">
+                                        Tajmahal
+                                    </Heading>
+                                    <Box direction="row" alignSelf="center">
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarHalfIcon size="medium" colorIndex="light-1"/>
+                                    </Box>
+                                </Box>
                             </Box>
-                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
-                                Title
+                            <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                <Box separator="bottom">
+                                    <Heading strong={true} tag="h2">
+                                        Tajmahal
+                                    </Heading>
+                                    <Box direction="row" alignSelf="center">
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarHalfIcon size="medium" colorIndex="light-1"/>
+                                    </Box>
+                                </Box>
                             </Box>
-                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
-                                Title
+                            <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                <Box separator="bottom">
+                                    <Heading strong={true} tag="h2">
+                                        Tajmahal
+                                    </Heading>
+                                    <Box direction="row" alignSelf="center">
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarHalfIcon size="medium" colorIndex="light-1"/>
+                                    </Box>
+                                </Box>
                             </Box>
-                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
-                                Title
+                            <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                <Box separator="bottom">
+                                    <Heading strong={true} tag="h2">
+                                        Tajmahal
+                                    </Heading>
+                                    <Box direction="row" alignSelf="center">
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarHalfIcon size="medium" colorIndex="light-1"/>
+                                    </Box>
+                                </Box>
                             </Box>
-                            <Box size={{"height": "small"}} align="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
-                                Title
+                            <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
+                                <Box separator="bottom">
+                                    <Heading strong={true} tag="h2">
+                                        Tajmahal
+                                    </Heading>
+                                    <Box direction="row" alignSelf="center">
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarIcon size="medium" colorIndex="light-1"/>
+                                        <StarHalfIcon size="medium" colorIndex="light-1"/>
+                                    </Box>
+                                </Box>
                             </Box>
                         </Columns>
                     </Box>
@@ -331,10 +391,11 @@ export class LoginPage extends Component {
                                         <StarIcon size="medium" colorIndex="accent-2"/>
                                     </Box>
                                 </Box>
-                                <Box>
+                                <Box align="end">
                                     <FormField>
                                         <TextInput id="item1" name="item-1" placeholder="Write a comment..." />
                                     </FormField>
+                                    <Button label="Send" href="#" accent={false} secondary={false} primary={true}/>
                                 </Box>
                             </Box>
                         </Box>
