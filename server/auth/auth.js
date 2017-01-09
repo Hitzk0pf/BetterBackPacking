@@ -32,7 +32,7 @@ module.exports = function(passport) {
         return done(null, user);
       });
     }
-    
+
   ));
 
   var opts = {};
@@ -100,10 +100,12 @@ module.exports = function(passport) {
         //user.email = "test@gmail.com";
 
         if(!res.picture.data.is_silhouette) {
-          user.avatar = res.picture.data.url;
+          // user.avatar = res.picture.data.url;
+          // user.avatar = "graph.facebook.com/" + profile.id + "/picture?height=500&width=500"
+          user.avatar = true
         }
 
-        //check if all the needed attributes are in the FB profile 
+        //check if all the needed attributes are in the FB profile
         let missingAttributes = false;
         for (let attr in user) {
             if (user.hasOwnProperty(attr)) {

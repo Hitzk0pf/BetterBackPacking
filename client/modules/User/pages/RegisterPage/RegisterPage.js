@@ -11,24 +11,26 @@ import Button from 'grommet/components/Button';
 import FormField from 'grommet/components/FormField';
 import TextInput from 'grommet/components/TextInput';
 import DateTime from 'grommet/components/DateTime';
-import {registerRequest} from '../../UserActions';
+import {addUser} from '../../UserActions';
 import CheckBox from 'grommet/components/CheckBox';
+import AvatarCropper from '../../components/AvatarCropper'
 
-export class LoginPage extends Component {
+export class RegisterPage extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            firstName: "",
-            lastName: "",
+            firstname: "",
+            lastname: "",
             email: "",
             password: "",
             passwordRepeat: "",
             birthDay: "",
             birthMonth: "",
             birthYear: "",
-            isGuide: ""
+            isGuide: "",
+            avatar: null
         };
 
     }
@@ -46,7 +48,22 @@ export class LoginPage extends Component {
         };
 
         const submit = () => {
-            this.props.registerRequest(this.state);
+          const { firstname, lastname, email, password, passwordRepeat, isGuide, avatar, birthDay, birthMonth, birthYear } = this.state
+          let birthdate = new Date(birthYear, (birthMonth - 1), birthDay)
+
+          const user = {
+            firstname,
+            lastname,
+            email,
+            password,
+            password_confirmation: passwordRepeat,
+            isGuide,
+            avatar,
+            birthdate,
+          }
+          console.log(user)
+
+          this.props.addUser(user)
         };
 
         const handleChange = (event) => {
@@ -102,11 +119,11 @@ export class LoginPage extends Component {
                         <FormFields>
 
                             <FormField label="Vorname">
-                                <TextInput name="firstName" onDOMChange={handleChange}/>
+                                <TextInput name="firstname" onDOMChange={handleChange}/>
                             </FormField>
 
                             <FormField label="Nachname">
-                                <TextInput name="lastName" onDOMChange={handleChange}/>
+                                <TextInput name="lastname" onDOMChange={handleChange}/>
                             </FormField>
 
                             <select name="birthDay" onChange={handleChange}>
@@ -167,6 +184,8 @@ export class LoginPage extends Component {
 
                         </FormFields>
 
+                        <AvatarCropper saveImage={(avatar) => this.setState({ avatar })} />
+
                         <Footer pad={{"vertical": "medium"}}>
                             <Button label="Submit"
                                     primary={true}
@@ -191,10 +210,10 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        registerRequest: (user) => {
-            dispatch(registerRequest(user));
+        addUser: (user) => {
+            dispatch(addUser(user));
         }
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

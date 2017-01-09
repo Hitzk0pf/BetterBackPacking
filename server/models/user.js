@@ -31,6 +31,11 @@ const UserModel = (sequelize, Sequelize) => {
 		type: Sequelize.STRING,
 		allowNull: true,
 	},
+	isGuide: {
+		type: Sequelize.BOOLEAN,
+		defaultValue: false,
+    allowNull: false,
+	},
 	birthdate: {
 		type: Sequelize.DATE,
 		allowNull: true,
@@ -110,6 +115,7 @@ const UserModel = (sequelize, Sequelize) => {
             password: 'plain1234',
             password_confirmation: 'plain1234',
             birthdate: new Date(1980, 6, 20),
+            isGuide: true
         });
     });
 
