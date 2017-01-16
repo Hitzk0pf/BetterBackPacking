@@ -73,6 +73,14 @@ export default (
                 });
             }}
         />
+        <Route
+            path="/search"
+            getComponent={(nextState, cb) => {
+                require.ensure([], require => {
+                    cb(null, require('./modules/App/pages/TourSearchPage').default);
+                });
+            }}
+        />
 
         <Route
             path="/guide/:guideCuid"
