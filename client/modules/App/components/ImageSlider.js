@@ -18,8 +18,6 @@ import InfoIcon from 'grommet/components/icons/base/Info';
 import StarIcon from 'grommet/components/icons/base/Star';
 import StarHalfIcon from 'grommet/components/icons/base/StarHalf';
 
-import {loginRequest} from '../../GuideActions';
-
 export class LoginPage extends Component {
 
     render() {

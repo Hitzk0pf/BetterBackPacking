@@ -20,7 +20,7 @@ import StarHalfIcon from 'grommet/components/icons/base/StarHalf';
 
 import {loginRequest} from '../../GuideActions';
 
-export class LoginPage extends Component {
+export class ProfilePage extends Component {
 
     render() {
 
@@ -419,4 +419,4 @@ const mapDispatchToProps = (dispatch) => {
     return {}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
