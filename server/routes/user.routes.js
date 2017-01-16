@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import * as UserController from '../controllers/user.controller';
 import config from '../config';
+import colors from 'colors';
 
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
@@ -9,7 +10,6 @@ const router = new Router();
 
 // Authenticate User
 router.route('/auth').post(passport.authenticate('jwt', {session: false}), (req, res) => {
-    console.log("got an auth REQ");
     let userFromJWT = req.user;
 
     userFromJWT['password_digest'] = ''; //remove password from JWT (obvious why)
@@ -25,6 +25,23 @@ router.route('/users/:cuid').get(UserController.getUser);
 
 // Add a new User
 router.route('/users').post(UserController.addUser);
+
+// Change User
+router.route('/users/:cuid').put(passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    let userFromJWT = req.user.cuid;
+
+    console.log('hello'.green); // outputs green text 
+
+    if(req.params.cuid === userFromJWT)
+    {
+        console.log('hello2'.green); // outputs green text 
+
+        UserController.changeUser(req, res);
+    }
+    
+    res.json({authenticationSuccess: true, authenticatedUser: userFromJWT});
+});
 
 //Login a User
 router.route('/login').post(
