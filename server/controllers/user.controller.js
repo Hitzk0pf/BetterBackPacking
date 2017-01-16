@@ -97,6 +97,61 @@ export function getUser(req, res) {
 }
 
 /**
+ * Change a User
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function changeUser(req, res) {
+    models.User.findOne({ where: { cuid: req.params.cuid } }).then((user) => {
+            if (user) {
+                //edit user
+                const requestUser = req.body.user;
+
+                const updatedUser = {};
+
+                if (requestUser.firstname) {
+                    updatedUser.firstname = requestUser.firstname;
+                }
+
+                if (requestUser.lastname) {
+                    updatedUser.lastname = requestUser.lastname;
+                }
+
+                user.update({...updatedUser }).then(user => {
+                    res.json({ user });
+                }).catch(err => {
+                    failed = 500;
+                });
+
+                failed = false;
+            } else {
+                failed = true;
+
+                console.log("failed, 404");
+
+            }
+
+            if (!failed) {
+
+                res.status(200).end();
+
+            } else {
+
+                if (failed === 500) {
+                    res.status(500).send();
+                } else {
+                    res.status(404).send();
+                }
+
+            }
+        });
+
+    }
+
+
+
+/**
  * Delete a User
  * @param req
  * @param res
