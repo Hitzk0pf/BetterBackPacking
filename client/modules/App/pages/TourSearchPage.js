@@ -5,6 +5,9 @@ import {FormattedMessage} from 'react-intl';
 import Box from 'grommet/components/Box';
 import Button from 'grommet/components/Button';
 import ImageSlider from '../components/ImageSlider';
+import SearchBar from '../components/SearchBar';
+import GuideFactPaper from '../components/GuideFactPaper';
+import Columns from 'grommet/components/Columns';
 
 import InfoIcon from 'grommet/components/icons/base/Info';
 
@@ -31,6 +34,18 @@ export class TourSearchPage extends Component {
                     <ImageSlider />
                 </div>
 
+                <div>
+                    <SearchBar />
+                </div>
+
+                <div>
+                    <Columns size='medium' masonry={false} justify="center">
+                        <GuideFactPaper />
+                        <GuideFactPaper />
+                        <GuideFactPaper />
+                    </Columns>
+                </div>
+
             </div>
         );
 
@@ -45,7 +60,9 @@ const mapStateToProps = (store) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        // searchTour: (area, tourstyle, difficulty) => dispatch(searchTour(area, tourstyle, difficulty)),
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TourSearchPage);

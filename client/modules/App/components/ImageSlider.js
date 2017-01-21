@@ -24,27 +24,24 @@ export class ImageSlider extends Component {
         return (
             <div style={{textAlign: "center"}}>
 
+            <Box direction="row" size={{"height": "medium"}}>
+
                 <Carousel persistentNav={false}>
-                    <Hero backgroundImage={<Image src={img1}
-                      fit='cover'
-                      align={{"top": true}} />}
-                      backgroundColorIndex='dark'>
+                    <Hero backgroundImage={<Image src={img1} fit='cover' align={{"top": true}} />} size='medium' backgroundColorIndex='dark'>
                         <Box direction='row' justify='center' align='center'>
                             <Box basis='1/2' align='end' pad='medium' />
                             <Box basis='1/2' align='start' pad='medium'>
                                 <Heading margin='none'>
-                                    Sample Heading
+                                    Connect with Localguides
                                 </Heading>
                             </Box>
                         </Box>
                     </Hero>
                     <Image src={img1} />
-                    <Box pad='large' colorIndex='neutral-3'>
-                        <Box pad='medium' colorIndex='neutral-2'>
-                            Content inside of a Box element.
-                        </Box>
-                    </Box>
+                    <Image src={img1} />
                 </Carousel>
+
+            </Box>
 
             </div>
         );
