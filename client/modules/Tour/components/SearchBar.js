@@ -39,7 +39,7 @@ export class SearchBar extends Component {
                         <Select placeHolder='Search' 
                         multiple={false} 
                         inline={false} 
-                        options={['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']} 
+                        options={['AUSTRIA', 'RUSSIA', 'CURRY']}
                         onChange={(selection) => {
                             console.log("mystate:", this.state)
                             this.setState({area: selection.value})
@@ -50,14 +50,14 @@ export class SearchBar extends Component {
                         <Select placeholder='Search' 
                         multiple={false} 
                         inline={false} 
-                        options={['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']} 
+                        options={['BERLIN', 'RUSSIA', 'three']}
                         value={undefined} />
                     </Box>
                     <Box direction="row" margin="small">
                         <Select placeHolder='Search' 
                         multiple={false} 
                         inline={false} 
-                        options={['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight']} 
+                        options={['EASY', 'GIRL', 'COWARD']}
                         value={undefined} />
                     </Box>
                     <Box direction="row" margin="small">

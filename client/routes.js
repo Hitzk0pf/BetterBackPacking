@@ -77,7 +77,7 @@ export default (
             path="/search"
             getComponent={(nextState, cb) => {
                 require.ensure([], require => {
-                    cb(null, require('./modules/App/pages/TourSearchPage').default);
+                    cb(null, require('./modules/Tour/pages/TourListPage').default);
                 });
             }}
         />

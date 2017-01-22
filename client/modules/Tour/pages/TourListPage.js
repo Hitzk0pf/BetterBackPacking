@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
 import Box from 'grommet/components/Box';
 import Button from 'grommet/components/Button';
-import ImageSlider from '../components/ImageSlider';
+import ImageSlider from '../../App/components/ImageSlider';
 import SearchBar from '../components/SearchBar';
 import GuideFactPaper from '../components/GuideFactPaper';
 import Columns from 'grommet/components/Columns';
