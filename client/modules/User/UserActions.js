@@ -64,7 +64,8 @@ export function loginRequest(user) {
 
 export function loginSuccess(token) {
     // save cookie
-    cookie.save('token', token, { path: '/' });
+    console.log('token', token)
+    cookie.save('jwt', token);
 
     return {
         type: LOGIN_SUCCESS
@@ -79,7 +80,7 @@ export function loginFailed() {
 
 export function authUser() {
     return (dispatch) => {
-      const token = cookie.load('token');
+      const token = cookie.load('jwt');
       console.log("now /api/auth is called with this token: ", token);
       return callApi('auth', 'post', token, {} // send JWT Token to authenticate (otherwise its '')
       ).then(res => {
