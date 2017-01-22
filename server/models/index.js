@@ -20,6 +20,7 @@ var User = sequelize.import('./user.js');
 var Tour = sequelize.import('./tour.js');
 var Group = sequelize.import('./group.js');
 var GuideInfo = sequelize.import('./guideInfo.js');
+
 var db   = {
 	User,
 	Tour,
