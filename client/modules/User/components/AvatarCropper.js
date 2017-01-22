@@ -8,6 +8,8 @@ import Notification from 'grommet/components/Notification';
 import AvatarEditor from 'react-avatar-editor';
 import Layer from 'grommet/components/Layer';
 import Button from 'grommet/components/Button';
+import Box from 'grommet/components/Box';
+import styles from '../pages/RegisterPage/RegisterPage.css';
 
 export class AvatarCropper extends Component {
 
@@ -54,16 +56,6 @@ export class AvatarCropper extends Component {
                                     status="ok" />
         }
 
-        const styles = {
-
-            wrapper: {
-                display: "inline-block",
-                margin: "auto",
-                textAlign: "left"
-            }
-
-        };
-
         const onDrop = (acceptedFiles, rejectedFiles) => {
           if(acceptedFiles[0]) {
             let reader = new FileReader();
@@ -91,7 +83,7 @@ export class AvatarCropper extends Component {
 
         if (this.state.showDropzone) {
           dropzone = (
-                    <Dropzone
+                    <Dropzone className={styles.dropzone}
                       multiple={false}
                       accept="image/*"
                       maxSize={maxSize}
@@ -139,31 +131,35 @@ export class AvatarCropper extends Component {
               flush={false}
               closer={true}
               onClose={handleClose}>
-              <div>
-                <AvatarEditor
-                  ref={setEditorRef}
-                  image={this.state.picture.preview}
-                  width={250}
-                  height={250}
-                  border={50}
-                  color={[255, 255, 255, 0.6]} // RGBA
-                  scale={1.2}
-                  borderRadius={250}
-                  scale={parseFloat(this.state.scale)}
-                />
-                <input
-                  name="scale"
-                  type="range"
-                  onChange={handleScale}
-                  min="1"
-                  max="2"
-                  step="0.01"
-                  defaultValue="1"
-                />
-                <Button label="Submit"
-                  primary={true}
-                  onClick={handleSave}
-                />
+              <div className={styles.popup}>
+                <Box direction="column">
+                  <AvatarEditor
+                    ref={setEditorRef}
+                    image={this.state.picture.preview}
+                    width={250}
+                    height={250}
+                    border={50}
+                    color={[255, 255, 255, 0.6]} // RGBA
+                    scale={1.2}
+                    borderRadius={250}
+                    scale={parseFloat(this.state.scale)}
+                  />
+                  <Box direction="row" alignContent="center">
+                    <input className={styles.scale}
+                      name="scale"
+                      type="range"
+                      onChange={handleScale}
+                      min="1"
+                      max="2"
+                      step="0.01"
+                      defaultValue="1"
+                    />
+                    <Button label="Submit"
+                      primary={true}
+                      onClick={handleSave}
+                    />
+                  </Box>
+                </Box>
               </div>
             </Layer>
           )
@@ -175,8 +171,10 @@ export class AvatarCropper extends Component {
 
                 <Helmet title={"Upload Profile Picture"}/>
 
-                <div style={styles.wrapper}>
+                <div className={styles.wrapper}>
+                <Box size={{width: "medium"}}>
                   {mainNotification}
+                </Box>
                   {dropzone}
                   {cropper}
                 </div>

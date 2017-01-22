@@ -13,7 +13,8 @@ import TextInput from 'grommet/components/TextInput';
 import DateTime from 'grommet/components/DateTime';
 import {addUser} from '../../UserActions';
 import CheckBox from 'grommet/components/CheckBox';
-import AvatarCropper from '../../components/AvatarCropper'
+import AvatarCropper from '../../components/AvatarCropper';
+import styles from './RegisterPage.css';
 
 export class RegisterPage extends Component {
 
@@ -36,16 +37,6 @@ export class RegisterPage extends Component {
     }
 
     render() {
-
-        const styles = {
-
-            wrapper: {
-                display: "inline-block",
-                margin: "auto",
-                textAlign: "left"
-            }
-
-        };
 
         const submit = () => {
           const { firstname, lastname, email, password, passwordRepeat, isGuide, avatar, birthDay, birthMonth, birthYear } = this.state
@@ -106,7 +97,7 @@ export class RegisterPage extends Component {
 
                 <Helmet title={"Register"}/>
 
-                <div style={styles.wrapper}>
+                <div className={styles.wrapper}>
 
                     <Form>
 
@@ -126,7 +117,7 @@ export class RegisterPage extends Component {
                                 <TextInput name="lastname" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <select name="birthDay" onChange={handleChange}>
+                            <select className={styles.select} name="birthDay" onChange={handleChange}>
                                 <option selected disabled>Tag</option>
                                 {
                                     days.map(function (day) {
@@ -136,7 +127,7 @@ export class RegisterPage extends Component {
                                 }
                             </select>
 
-                            <select name="birthMonth" onChange={handleChange}>
+                            <select className={styles.select} name="birthMonth" onChange={handleChange}>
                                 <option selected disabled>Monat</option>
                                 {
                                     months.map(function (month) {
@@ -146,7 +137,7 @@ export class RegisterPage extends Component {
                                 }
                             </select>
 
-                            <select name="birthYear" onChange={handleChange}>
+                            <select className={styles.select} name="birthYear" onChange={handleChange}>
                                 <option selected disabled>Jahr</option>
                                 {
                                     years.map(function (year) {
@@ -160,7 +151,7 @@ export class RegisterPage extends Component {
                                 <TextInput name="email" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Bist du ein Back Packer oder ein Guide?">
+                            <FormField label="Bist du ein Back-Packer oder ein Guide?">
                                 <CheckBox label="Ich möchte als Guide Angebote erstellen"
                                           toggle={true}
                                           disabled={false}
@@ -184,7 +175,9 @@ export class RegisterPage extends Component {
 
                         </FormFields>
 
-                        <AvatarCropper saveImage={(avatar) => this.setState({ avatar })} />
+                        <div className={styles.avatarCropper}>
+                            <AvatarCropper saveImage={(avatar) => this.setState({ avatar })} />
+                        </div>
 
                         <Footer pad={{"vertical": "medium"}}>
                             <Button label="Submit"
