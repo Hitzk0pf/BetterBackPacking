@@ -5,22 +5,14 @@ import {FormattedMessage} from 'react-intl';
 import LoginForm from 'grommet/components/LoginForm';
 import SocialFacebook from 'grommet/components/icons/base/SocialFacebook';
 import Button from 'grommet/components/Button';
+import Box from 'grommet/components/Box';
+import styles from './Login.css';
 
 import {loginRequest} from '../../UserActions';
 
 export class LoginPage extends Component {
 
     render() {
-
-        const styles = {
-
-            wrapper: {
-                display: "inline-block",
-                margin: "auto",
-                textAlign: "left"
-            }
-
-        };
 
         const submit = (user) => {
 
@@ -44,23 +36,25 @@ export class LoginPage extends Component {
 
                 <Helmet title={"Login"}/>
 
-                <div style={styles.wrapper}>
+                <div className={styles.wrapper}>
 
-                    <LoginForm onSubmit={(user) => submit(user)}/>
+                    <LoginForm className={styles.loginForm} onSubmit={(user) => submit(user)}/>
 
                     <div>
                         {message}
                     </div>
 
-                    <Button icon={<SocialFacebook />}
-                        label="Login with Facebook"
-                        href="/api/login/facebook"
-                        primary={true} />
+                    <Box className={styles.buttonBox} pad='medium' basis="full" align="start">
+                        <Button className={styles.button} icon={<SocialFacebook />}
+                            label="Login with Facebook"
+                            href="/api/login/facebook"
+                            primary={true} />
+                    </Box>
 
                 </div>
 
         </div>
-    );
+    ); 
     }
 
 }

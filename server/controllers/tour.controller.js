@@ -6,7 +6,7 @@ import colors from 'colors';
 /**
  * Get all Tours
  * @param req
- * @param res
+ * @param res 
  * @returns void
  */
 export function getTours(req, res) {
@@ -28,7 +28,9 @@ export function getTours(req, res) {
  * @returns void
  */
 export function addTour(req, res) {
-  if (!req.body.tour.description || !req.body.tour.location || !req.body.tour.duration || !req.body.tour.price) {
+  if (!req.body.tour.description || !req.body.tour.location || !req.body.tour.duration || !req.body.tour.price || !req.body.tour.lenght
+    || !req.body.tour.extra|| !req.body.tour.standard|| !req.body.tour.food|| !req.body.tour.accommodation|| !req.body.tour.fitnessLevel
+    || !req.body.tour.teamSize|| !req.body.tour.sanitary|| !req.body.tour.electricity|| !req.body.tour.transportation) {
     res.status(403).end();
   }
   else
@@ -42,6 +44,16 @@ export function addTour(req, res) {
     newTour.location = requestTour.location;
     newTour.duration = requestTour.duration;
     newTour.price = requestTour.price;
+    newTour.lenght = requestTour.lenght;
+    newTour.extra = requestTour.extra;
+    newTour.standard = requestTour.standard;
+    newTour.food = requestTour.food;
+    newTour.accommodation = requestTour.accommodation;
+    newTour.fitnessLevel = requestTour.fitnessLevel;
+    newTour.teamSize = requestTour.teamSize;
+    newTour.sanitary = requestTour.sanitary;
+    newTour.electricity = requestTour.electricity;
+    newTour.transportation = requestTour.transportation;
 
     models.Tour.create({...newTour}).then(tour => {
       res.json({ Tour: tour });
@@ -105,7 +117,17 @@ export function changeTour(req, res) {
       description: requestTour.description,
       location: requestTour.location,
       duration: requestTour.duration,
-      price: requestTour.price
+      price: requestTour.price,
+      lenght: requestTour.lenght,
+      extra: requestTour.extra,
+      standard: requestTour.standard,
+      food: requestTour.food,
+      accommodation: requestTour.accommodation,
+      fitnessLevel: requestTour.fitnessLevel,
+      teamSize: requestTour.teamSize,
+      sanitary: requestTour.sanitary,
+      electricity: requestTour.electricity,
+      transportation: requestTour.transportation,
 })
 res.status(200).end();
 
