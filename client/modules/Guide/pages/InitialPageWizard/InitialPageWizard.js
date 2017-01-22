@@ -39,6 +39,7 @@ export class UploadProfilePicture extends Component {
     }
 
     submitAvatar = () => {
+
       this.setState({hideDropzone: true, submitPressed: true})
     }
 
@@ -74,6 +75,38 @@ export class UploadProfilePicture extends Component {
             )
           }
         }
+
+        //UI State 2: show avatar and prompt for upload
+        if(this.state.avatar) {
+          submit = (
+            <div style={{margin: 'auto', textAlign: 'center'}}>
+              <Heading strong={true}
+                align='center'
+                margin='medium'>
+                You look great!
+              </Heading>
+              <Heading strong={false}
+                align='center'
+                margin='medium'
+                tag='h2'>
+                Do you want to keep this nice photo as your profile picture?
+              </Heading>
+
+              <div>
+                <img src={this.state.avatar} style={{width: 400, height: 400, borderRadius: '50%'}}/>
+              </div>
+              <div style={{margin: 'auto',  paddingTop: 20}}>
+                <div style={{margin: 'auto',  padding: 5, display: 'inline'}}>
+                  <Button primary label="Submit" onClick={this.submitAvatar} />
+                </div>
+                <div style={{margin: 'auto',  padding: 5, display: 'inline'}}>
+                  <Button label="Cancel" onClick={this.cancelAvatar} />
+                </div>
+              </div>
+            </div>
+          )
+        }
+
 
         if(this.props.user.avatar || this.state.submitPressed) {
           //user already has an avatar, lets show description box and 3 question boxes
@@ -157,36 +190,6 @@ export class UploadProfilePicture extends Component {
 
           submit = ""
 
-        }
-
-        if(this.state.avatar) {
-          submit = (
-            <div style={{margin: 'auto', textAlign: 'center'}}>
-              <Heading strong={true}
-                align='center'
-                margin='medium'>
-                You look great!
-              </Heading>
-              <Heading strong={false}
-                align='center'
-                margin='medium'
-                tag='h2'>
-                Do you want to keep this nice photo as your profile picture?
-              </Heading>
-
-              <div>
-                <img src={this.state.avatar} style={{width: 400, height: 400, borderRadius: '50%'}}/>
-              </div>
-              <div style={{margin: 'auto',  paddingTop: 20}}>
-                <div style={{margin: 'auto',  padding: 5, display: 'inline'}}>
-                  <Button primary label="Submit" onClick={this.submitAvatar} />
-                </div>
-                <div style={{margin: 'auto',  padding: 5, display: 'inline'}}>
-                  <Button label="Cancel" onClick={this.cancelAvatar} />
-                </div>
-              </div>
-            </div>
-          )
         }
 
         console.log('STATE', this.state)
