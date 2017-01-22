@@ -81,7 +81,6 @@ export class AvatarCropper extends Component {
 
         let dropzone
 
-        if (this.state.showDropzone) {
           dropzone = (
                     <Dropzone className={styles.dropzone}
                       multiple={false}
@@ -91,11 +90,6 @@ export class AvatarCropper extends Component {
                       <div>Drop an image under 2MB here. You can also click me to select one!</div>
                     </Dropzone>
           );
-        } else {
-          dropzone = (
-            <img src={this.state.avatar} />
-          )
-        }
 
 
         const handleScale = (e) => {

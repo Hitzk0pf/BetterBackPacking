@@ -10,6 +10,8 @@ export const AUTH_FAILED = "AUTH_FAILED";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const ADD_USER_FINISHED = "ADD_USER_FINISHED";
 export const ADD_USER_ERROR = "ADD_USER_ERROR";
+export const FETCH_AVATAR_FAILED = "FETCH_AVATAR_FAILED";
+export const FETCH_AVATAR_SUCCESS = "FETCH_AVATAR_SUCCESS";
 
 export function checkAddUser(user) {
   return (dispatch) => {
@@ -63,11 +65,22 @@ export function loginRequest(user) {
 }
 
 export function loginSuccess(token) {
+  return (dispatch) => {
     // save cookie
-    cookie.save('token', token, { path: '/' });
+    //cookie.save('token', token, { path: '/' });
+    localStorage.setItem('token', token)
+    console.log('token', token);
 
+    dispatch(loginSuccessToken(token))
+    dispatch(authUser())
+
+  }
+}
+
+export function loginSuccessToken(token) {
     return {
-        type: LOGIN_SUCCESS
+        type: LOGIN_SUCCESS,
+        token
     };
 }
 
@@ -79,13 +92,15 @@ export function loginFailed() {
 
 export function authUser() {
     return (dispatch) => {
-      const token = cookie.load('token');
+      //const token = cookie.load('token');
+      const token = localStorage.getItem('token')
       console.log("now /api/auth is called with this token: ", token);
       return callApi('auth', 'post', token, {} // send JWT Token to authenticate (otherwise its '')
       ).then(res => {
         if(res.authenticationSuccess)
         {
           dispatch(authSuccess(res.authenticatedUser));
+          dispatch(fetchAvatar(res.authenticatedUser));
         }
         else
         {
@@ -97,11 +112,48 @@ export function authUser() {
 }
 
 export function logoutUser() {
-  //remove cookie with JWT token
-  cookie.remove('token', { path: '/' });
+  //remove localStorage entry with JWT token
+  //cookie.remove('token', { path: '/' });
+  localStorage.removeItem('token')
 
   return {
     type: LOGOUT_USER,
+  };
+}
+
+export function fetchAvatar(user) {
+    return (dispatch) => {
+      //const token = cookie.load('token');
+      const token = localStorage.getItem('token')
+      console.log('users/' + user.cuid)
+      return callApi('users/' + user.cuid, 'get', token, // send JWT Token to authenticate (otherwise its '')
+      ).then(res => {
+        if(res.user)
+        {
+          if(res.user.avatar) {
+            dispatch(fetchAvatarSuccess(res.user.avatar));
+          } else {
+            dispatch(fetchAvatarSuccess(null));
+          }
+        }
+        else
+        {
+          dispatch(fetchAvatarFailed('Something went wrong when fetching your avatar'));
+        }
+      });
+
+    };
+}
+export function fetchAvatarSuccess(avatar) {
+  return {
+    type: FETCH_AVATAR_SUCCESS,
+    avatar,
+  };
+}
+export function fetchAvatarFailed(error) {
+  return {
+    type: FETCH_AVATAR_FAILED,
+    error,
   };
 }
 
@@ -114,7 +166,7 @@ export function authSuccess(user) {
 
 export function authFailed() {
   //remove cookie with JWT token
-  cookie.remove('token', { path: '/' });
+  localStorage.removeItem('token');
 
   return {
     type: AUTH_FAILED,
@@ -124,7 +176,7 @@ export function authFailed() {
 
 export function saveFBToken(token) {
     return (dispatch) => {
-      cookie.save('token', decodeURIComponent(token), { path: '/' });
+      localStorage.setItem('token', decodeURIComponent(token));
       dispatch(authUser());
       //browserHistory.push('/login');
     }
