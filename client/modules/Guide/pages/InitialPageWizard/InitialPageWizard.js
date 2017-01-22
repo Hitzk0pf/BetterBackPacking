@@ -16,6 +16,7 @@ import FormFields from 'grommet/components/FormFields';
 import TextInput from 'grommet/components/TextInput';
 import Header from 'grommet/components/Header';
 import AvatarCropper from '../../../User/components/AvatarCropper'
+import { editUser } from '../../../User/UserActions'
 
 export class UploadProfilePicture extends Component {
 
@@ -30,16 +31,8 @@ export class UploadProfilePicture extends Component {
         };
     }
 
-    componentWillReceiveProps (newProps) {
-      //if entry point
-
-      if(newProps.user.avatar) {
-
-      }
-    }
-
     submitAvatar = () => {
-
+      this.props.addAvatar({cuid: this.props.user.user.cuid, avatar: this.state.avatar})
       this.setState({hideDropzone: true, submitPressed: true})
     }
 
@@ -221,8 +214,8 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginRequest: (user) => {
-            dispatch(loginRequest(user));
+        addAvatar: (user) => {
+            dispatch(editUser(user));
         }
     }
 };

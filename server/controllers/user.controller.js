@@ -90,7 +90,10 @@ export function getUser(req, res) {
   models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
     if(user) {
       user['password_digest'] = ""
-      user['avatar'] = user['avatar'].toString()
+      
+      if(user['avatar']) {
+        user['avatar'] = user['avatar'].toString()
+      }
 
       res.json({user});
     } else {
@@ -161,22 +164,14 @@ export function changeUser(req, res) {
                 failed = false;
             } else {
                 failed = true;
-
-                console.log("failed, 404");
             }
 
-            if (!failed) {
-
-                res.status(200).end();
-
-            } else {
-
+            if (failed) {
                 if (failed === 500) {
                     res.status(500).send();
                 } else {
                     res.status(404).send();
                 }
-
             }
         });
 

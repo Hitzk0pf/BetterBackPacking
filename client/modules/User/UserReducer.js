@@ -8,6 +8,8 @@ import {
     ADD_USER_FINISHED,
     FETCH_AVATAR_FAILED,
     FETCH_AVATAR_SUCCESS,
+    EDIT_USER_FAILED,
+    EDIT_USER_SUCCESS,
 } from './UserActions';
 
 // Initial State
@@ -21,6 +23,7 @@ const initialState = {
     token: null,
     user: null,
     avatar: null,
+    editUserError: null,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -42,6 +45,7 @@ const UserReducer = (state = initialState, action) => {
                 loggedIn: true,
                 attemptedLogin: true,
                 user: action.user,
+                token: action.token
             });
         case FETCH_AVATAR_SUCCESS :
             return Object.assign({}, state, {
@@ -64,6 +68,16 @@ const UserReducer = (state = initialState, action) => {
                 loginSuccess: false,
                 authenticated: false,
                 attemptedLogin: true
+            });
+        case EDIT_USER_FAILED :
+            return Object.assign({}, state, {
+                editUserError: true,
+            });
+        case EDIT_USER_SUCCESS :
+            return Object.assign({}, state, {
+                editUserError: false,
+                user: action.user,
+                avatar: action.avatar
             });
         default:
             return state;

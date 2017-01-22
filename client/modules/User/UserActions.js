@@ -12,6 +12,8 @@ export const ADD_USER_FINISHED = "ADD_USER_FINISHED";
 export const ADD_USER_ERROR = "ADD_USER_ERROR";
 export const FETCH_AVATAR_FAILED = "FETCH_AVATAR_FAILED";
 export const FETCH_AVATAR_SUCCESS = "FETCH_AVATAR_SUCCESS";
+export const EDIT_USER_FAILED = "EDIT_USER_FAILED";
+export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
 
 export function checkAddUser(user) {
   return (dispatch) => {
@@ -99,7 +101,7 @@ export function authUser() {
       ).then(res => {
         if(res.authenticationSuccess)
         {
-          dispatch(authSuccess(res.authenticatedUser));
+          dispatch(authSuccess(res.authenticatedUser, token));
           dispatch(fetchAvatar(res.authenticatedUser));
         }
         else
@@ -119,6 +121,43 @@ export function logoutUser() {
   return {
     type: LOGOUT_USER,
   };
+}
+
+export function editUserSuccess(user) {
+  const avatar = user['avatar']
+  user['avatar'] = null
+
+  return {
+    type: EDIT_USER_SUCCESS,
+    user,
+    avatar
+  };
+}
+
+export function editUserFailed(error) {
+  return {
+    type: EDIT_USER_FAILED,
+    error,
+  };
+}
+
+export function editUser(user) {
+    return (dispatch) => {
+      //const token = cookie.load('token');
+      const token = localStorage.getItem('token')
+      console.log("log", user.cuid, token, user)
+      return callApi('users/' + user.cuid, 'put', token, { user } // send JWT Token to authenticate (otherwise its '')
+      ).then(res => {
+        if(res.user)
+        {
+            dispatch(editUserSuccess(res.user));
+        }
+        else
+        {
+          dispatch(editUserFailed('Something went wrong while updating your user'));
+        }
+      }).catch((err) => console.log("ERR", err));
+    };
 }
 
 export function fetchAvatar(user) {
@@ -144,12 +183,14 @@ export function fetchAvatar(user) {
 
     };
 }
+
 export function fetchAvatarSuccess(avatar) {
   return {
     type: FETCH_AVATAR_SUCCESS,
     avatar,
   };
 }
+
 export function fetchAvatarFailed(error) {
   return {
     type: FETCH_AVATAR_FAILED,
@@ -157,10 +198,11 @@ export function fetchAvatarFailed(error) {
   };
 }
 
-export function authSuccess(user) {
+export function authSuccess(user, token) {
   return {
     type: AUTH_SUCCESS,
     user,
+    token
   };
 }
 

@@ -38,9 +38,9 @@ router.route('/users/:cuid').put(passport.authenticate('jwt', {session: false}),
         console.log('hello2'.green); // outputs green text
 
         UserController.changeUser(req, res);
+    } else {
+      res.status(403).end();
     }
-
-    res.json({authenticationSuccess: true, authenticatedUser: userFromJWT});
 });
 
 //Login a User
