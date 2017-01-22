@@ -31,15 +31,15 @@ router.route('/users/:cuid').put(passport.authenticate('jwt', {session: false}),
 
     let userFromJWT = req.user.cuid;
 
-    console.log('hello'.green); // outputs green text 
+    console.log('hello'.green); // outputs green text
 
     if(req.params.cuid === userFromJWT)
     {
-        console.log('hello2'.green); // outputs green text 
+        console.log('hello2'.green); // outputs green text
 
         UserController.changeUser(req, res);
     }
-    
+
     res.json({authenticationSuccess: true, authenticatedUser: userFromJWT});
 });
 
@@ -50,6 +50,7 @@ router.route('/login').post(
         let userForJWT = req.user;
 
         userForJWT['password_digest'] = ''; //remove password from JWT (obvious why)
+        userForJWT['avatar'] = ''; //remove avatar from JWT to decrease token size
         const jwtClaim = JSON.stringify(userForJWT);
         var token = jwt.sign(jwtClaim, config.secret);
 
@@ -65,4 +66,3 @@ router.route('/failedLogin').get((req, res) => {
 router.route('/users/:cuid').delete(UserController.deleteUser);
 
 export default router;
-

@@ -14,15 +14,15 @@ const UserModel = (sequelize, Sequelize) => {
 		type: Sequelize.BIGINT,
 		allowNull: true,
 	},
-        avatar: {
-            type: Sequelize.BLOB,
-            allowNull: true,
-            /*
-             validate: {
-             notEmpty: true
-             }
-             */
-        },
+  avatar: {
+      type: Sequelize.BLOB,
+      allowNull: true,
+      /*
+       validate: {
+       notEmpty: true
+       }
+       */
+  },
 	firstname: {
 		type: Sequelize.STRING,
 		allowNull: true,
@@ -114,6 +114,7 @@ const UserModel = (sequelize, Sequelize) => {
             email: 'hancock@gmail.com',
             password: 'plain1234',
             password_confirmation: 'plain1234',
+            avatar: 'MTIz',
             birthdate: new Date(1980, 6, 20),
             isGuide: true
         });

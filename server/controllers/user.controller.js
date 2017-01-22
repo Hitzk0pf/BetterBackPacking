@@ -38,10 +38,10 @@ export function addUser(req, res) {
   }
 
   if(!failed) {
-      console.log("WOOOOOOOOOOOOOOOOOOOOOOOOOOOORKING")
-
       const requestUser = req.body.user;
       const newUser = {};
+
+      console.log('AVATAR', req.body.user.avatar)
 
       //only pick out attributes that we want (who knows what attributes a hacker sends to our api endpoints)
       newUser.cuid = cuid();
@@ -88,6 +88,9 @@ export function getUser(req, res) {
 
   models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
     if(user) {
+      user['password_digest'] = ""
+      user['avatar'] = user['avatar'].toString()
+
       res.json({user});
     } else {
       res.status(404).send();
