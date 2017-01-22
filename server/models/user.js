@@ -112,9 +112,9 @@ const UserModel = (sequelize, Sequelize) => {
             firstname: 'John',
             lastname: 'Hancock',
             email: 'hancock@gmail.com',
-            avatar: null,
             password: 'plain1234',
             password_confirmation: 'plain1234',
+            avatar: 'MTIz',
             birthdate: new Date(1980, 6, 20),
             isGuide: true
         });
