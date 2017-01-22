@@ -37,6 +37,76 @@ const TourModel = (sequelize, Sequelize) => {
 		validate: {
 			notEmpty: true,
 		}
+	},
+	lenght: {
+		type: Sequelize.FLOAT,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	extra: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	standard: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	food: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	accommodation: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	fitnessLevel: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	teamSize: {
+		type: Sequelize.FLOAT,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	sanitary: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	electricity: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	transportation: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
 	}
   }, {
 	tableName: 'tours',
@@ -49,8 +119,18 @@ const TourModel = (sequelize, Sequelize) => {
       cuid: cuid(),
       description: 'From Mumbai to Delhi',
       location: 'Mumbai',
-      duration: '20',
-      price: '5000',
+      duration: 20,
+      price: 5000,
+      lenght: 555,
+      extra: 'All Inclusive',
+      standard: 'Clean',
+      food: 'Asian',
+      accommodation: 'Hotel',
+      fitnessLevel: 'American',
+      teamSize: 10,
+      sanitary: 'Bathroom',
+      electricity: 'TV, Wifi',
+      transportation: 'Car,Train',
     });
   });
 

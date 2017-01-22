@@ -48,6 +48,7 @@ export function addUser(req, res) {
       newUser.firstname = requestUser.firstname;
       newUser.lastname = requestUser.lastname;
       newUser.email = requestUser.email;
+      newUser.isGuide = requestUser.isGuide;
       if (requestUser.avatar === true && requestUser.facebook_id) {
         newUser.avatar = "graph.facebook.com/" + requestUser.facebook_id + "/picture?height=500&width=500"
       } else if (requestUser.avatar) {
@@ -103,6 +104,7 @@ export function getUser(req, res) {
  * @returns void
  */
 export function changeUser(req, res) {
+  let failed = false
     models.User.findOne({ where: { cuid: req.params.cuid } }).then((user) => {
             if (user) {
                 //edit user
@@ -118,6 +120,35 @@ export function changeUser(req, res) {
                     updatedUser.lastname = requestUser.lastname;
                 }
 
+                if (requestUser.isGuide) {
+                    updatedUser.isGuide = requestUser.isGuide;
+                }
+
+                if (requestUser.birthdate) {
+                    updatedUser.birthdate = requestUser.birthdate;
+                }
+
+                if (requestUser.email) {
+                    updatedUser.email = requestUser.email;
+                }
+
+                if (requestUser.avatar === true && requestUser.facebook_id) {
+                  updatedUser.avatar = "graph.facebook.com/" + requestUser.facebook_id + "/picture?height=500&width=500"
+                } else if (requestUser.avatar) {
+                  updatedUser.avatar = requestUser.avatar;
+                }
+
+                if(!req.body.user.facebook_id) {
+                  updatedUser.password = requestUser.password;
+                  updatedUser.password_confirmation = requestUser.password_confirmation;
+                } else {
+                  updatedUser.password = "";
+                  updatedUser.password_confirmation = "";
+                  updatedUser.facebook_id = requestUser.facebook_id;
+                }
+
+
+
                 user.update({...updatedUser }).then(user => {
                     res.json({ user });
                 }).catch(err => {
@@ -129,7 +160,6 @@ export function changeUser(req, res) {
                 failed = true;
 
                 console.log("failed, 404");
-
             }
 
             if (!failed) {
