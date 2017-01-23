@@ -31,3 +31,7 @@
 	height: 50px;
 	overflow-x: initial !important;
 }
+
+.submitButton{
+	margin: 10px 0;
+}
