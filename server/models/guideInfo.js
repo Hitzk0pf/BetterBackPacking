@@ -39,19 +39,14 @@ const GuideInfoModel = (sequelize, Sequelize) => {
   	freezeTableName: true,
     });
 
-  GuideInfo.sync({force: true}).then(function () {
+GuideInfo.sync({force: true}).then(function () {
     // Testtour at serverstart
-    const newGuideInfo = {};
-
-    //only pick wanted attributes
-    newGuideInfo.cuid = cuid();
-    newGuideInfo.description = 'Blablabla';
-    newGuideInfo.characterTraits = ['Adventurous', 'Open-Minded', 'Funny'];
-    newGuideInfo.characterTraitDescription = ['I love adventures!', 'I think Open-Minded.', 'I am the funniest guy you will ever meet.'];
-
-    models.GuideInfo.create({...newGuideInfo});
-
-
+    return GuideInfo.create({
+      cuid: cuid(),
+      description: 'I am so and so old...',
+      characterTraits: ['Adventurous', 'Open-Minded', 'Funny'],
+      characterTraitDescription: ['I love adventures!', 'I think Open-Minded.', 'I am the funniest guy you will ever meet.'],
+    });
   });
 
   return GuideInfo;

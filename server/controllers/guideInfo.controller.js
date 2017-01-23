@@ -98,8 +98,6 @@ export function changeGuideInfo(req, res) {
     if(guideInfo) {
       const requestGuideInfo = req.body.guideInfo;
 
-     console.log('enter change thingy'.red);
-
      guideInfo.update({
       description: requestGuideInfo.description,
       characterTraits: requestGuideInfo.characterTraits,
