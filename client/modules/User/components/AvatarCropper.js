@@ -136,7 +136,7 @@ export class AvatarCropper extends Component {
                     borderRadius={250}
                     scale={parseFloat(this.state.scale)}
                   />
-                  <Box direction="row" alignContent="center">
+                  <Box direction="column" alignContent="center">
                     <input className={styles.scale}
                       name="scale"
                       type="range"
@@ -146,7 +146,7 @@ export class AvatarCropper extends Component {
                       step="0.01"
                       defaultValue="1"
                     />
-                    <Button label="Submit"
+                    <Button className={styles.submitButton} label="Submit"
                       primary={true}
                       onClick={handleSave}
                     />
