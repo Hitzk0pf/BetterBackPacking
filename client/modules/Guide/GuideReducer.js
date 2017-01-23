@@ -1,29 +1,26 @@
-import {LOGIN_SUCCESS, LOGIN_FAILED} from './UserActions';
+import {
+  ADD_GUIDE_INFO_FAILED,
+  ADD_GUIDE_INFO_SUCCESS,
+} from './GuideActions';
 
 // Initial State
 const initialState = {
-    loginSuccess: false,
-    loggedIn: false,
-    attemptedLogin: false
+    addGuideInfoSuccess: false,
+    addGuideInfoError: null,
 };
 
-const UserReducer = (state = initialState, action) => {
+const GuideReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOGIN_SUCCESS :
-
+        case ADD_GUIDE_INFO_FAILED :
             return Object.assign({}, state, {
-                loginSuccess: true,
-                loggedIn: true,
-                attemptedLogin: true
+                addGuideInfoSuccess: false,
+                addGuideInfoError: 'Something went wrong while saving your data..',
             });
-
-        case LOGIN_FAILED :
-
+        case ADD_GUIDE_INFO_SUCCESS :
             return Object.assign({}, state, {
-                loginSuccess: false,
-                attemptedLogin: true
+                addGuideInfoSuccess: true,
+                addGuideInfoError: null,
             });
-
         default:
             return state;
     }
@@ -39,4 +36,4 @@ const UserReducer = (state = initialState, action) => {
  */
 
 // Export Reducer
-export default UserReducer;
+export default GuideReducer;

@@ -16,7 +16,8 @@ import FormFields from 'grommet/components/FormFields';
 import TextInput from 'grommet/components/TextInput';
 import Header from 'grommet/components/Header';
 import AvatarCropper from '../../../User/components/AvatarCropper'
-import { addGuideInfo, editUser } from '../../../User/UserActions'
+import { editUser } from '../../../User/UserActions'
+import { addGuideInfo } from '../../../Guide/GuideActions'
 
 export class UploadProfilePicture extends Component {
 
@@ -50,8 +51,11 @@ export class UploadProfilePicture extends Component {
     handleSubmit = () => {
       const { description, ct1, ct2, ct3, ct1Description, ct2Description, ct3Description } = this.state
 
-      if ( !description && !ct1 && !ct2 && !ct3 && !ct1Description && !ct2Description && !ct3Description ) {
+      console.log("state", this.state)
+
+      if ( description && ct1 && ct2 && ct3 && ct1Description && ct2Description && ct3Description ) {
         let characterTraits = []
+        let characterTraitDescription = []
 
         characterTraits.push(ct1, ct2, ct3)
         characterTraitDescription.push(ct1, ct2, ct3)
@@ -62,6 +66,8 @@ export class UploadProfilePicture extends Component {
           characterTraitDescription,
           userCuid: this.props.user.user.cuid
         }
+
+        console.log(guideInfo)
 
         this.props.addGuideInfo(guideInfo)
 
@@ -164,7 +170,7 @@ export class UploadProfilePicture extends Component {
                   </Heading>
                 </Header>
                   <FormField label='First character trait'>
-                    <TextInput name="ct1" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(ct1) => this.setState({ct1: event.target.value})} />
+                    <TextInput name="ct1" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(event) => this.setState({ct1: event.target.value})} />
                   </FormField>
                   <FormField label='Describe this character trait'>
                     <textarea
@@ -179,7 +185,7 @@ export class UploadProfilePicture extends Component {
                   </Header>
 
                   <FormField label='Second character trait'>
-                    <TextInput name="ct2" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(ct2) => this.setState({ct2: event.target.value})} />
+                    <TextInput name="ct2" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(event) => this.setState({ct2: event.target.value})} />
                   </FormField>
                   <FormField label="Describe this character trait">
                     <textarea
@@ -194,7 +200,7 @@ export class UploadProfilePicture extends Component {
                   </Header>
 
                   <FormField label='Third character trait'>
-                    <TextInput name="ct3" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(ct3) => this.setState({ct3: event.target.value})} />
+                    <TextInput name="ct3" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(event) => this.setState({ct3: event.target.value})} />
                   </FormField>
                   <FormField label="Describe this character trait">
                     <textarea
@@ -217,8 +223,6 @@ export class UploadProfilePicture extends Component {
           submit = ""
 
         }
-
-        console.log('STATE', this.state)
 
         return (
             <div style={{textAlign: "center"}}>

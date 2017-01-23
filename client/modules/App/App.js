@@ -13,7 +13,7 @@ import Footer from './components/Footer/Footer';
 // Import Actions
 import { toggleAddPost } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
-import { authUser } from '../User/UserActions';
+import { authUser, logoutUser } from '../User/UserActions';
 
 export class App extends Component {
   constructor(props) {
@@ -55,6 +55,9 @@ export class App extends Component {
             intl={this.props.intl}
             toggleAddPost={this.toggleAddPostSection}
             avatar={this.props.user.avatar}
+            isGuide={this.props.user.user ? this.props.user.user.isGuide : null}
+            isLoggedIn={this.props.user.loggedIn}
+            logoutUser={this.props.logoutUser}
           />
           <div className={styles.container}>
             {this.props.children}
@@ -79,5 +82,13 @@ function mapStateToProps(store) {
     user: store.user,
   };
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logoutUser: () => {
+            dispatch(logoutUser());
+        }
+    }
+};
 
 export default connect(mapStateToProps)(App);

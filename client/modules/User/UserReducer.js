@@ -2,6 +2,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILED,
     AUTH_SUCCESS,
+    LOGOUT_USER,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAILED,
     ADD_USER_ERROR,
@@ -54,6 +55,14 @@ const UserReducer = (state = initialState, action) => {
         case FETCH_AVATAR_FAILED :
             return Object.assign({}, state, {
                 avatar: null,
+            });
+        case LOGOUT_USER :
+            return Object.assign({}, state, {
+                loginSuccess: null,
+                authenticated: false,
+                loggedIn: false,
+                attemptedLogin: false,
+                token: null,
             });
         case LOGIN_SUCCESS :
             return Object.assign({}, state, {

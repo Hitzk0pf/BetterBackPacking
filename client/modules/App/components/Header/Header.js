@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import Button from 'grommet/components/Button';
 
 // Import Style
 import styles from './Header.css';
@@ -10,6 +11,37 @@ export function Header(props, context) {
     lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>
   );
 
+  let initialPageWizard = ""
+  let loginButtons = ""
+
+  if(props.isGuide) {
+    initialPageWizard = (
+      <li>
+        <Link to="/initialPageWizard">Edit My Page</Link>
+      </li>
+    )
+  }
+  if(!props.isLoggedIn) {
+    loginButtons = (
+      <div style={{display: 'inline'}}>
+          <li>
+            <Link to="/login" >Login</Link>
+          </li>
+          <li>
+            <Link to="/register" >Register</Link>
+          </li>
+      </div>
+    )
+  } else {
+    loginButtons = (
+      <div style={{display: 'inline'}}>
+          <li>
+            <Button onClick={this.props.logoutUser} />
+          </li>
+      </div>
+    )
+  }
+
 
   return (
     <div className={styles.header}>
@@ -18,18 +50,14 @@ export function Header(props, context) {
           <Link to="/" ><FormattedMessage id="Logo" /></Link>
         </h1>
         <ul>
-          <li>
-            <Link to="/login" >Login</Link>
-          </li>
 
-          <li>
-            <Link to="/register" >Register</Link>
-          </li>
+          {loginButtons}
+
+
+          {initialPageWizard}
 
           {props.avatar ? <img style={{borderRadius: '50%', width: '2.5rem', height: '2.5rem'}}src={props.avatar}></img> : ""}
 
-          <li><FormattedMessage id="switchLanguage" /></li>
-          {languageNodes}
         </ul>
       </div>
         {
