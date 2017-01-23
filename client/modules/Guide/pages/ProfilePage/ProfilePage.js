@@ -13,6 +13,7 @@ import Hero from 'grommet/components/Hero';
 import Image from 'grommet/components/Image';
 import TextInput from 'grommet/components/TextInput';
 import FormField from 'grommet/components/FormField';
+import styles from './ProfilePage.css';
 
 import InfoIcon from 'grommet/components/icons/base/Info';
 import StarIcon from 'grommet/components/icons/base/Star';
@@ -23,16 +24,6 @@ import {loginRequest} from '../../GuideActions';
 export class ProfilePage extends Component {
 
     render() {
-
-        const styles = {
-
-            wrapper: {
-                display: "inline-block",
-                margin: "auto",
-                textAlign: "left"
-            }
-
-        };
 
         return (
             <div style={{textAlign: "center"}}>
@@ -145,7 +136,7 @@ export class ProfilePage extends Component {
                         <Columns justify="center">
                             <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
                                 <Box separator="bottom">
-                                    <Heading strong={true} tag="h2">
+                                    <Heading className={styles.tourHeading} strong={true} tag="h2">
                                         Tajmahal
                                     </Heading>
                                     <Box direction="row" alignSelf="center">
@@ -158,7 +149,7 @@ export class ProfilePage extends Component {
                             </Box>
                             <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
                                 <Box separator="bottom">
-                                    <Heading strong={true} tag="h2">
+                                    <Heading className={styles.tourHeading} strong={true} tag="h2">
                                         Tajmahal
                                     </Heading>
                                     <Box direction="row" alignSelf="center">
@@ -171,7 +162,7 @@ export class ProfilePage extends Component {
                             </Box>
                             <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
                                 <Box separator="bottom">
-                                    <Heading strong={true} tag="h2">
+                                    <Heading className={styles.tourHeading} strong={true} tag="h2">
                                         Tajmahal
                                     </Heading>
                                     <Box direction="row" alignSelf="center">
@@ -184,7 +175,7 @@ export class ProfilePage extends Component {
                             </Box>
                             <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
                                 <Box separator="bottom">
-                                    <Heading strong={true} tag="h2">
+                                    <Heading className={styles.tourHeading} strong={true} tag="h2">
                                         Tajmahal
                                     </Heading>
                                     <Box direction="row" alignSelf="center">
@@ -197,7 +188,7 @@ export class ProfilePage extends Component {
                             </Box>
                             <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
                                 <Box separator="bottom">
-                                    <Heading strong={true} tag="h2">
+                                    <Heading className={styles.tourHeading} strong={true} tag="h2">
                                         Tajmahal
                                     </Heading>
                                     <Box direction="row" alignSelf="center">
@@ -210,7 +201,7 @@ export class ProfilePage extends Component {
                             </Box>
                             <Box size={{"height": "small"}} align="center" justify="center" pad="medium" margin="small" colorIndex="light-2" texture="http://i.imgur.com/mkWLwm1.jpg">
                                 <Box separator="bottom">
-                                    <Heading strong={true} tag="h2">
+                                    <Heading className={styles.tourHeading} strong={true} tag="h2">
                                         Tajmahal
                                     </Heading>
                                     <Box direction="row" alignSelf="center">

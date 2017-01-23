@@ -14,8 +14,8 @@ export class SearchBar extends Component {
 
         this.state = {
             area: "",
-            tourstyle: null,
-            difficulty: null,
+            tourstyle: "",
+            difficulty: "",
         }
     }
 
@@ -61,7 +61,7 @@ export class SearchBar extends Component {
                         value={undefined} />
                     </Box>
                     <Box direction="row" margin="small">
-                        <Button icon={<SearchIcon />} label='Search!' href='#' primary={true} secondary={false} accent={false} plain={false} type='submit' 
+                        <Button icon={<SearchIcon />} label='Search!' onClick={() => this.props.searchTour(this.state.area, this.state.tourstyle, this.state.difficulty)} primary={true} secondary={false} accent={false} plain={false} type='submit' 
                         />
                     </Box>
                 </Box>
