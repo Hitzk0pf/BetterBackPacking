@@ -123,6 +123,40 @@ export function logoutUser() {
   };
 }
 
+export function addGuideInfoSuccess(guideInfo) {
+  return {
+    type: ADD_GUIDE_INFO_SUCCESS,
+    guideInfo,
+  };
+}
+
+export function addGuideInfoFailed(error) {
+  return {
+    type: ADD_GUIDE_INFO_FAILED,
+    error,
+  };
+}
+
+export function addUserInfo(guideInfo) {
+    return (dispatch) => {
+      //const token = cookie.load('token');
+      const token = localStorage.getItem('token')
+      console.log("log", user.cuid, token, { guideInfo })
+      return callApi('guideInfo', 'post', token, { guideInfo } // send JWT Token to authenticate (otherwise its '')
+      ).then(res => {
+        if(res.guideInfo)
+        {
+            dispatch(addGuideInfoSuccess(res.guideInfo));
+        }
+        else
+        {
+          dispatch(addGuideInfoFailed('Something went wrong while updating your user'));
+        }
+      }).catch((err) => console.log("ERR", err));
+    };
+}
+
+
 export function editUserSuccess(user) {
   const avatar = user['avatar']
   user['avatar'] = null
