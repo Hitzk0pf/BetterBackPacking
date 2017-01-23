@@ -1,0 +1,9 @@
+.wrapper{
+	display: inline-block;
+	margin: auto;
+	text-align: left;
+}
+
+.tourHeading{
+	color: white;
+}
