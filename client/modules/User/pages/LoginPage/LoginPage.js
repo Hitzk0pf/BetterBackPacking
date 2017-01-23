@@ -8,6 +8,7 @@ import Button from 'grommet/components/Button';
 import Box from 'grommet/components/Box';
 import Notification from 'grommet/components/Notification';
 import styles from './Login.css';
+import {Router, browserHistory} from 'react-router';
 
 import {loginRequest} from '../../UserActions';
 
@@ -43,13 +44,13 @@ export class LoginPage extends Component {
 
                 <div className={styles.wrapper}>
                   <Box className={styles.buttonBox} pad='medium' basis="full" align="start">
-                    {message}
                   </Box>
 
                     <LoginForm className={styles.loginForm} onSubmit={(user) => submit(user)}/>
 
                     <Box className={styles.buttonBox} pad='medium' basis="full" align="start">
                         <Button className={styles.button} icon={<SocialFacebook />}
+                            fill={true}
                             label="Login with Facebook"
                             href="/api/login/facebook"
                             primary={true} />

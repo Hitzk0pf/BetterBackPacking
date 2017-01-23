@@ -18,7 +18,7 @@ export function Header(props, context) {
   if(props.isGuide) {
     initialPageWizard = (
       <li>
-        <Link to="/initialPageWizard">Edit My Page</Link>
+        <Button label='Edit my Page' primary path="/initialPageWizard"/>
       </li>
     )
   }
@@ -26,10 +26,10 @@ export function Header(props, context) {
     loginButtons = (
       <div style={{display: 'inline'}}>
           <li>
-            <Link to="/login" >Login</Link>
+            <Button label='Login' primary path="/login"/>
           </li>
           <li>
-            <Link to="/register" >Register</Link>
+            <Button label='Register' primary onClick={props.logoutUser} path="/register" />
           </li>
       </div>
     )
@@ -37,7 +37,7 @@ export function Header(props, context) {
     loginButtons = (
       <div style={{display: 'inline'}}>
           <li>
-            <Button label='Logout' primary onClick={props.logoutUser} href="/"/>
+            <Button label='Logout' primary onClick={props.logoutUser} path="/"/>
           </li>
       </div>
     )
@@ -52,21 +52,14 @@ export function Header(props, context) {
         </h1>
         <ul>
 
-
-
           {initialPageWizard}
 
           {props.avatar ? <img style={{borderRadius: '50%', width: '2.5rem', height: '2.5rem'}}src={props.avatar}></img> : ""}
-          
+
           {loginButtons}
 
         </ul>
       </div>
-        {
-          context.router.isActive('/', true)
-            ? <a className={styles['add-post-button']} href="#" onClick={props.toggleAddPost}><FormattedMessage id="addPost" /></a>
-            : null
-        }
     </div>
   );
 }

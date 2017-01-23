@@ -15,6 +15,7 @@ import {addUser} from '../../UserActions';
 import CheckBox from 'grommet/components/CheckBox';
 import AvatarCropper from '../../components/AvatarCropper';
 import styles from './RegisterPage.css';
+import {Router, browserHistory} from 'react-router';
 
 export class RegisterPage extends Component {
 
@@ -55,6 +56,7 @@ export class RegisterPage extends Component {
           console.log(user)
 
           this.props.addUser(user)
+          browserHistory.push("/login")
         };
 
         const handleChange = (event) => {
