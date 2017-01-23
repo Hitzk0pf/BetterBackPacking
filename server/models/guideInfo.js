@@ -1,3 +1,5 @@
+import models from '../models/index';
+import GuideInfo from '../models/guideInfo';
 var bcrypt = require('bcrypt');
 var cuid = require('cuid');
 

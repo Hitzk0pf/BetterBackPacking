@@ -1,5 +1,6 @@
 var bcrypt = require('bcrypt');
 var cuid = require('cuid');
+import models from '../models/index';
 
 const UserModel = (sequelize, Sequelize) => {
     const User = sequelize.define('user', {
