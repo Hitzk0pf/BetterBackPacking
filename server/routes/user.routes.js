@@ -63,6 +63,18 @@ router.route('/failedLogin').get((req, res) => {
 });
 
 // Delete a post by cuid
-router.route('/users/:cuid').delete(UserController.deleteUser);
+
+router.route('/users/:cuid').delete(passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    let userFromJWT = req.user.cuid;
+
+
+    if(req.params.cuid === userFromJWT)
+    {
+        UserController.deleteUser(req, res);
+    } else {
+      res.status(403).end();
+    }
+});
 
 export default router;

@@ -178,15 +178,27 @@ export function changeUser(req, res) {
     }
 
 
+export function deleteUser(req, res) {
 
+  models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
+    if(user) {
+      user.destroy();
+      res.status(200).end();
+    } else {
+      res.status(404).send();
+    }
+  }).catch(err => res.status(500).send(err));
+
+}
 /**
  * Delete a User
  * @param req
  * @param res
  * @returns void
  */
+ /*
 export function deleteUser(req, res) {
-  User.findOne({ cuid: req.params.cuid }).exec((err, User) => {
+  models.User.findOne({ cuid: req.params.cuid }).exec((err, User) => {
     if (err) {
       res.status(500).send(err);
     }
@@ -195,4 +207,4 @@ export function deleteUser(req, res) {
       res.status(200).end();
     });
   });
-}
+}*/

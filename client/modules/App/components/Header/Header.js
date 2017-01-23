@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Button from 'grommet/components/Button';
+import logo from './Logo_single.jpg';
 
 // Import Style
 import styles from './Header.css';
@@ -47,7 +48,7 @@ export function Header(props, context) {
     <div className={styles.header}>
       <div className={styles['language-switcher']}>
         <h1 className={styles['site-title']}>
-          <Link to="/" ><FormattedMessage id="Logo" /></Link>
+          <Link to="/" ><img src={logo} className={styles.logo} /></Link>
         </h1>
         <ul>
 
