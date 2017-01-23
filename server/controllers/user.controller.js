@@ -186,7 +186,7 @@ export function changeUser(req, res) {
  * @returns void
  */
 export function deleteUser(req, res) {
-  User.findOne({ cuid: req.params.cuid }).exec((err, User) => {
+  models.User.findOne({ cuid: req.params.cuid }).exec((err, User) => {
     if (err) {
       res.status(500).send(err);
     }

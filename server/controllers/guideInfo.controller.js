@@ -43,7 +43,7 @@ export function addGuideInfo(req, res) {
 
 
     models.GuideInfo.create({...newGuideInfo}).then(guideInfo => {
-      res.json({ GuideInfo: guideInfo });
+      res.json({ guideInfo: guideInfo });
     }).catch(err => {
         res.status(500).send(err);
     });
