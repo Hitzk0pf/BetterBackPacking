@@ -6,6 +6,7 @@ import LoginForm from 'grommet/components/LoginForm';
 import SocialFacebook from 'grommet/components/icons/base/SocialFacebook';
 import Button from 'grommet/components/Button';
 import Box from 'grommet/components/Box';
+import Notification from 'grommet/components/Notification';
 import styles from './Login.css';
 
 import {loginRequest} from '../../UserActions';
@@ -25,9 +26,13 @@ export class LoginPage extends Component {
 
         if (this.props.attemptedLogin) {
             if(this.props.loginSuccess) {
-                message = "OK";
+                message = <Notification message="Awesome!"
+                                     state="You're now logged in."
+                                     status="ok" />
             } else {
-                message = "ERROR";
+                message = <Notification message="Wrong username or password!"
+                                     state="Login failed"
+                                     status="error" />
             }
         }
 
@@ -37,12 +42,11 @@ export class LoginPage extends Component {
                 <Helmet title={"Login"}/>
 
                 <div className={styles.wrapper}>
+                  <Box className={styles.buttonBox} pad='medium' basis="full" align="start">
+                    {message}
+                  </Box>
 
                     <LoginForm className={styles.loginForm} onSubmit={(user) => submit(user)}/>
-
-                    <div>
-                        {message}
-                    </div>
 
                     <Box className={styles.buttonBox} pad='medium' basis="full" align="start">
                         <Button className={styles.button} icon={<SocialFacebook />}
@@ -54,7 +58,7 @@ export class LoginPage extends Component {
                 </div>
 
         </div>
-    ); 
+    );
     }
 
 }

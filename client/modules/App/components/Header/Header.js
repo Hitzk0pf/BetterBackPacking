@@ -37,7 +37,7 @@ export function Header(props, context) {
     loginButtons = (
       <div style={{display: 'inline'}}>
           <li>
-            <Button onClick={this.props.logoutUser} />
+            <Button label='Logout' primary onClick={props.logoutUser} href="/"/>
           </li>
       </div>
     )
@@ -52,12 +52,13 @@ export function Header(props, context) {
         </h1>
         <ul>
 
-          {loginButtons}
 
 
           {initialPageWizard}
 
           {props.avatar ? <img style={{borderRadius: '50%', width: '2.5rem', height: '2.5rem'}}src={props.avatar}></img> : ""}
+          
+          {loginButtons}
 
         </ul>
       </div>

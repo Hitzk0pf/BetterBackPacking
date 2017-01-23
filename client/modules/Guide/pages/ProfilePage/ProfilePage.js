@@ -43,7 +43,7 @@ export class ProfilePage extends Component {
                     <Box direction="row">
                         <Box basis="1/3" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small" pad="medium" align="center" justify="center">
                             <Box basis="3/4" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} colorIndex="neutral-1">
-                                ProfilePic
+                                <img src={this.props.avatar} style={{height: '18rem', width: '18rem', borderRadius: '50%'}}></img>
                             </Box>
                             <Box basis="1/4" direction="row" size={{"width": {"min": "medium"}}} pad="medium" align="center" justify="center">
                                 <StarIcon size="large" colorIndex="accent-2"/>
@@ -52,7 +52,7 @@ export class ProfilePage extends Component {
                                 <StarHalfIcon size="large" colorIndex="accent-2"/>
                             </Box>
                         </Box>
-                        <Box basis="2/3" size={{"height": {"min": "medium"}}}> 
+                        <Box basis="2/3" size={{"height": {"min": "medium"}}}>
                             <Box basis="1/4" margin="small" align="start" justify="center" separator="bottom">
                                 <Heading>Daryl Dixon</Heading>
                             </Box>
@@ -370,7 +370,7 @@ export class ProfilePage extends Component {
                                         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
                                     </Box>
                                 </Box>
-                            </Box> 
+                            </Box>
                         </Columns>
                         <Box direction="row" size={{"width": "xlarge"}} colorIndex="light-2">
                             <Box basis="1/4" colorIndex="brand">
@@ -412,7 +412,9 @@ export class ProfilePage extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = (store) => {
-    return {};
+    return {
+      avatar: store.user.avatar,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
