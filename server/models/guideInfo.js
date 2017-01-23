@@ -49,7 +49,7 @@ const GuideInfoModel = (sequelize, Sequelize) => {
   //       userCuid: '123'
   //     });
   //   });
-
+  
   return GuideInfo;
 }
 
