@@ -1,5 +1,6 @@
 var bcrypt = require('bcrypt');
 var cuid = require('cuid');
+import models from '../models/index';
 
 const UserModel = (sequelize, Sequelize) => {
     const User = sequelize.define('user', {
@@ -107,17 +108,48 @@ const UserModel = (sequelize, Sequelize) => {
 
     User.sync({force: true}).then(function () {
         // Table created, add a test user when the server starts
-        return User.create({
-            cuid: cuid(),
-            firstname: 'John',
-            lastname: 'Hancock',
-            email: 'hancock@gmail.com',
-            password: 'plain1234',
-            password_confirmation: 'plain1234',
-            avatar: 'MTIz',
-            birthdate: new Date(1980, 6, 20),
-            isGuide: true
-        });
+
+
+    const newUser = {};
+
+    //only pick wanted attributes
+    newUser.cuid = cuid();
+    newUser.firstname = 'Max';
+    newUser.lastname = 'Muser';
+    newUser.email = 'max.muster@gmail.com';
+    newUser.password = 'plain1234';
+    newUser.password_confirmation = 'plain1234';
+    newUser.avatar = null;
+    newUser.birthdate = new Date(1980, 6, 20);
+    newUser.isGuide = true;
+
+    models.User.create({...newUser});
+
+
+    newUser.cuid = cuid();
+    newUser.firstname = 'John';
+    newUser.lastname = 'Hancock';
+    newUser.email = 'hancock@gmail.com';
+    newUser.password = 'plain1234';
+    newUser.password_confirmation = 'plain1234';
+    newUser.avatar = null;
+    newUser.birthdate = new Date(1920, 6, 20);
+    newUser.isGuide = true;
+
+    models.User.create({...newUser});
+
+    newUser.cuid = cuid();
+    newUser.firstname = 'Hai';
+    newUser.lastname = 'Dang';
+    newUser.email = 'schwuchtel@gmail.com';
+    newUser.password = 'plain1234';
+    newUser.password_confirmation = 'plain1234';
+    newUser.avatar = null;
+    newUser.birthdate = new Date(1990, 6, 20);
+    newUser.isGuide = true;
+
+    models.User.create({...newUser});
+
     });
 
     return User;
