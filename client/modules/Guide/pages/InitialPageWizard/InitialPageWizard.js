@@ -16,7 +16,7 @@ import FormFields from 'grommet/components/FormFields';
 import TextInput from 'grommet/components/TextInput';
 import Header from 'grommet/components/Header';
 import AvatarCropper from '../../../User/components/AvatarCropper'
-import { editUser } from '../../../User/UserActions'
+import { addGuideInfo, editUser } from '../../../User/UserActions'
 
 export class UploadProfilePicture extends Component {
 
@@ -59,8 +59,11 @@ export class UploadProfilePicture extends Component {
         const guideInfo = {
           description,
           characterTraits,
-          characterTraitDescription
+          characterTraitDescription,
+          userCuid: this.props.user.user.cuid
         }
+
+        this.props.addGuideInfo(guideInfo)
 
       }
     }
@@ -244,6 +247,9 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        addGuideInfo: (guideInfo) => {
+            dispatch(addGuideInfo(guideInfo));
+        },
         addAvatar: (user) => {
             dispatch(editUser(user));
         }

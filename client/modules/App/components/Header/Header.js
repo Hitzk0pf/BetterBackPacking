@@ -10,6 +10,7 @@ export function Header(props, context) {
     lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>
   );
 
+
   return (
     <div className={styles.header}>
       <div className={styles['language-switcher']}>
@@ -17,6 +18,16 @@ export function Header(props, context) {
           <Link to="/" ><FormattedMessage id="Logo" /></Link>
         </h1>
         <ul>
+          <li>
+            <Link to="/login" >Login</Link>
+          </li>
+
+          <li>
+            <Link to="/register" >Register</Link>
+          </li>
+
+          {props.avatar ? <img style={{borderRadius: '50%', width: '2.5rem', height: '2.5rem'}}src={props.avatar}></img> : ""}
+
           <li><FormattedMessage id="switchLanguage" /></li>
           {languageNodes}
         </ul>
