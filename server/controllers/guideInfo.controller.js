@@ -39,6 +39,8 @@ export function addGuideInfo(req, res) {
     newGuideInfo.description = requestGuideInfo.description;
     newGuideInfo.characterTraits = requestGuideInfo.characterTraits;
     newGuideInfo.characterTraitDescription = requestGuideInfo.characterTraitDescription;
+    newGuideInfo.userCuid = requestGuideInfo.userCuid;
+
 
     models.GuideInfo.create({...newGuideInfo}).then(guideInfo => {
       res.json({ GuideInfo: guideInfo });
@@ -55,8 +57,7 @@ export function addGuideInfo(req, res) {
  * @returns void
  */
 export function getGuideInfo(req, res) {
-
-  models.GuideInfo.findOne({ where: {cuid: req.params.cuid} }).then((guideInfo) => {
+  models.GuideInfo.findOne({ where: {userCuid: req.params.cuid} }).then((guideInfo) => {
     if(guideInfo) {
       res.json({guideInfo});
     } else {
@@ -74,7 +75,7 @@ export function getGuideInfo(req, res) {
  */
 export function deleteGuideInfo(req, res) {
 
-  models.GuideInfo.findOne({ where: {cuid: req.params.cuid} }).then((guideInfo) => {
+  models.GuideInfo.findOne({ where: {userCuid: req.params.cuid} }).then((guideInfo) => {
     if(guideInfo) {
       guideInfo.destroy();
       res.status(200).end();
@@ -94,7 +95,7 @@ export function deleteGuideInfo(req, res) {
  * @returns void
  */
 export function changeGuideInfo(req, res) {
-  models.GuideInfo.findOne({ where: {cuid: req.params.cuid} }).then((guideInfo) => {
+  models.GuideInfo.findOne({ where: {userCuid: req.params.cuid} }).then((guideInfo) => {
     if(guideInfo) {
       const requestGuideInfo = req.body.guideInfo;
 
