@@ -37,13 +37,16 @@ const GuideInfoModel = (sequelize, Sequelize) => {
   	freezeTableName: true,
     });
 
-  /*GuideInfo.sync({force: true}).then(function () {
-    // Testtour at serverstart
-    return Tour.create({
-      cuid: cuid(),
-      description: 'I am so and so old...',
-    });
-  });*/
+  // GuideInfo.sync({force: true}).then(function () {
+  //     // Testtour at serverstart
+  //     return GuideInfo.create({
+  //       cuid: cuid(),
+  //       description: 'I am so and so old...',
+  //       characterTraits: ['Adventurous', 'Open-Minded', 'Funny'],
+  //       characterTraitDescription: ['I love adventures!', 'I think Open-Minded.', 'I am the funniest guy you will ever meet.'],
+  //       userCuid: '123'
+  //     });
+  //   });
 
   return GuideInfo;
 }

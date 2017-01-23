@@ -28,6 +28,13 @@ export class UploadProfilePicture extends Component {
           hasAvatar: false,
           submitPressed: false,
           hideDropzone: false,
+          description: "",
+          ct1: "",
+          ct2: "",
+          ct3: "",
+          ct1Description: "",
+          ct2Description: "",
+          ct3Description: "",
         };
     }
 
@@ -38,6 +45,24 @@ export class UploadProfilePicture extends Component {
 
     cancelAvatar = () => {
       this.setState({avatar: null, hideDropzone: false, submitPressed: false})
+    }
+
+    handleSubmit = () => {
+      const { description, ct1, ct2, ct3, ct1Description, ct2Description, ct3Description } = this.state
+
+      if ( !description && !ct1 && !ct2 && !ct3 && !ct1Description && !ct2Description && !ct3Description ) {
+        let characterTraits = []
+
+        characterTraits.push(ct1, ct2, ct3)
+        characterTraitDescription.push(ct1, ct2, ct3)
+
+        const guideInfo = {
+          description,
+          characterTraits,
+          characterTraitDescription
+        }
+
+      }
     }
 
     render() {
@@ -124,7 +149,9 @@ export class UploadProfilePicture extends Component {
                     <textarea
                     name="aboutMe"
                     cols="40"
+                    value={this.state.description}
                     placeholder="Introduce yourself!"
+                    onChange={(event) => this.setState({description: event.target.value})}
                     rows="5"></textarea>
                   </FormField>
 
@@ -134,11 +161,12 @@ export class UploadProfilePicture extends Component {
                   </Heading>
                 </Header>
                   <FormField label='First character trait'>
-                    <TextInput name="ct1" placeholder="e.g. Adventurous, Open Minded, Sporty.." />
+                    <TextInput name="ct1" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(ct1) => this.setState({ct1: event.target.value})} />
                   </FormField>
                   <FormField label='Describe this character trait'>
                     <textarea
                     name="ct1Description"
+                    onChange={(event) => this.setState({ct1Description: event.target.value})}
                     cols="40"
                     placeholder="e.g. If you like adventures, I'm your type of guide. Caves, suspension bridges - you name it... "
                     rows="5"></textarea>
@@ -148,11 +176,12 @@ export class UploadProfilePicture extends Component {
                   </Header>
 
                   <FormField label='Second character trait'>
-                    <TextInput name="ct2" placeholder="e.g. Adventurous, Open Minded, Sporty.." />
+                    <TextInput name="ct2" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(ct2) => this.setState({ct2: event.target.value})} />
                   </FormField>
                   <FormField label="Describe this character trait">
                     <textarea
                     name="ct2Description"
+                    onChange={(event) => this.setState({ct2Description: event.target.value})}
                     cols="40"
                     placeholder="e.g. If you like adventures, I'm your type of guide. Caves, suspension bridges - you name it... "
                     rows="5"></textarea>
@@ -162,22 +191,23 @@ export class UploadProfilePicture extends Component {
                   </Header>
 
                   <FormField label='Third character trait'>
-                    <TextInput name="ct3" placeholder="e.g. Adventurous, Open Minded, Sporty.." />
+                    <TextInput name="ct3" placeholder="e.g. Adventurous, Open Minded, Sporty.." onDOMChange={(ct3) => this.setState({ct3: event.target.value})} />
                   </FormField>
                   <FormField label="Describe this character trait">
                     <textarea
                     name="ct3Description"
+                    onChange={(event) => this.setState({ct3Description: event.target.value})}
                     cols="40"
                     placeholder="e.g. If you like adventures, I'm your type of guide. Caves, suspension bridges - you name it... "
                     rows="5"></textarea>
                   </FormField>
-                <Footer pad={{"vertical": "medium"}}>
-                  <Button label='Submit'
-                    type='submit'
-                    primary={true}
-                    onClick={() => console.log('pressed submit')} />
-                </Footer>
               </Form>
+              <Footer pad={{"vertical": "medium"}}>
+                <Button label='Submit'
+                  type='submit'
+                  primary={true}
+                  onClick={this.handleSubmit} />
+              </Footer>
             </div>
           )
 

@@ -105,20 +105,21 @@ const UserModel = (sequelize, Sequelize) => {
             return callback(null, options);
     });
 
-    User.sync({force: true}).then(function () {
-        // Table created, add a test user when the server starts
-        return User.create({
-            cuid: cuid(),
-            firstname: 'John',
-            lastname: 'Hancock',
-            email: 'hancock@gmail.com',
-            password: 'plain1234',
-            password_confirmation: 'plain1234',
-            avatar: 'MTIz',
-            birthdate: new Date(1980, 6, 20),
-            isGuide: true
-        });
-    });
+  // User.sync({force: true}).then(function () {
+  //     // Table created, add a test user when the server starts
+  //     return User.create({
+  //         //cuid: cuid(),
+  //         cuid: '123',
+  //         firstname: 'John',
+  //         lastname: 'Hancock',
+  //         email: 'hancock@gmail.com',
+  //         password: 'plain1234',
+  //         password_confirmation: 'plain1234',
+  //         avatar: null,
+  //         birthdate: new Date(1980, 6, 20),
+  //         isGuide: true
+  //     });
+  // });
 
     return User;
 }

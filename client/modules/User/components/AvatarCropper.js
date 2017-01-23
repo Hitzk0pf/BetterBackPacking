@@ -51,9 +51,7 @@ export class AvatarCropper extends Component {
                                     state={this.state.error}
                                     status="critical" />
         } else if(this.state.notification) {
-          mainNotification = <Notification message="Hurray!"
-                                    state={this.state.notification}
-                                    status="ok" />
+          mainNotification = ""
         }
 
         const onDrop = (acceptedFiles, rejectedFiles) => {
