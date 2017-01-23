@@ -21,6 +21,8 @@ var Tour = sequelize.import('./tour.js');
 var Group = sequelize.import('./group.js');
 var GuideInfo = sequelize.import('./guideInfo.js');
 
+GuideInfo.belongsTo(User);
+
 var db   = {
 	User,
 	Tour,
