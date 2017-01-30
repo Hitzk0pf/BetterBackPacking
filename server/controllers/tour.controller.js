@@ -28,9 +28,9 @@ export function getTours(req, res) {
  * @returns void
  */
 export function addTour(req, res) {
-  if (!req.body.tour.description || !req.body.tour.location || !req.body.tour.duration || !req.body.tour.price || !req.body.tour.lenght
-    || !req.body.tour.extra|| !req.body.tour.standard|| !req.body.tour.food|| !req.body.tour.accommodation|| !req.body.tour.fitnessLevel
-    || !req.body.tour.teamSize|| !req.body.tour.sanitary|| !req.body.tour.electricity|| !req.body.tour.transportation) {
+  if (!req.body.tour.description || !req.body.tour.area || !req.body.tour.duration || !req.body.tour.price || !req.body.tour.lenght
+    || !req.body.tour.extra|| !req.body.tour.standard|| !req.body.tour.food|| !req.body.tour.accommodation|| !req.body.tour.difficulty
+    || !req.body.tour.teamSize|| !req.body.tour.sanitary|| !req.body.tour.electricity|| !req.body.tour.transportation || !req.body.tour.tourStyle) {
     res.status(403).end();
   }
   else
@@ -41,7 +41,7 @@ export function addTour(req, res) {
     //only pick wanted attributes
     newTour.cuid = cuid();
     newTour.description = requestTour.description;
-    newTour.location = requestTour.location;
+    newTour.area = requestTour.area;
     newTour.duration = requestTour.duration;
     newTour.price = requestTour.price;
     newTour.lenght = requestTour.lenght;
@@ -49,14 +49,15 @@ export function addTour(req, res) {
     newTour.standard = requestTour.standard;
     newTour.food = requestTour.food;
     newTour.accommodation = requestTour.accommodation;
-    newTour.fitnessLevel = requestTour.fitnessLevel;
+    newTour.difficulty = requestTour.difficulty;
     newTour.teamSize = requestTour.teamSize;
     newTour.sanitary = requestTour.sanitary;
     newTour.electricity = requestTour.electricity;
     newTour.transportation = requestTour.transportation;
+    newTour.tourStyle = requestTour.tourStyle;
 
     models.Tour.create({...newTour}).then(tour => {
-      res.json({ Tour: tour });
+      res.json({ tour: tour });
     }).catch(err => {
         res.status(500).send(err);
     });
@@ -115,7 +116,7 @@ export function changeTour(req, res) {
 
      tour.update({
       description: requestTour.description,
-      location: requestTour.location,
+      area: requestTour.area,
       duration: requestTour.duration,
       price: requestTour.price,
       lenght: requestTour.lenght,
@@ -123,11 +124,13 @@ export function changeTour(req, res) {
       standard: requestTour.standard,
       food: requestTour.food,
       accommodation: requestTour.accommodation,
-      fitnessLevel: requestTour.fitnessLevel,
+      difficulty: requestTour.difficulty,
       teamSize: requestTour.teamSize,
       sanitary: requestTour.sanitary,
       electricity: requestTour.electricity,
       transportation: requestTour.transportation,
+      tourStyle: requestTour.tourStyle,
+
 })
 res.status(200).end();
 
