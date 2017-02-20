@@ -178,6 +178,13 @@ export function changeUser(req, res) {
     }
 
 
+/**
+ * Delete a User
+ * @param req
+ * @param res
+ * @returns void
+ */
+
 export function deleteUser(req, res) {
 
   models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
@@ -190,21 +197,4 @@ export function deleteUser(req, res) {
   }).catch(err => res.status(500).send(err));
 
 }
-/**
- * Delete a User
- * @param req
- * @param res
- * @returns void
- */
- /*
-export function deleteUser(req, res) {
-  models.User.findOne({ cuid: req.params.cuid }).exec((err, User) => {
-    if (err) {
-      res.status(500).send(err);
-    }
 
-    User.remove(() => {
-      res.status(200).end();
-    });
-  });
-}*/
