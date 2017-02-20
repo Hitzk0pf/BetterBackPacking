@@ -101,7 +101,13 @@ export function deleteTour(req, res) {
 
 }
 
+export function searchTours(req, res) {
+    models.Tour.findAll().then((tours) => {
+        res.json(tours);
+    }).catch((err) => {
 
+    });
+}
 
 /**
  * Change a Tour

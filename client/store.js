@@ -5,11 +5,18 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import DevTools from './modules/App/components/DevTools';
 import rootReducer from './reducers';
+import createSocketIoMiddleware from 'redux-socket.io';
+import io from 'socket.io-client';
 
 export function configureStore(initialState = {}) {
+  let socket = io('http://localhost:3000');
+  let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
+
+
   // Middleware and store enhancers
   const enhancers = [
     applyMiddleware(thunk),
+    applyMiddleware(socketIoMiddleware)
   ];
 
   if (process.env.CLIENT && process.env.NODE_ENV === 'development') {

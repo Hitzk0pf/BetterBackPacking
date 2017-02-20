@@ -24,6 +24,7 @@ export class App extends Component {
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
     this.props.dispatch(authUser());
+    this.props.dispatch({ type: 'server/hello', data: 'Hello!' });
   }
 
   toggleAddPostSection = () => {
