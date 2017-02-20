@@ -8,6 +8,8 @@ import App from './App';
 import { configureStore } from './store';
 //import 'grommet/scss/vanilla/index.scss'; we're going to compile this manually, no need for webpack to do that for us
 import 'grommet/grommet-aruba.min.css';
+import 'toastr/build/toastr.css'
+import 'jquery/dist/jquery.min.js'
 
 // Initialize store
 const store = configureStore(window.__INITIAL_STATE__);

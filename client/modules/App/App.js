@@ -57,7 +57,7 @@ export class App extends Component {
             avatar={this.props.user.avatar}
             isGuide={this.props.user.user ? this.props.user.user.isGuide : null}
             isLoggedIn={this.props.user.loggedIn}
-            logoutUser={this.props.logoutUser}
+            logoutUser={() => this.props.dispatch(logoutUser())}
           />
           <div className={styles.container}>
             {this.props.children}
@@ -82,13 +82,5 @@ function mapStateToProps(store) {
     user: store.user,
   };
 }
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        logoutUser: () => {
-            dispatch(logoutUser());
-        }
-    }
-};
 
 export default connect(mapStateToProps)(App);

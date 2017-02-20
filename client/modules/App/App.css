@@ -1,3 +1,15 @@
+input {
+  outline: none;
+}
+
+.toast {
+  opacity: 1 !important;
+}
+
+#toast-container > div {
+  opacity: 1 !important;
+}
+
 .container {
   max-width: 980px;
   width: 100%;

@@ -46,7 +46,7 @@ export class LoginPage extends Component {
                   <Box className={styles.buttonBox} pad='medium' basis="full" align="start">
                   </Box>
 
-                    <LoginForm className={styles.loginForm} onSubmit={(user) => submit(user)}/>
+                    <LoginForm className={styles.loginForm} style={{outline: 'none'}} onSubmit={(user) => submit(user)}/>
 
                     <Box className={styles.buttonBox} pad='medium' basis="full" align="start">
                         <Button className={styles.button} icon={<SocialFacebook />}

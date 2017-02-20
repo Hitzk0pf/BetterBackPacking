@@ -74,7 +74,8 @@
     "sanitize-html": "^1.11.4",
     "sass-loader": "^4.0.2",
     "sequelize": "^3.24.8",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "toastr": "^2.1.2"
   },
   "devDependencies": {
     "ava": "^0.15.2",

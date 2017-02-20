@@ -12,32 +12,36 @@ export function Header(props, context) {
     lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>
   );
 
-  let initialPageWizard = ""
-  let loginButtons = ""
+  let initialPageWizard = "";
+  let loginButtons = "";
+  let avatar = "";
 
-  if(props.isGuide) {
-    initialPageWizard = (
-      <li>
-        <Button label='Edit my Page' primary path="/initialPageWizard"/>
-      </li>
-    )
-  }
-  if(!props.isLoggedIn) {
+  if (!props.isLoggedIn) {
     loginButtons = (
       <div style={{display: 'inline'}}>
           <li>
             <Button label='Login' primary path="/login"/>
           </li>
           <li>
-            <Button label='Register' primary onClick={props.logoutUser} path="/register" />
+            <Button label='Register' primary path="/register" />
           </li>
       </div>
     )
   } else {
+    avatar = props.avatar;
+    if (props.isGuide) {
+      initialPageWizard = (
+        <li>
+          <Button label="Edit my Page" primary path="/initialPageWizard" />
+        </li>
+      )
+    }
     loginButtons = (
       <div style={{display: 'inline'}}>
           <li>
-            <Button label='Logout' primary onClick={props.logoutUser} path="/"/>
+            <Button label='Logout' primary onClick={() => {
+              props.logoutUser();
+            }} path="/"/>
           </li>
       </div>
     )
@@ -52,9 +56,13 @@ export function Header(props, context) {
         </h1>
         <ul>
 
+          <li>
+            <Button label="Search Tours" primary path="/search" />
+          </li>
+
           {initialPageWizard}
 
-          {props.avatar ? <img style={{borderRadius: '50%', width: '2.5rem', height: '2.5rem'}}src={props.avatar}></img> : ""}
+          {avatar ? <img style={{borderRadius: '50%', width: '2.5rem', height: '2.5rem'}}src={props.avatar}></img> : ""}
 
           {loginButtons}
 

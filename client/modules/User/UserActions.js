@@ -1,6 +1,7 @@
 import callApi from '../../util/apiCaller';
 import cookie from 'react-cookie';
 import {Router, browserHistory} from 'react-router';
+import toastr from 'toastr';
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
@@ -23,7 +24,7 @@ export function checkAddUser(user) {
         dispatch(addUserFinished());
       }
     } else {
-      dispatch(addUserError());
+      dispatch(addUserErroprops.r());
     }
   }
 }
@@ -58,8 +59,11 @@ export function loginRequest(user) {
 
             if(!res.loginSuccess) {
                 dispatch(loginFailed());
+                toastr.error("Invalid username and password");
             } else {
                 dispatch(loginSuccess(res.token));
+                toastr.success("Login successful");
+                browserHistory.push('/dashboard');
             }
 
         });
@@ -117,6 +121,7 @@ export function logoutUser() {
   //remove localStorage entry with JWT token
   //cookie.remove('token', { path: '/' });
   localStorage.removeItem('token')
+  toastr.success('You\'re now logged out. Bye!')
 
   return {
     type: LOGOUT_USER,
