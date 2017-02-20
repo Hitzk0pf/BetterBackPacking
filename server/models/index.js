@@ -22,6 +22,7 @@ var User = sequelize.import('./user.js');
 var Tour = sequelize.import('./tour.js');
 var Group = sequelize.import('./group.js');
 var GuideInfo = sequelize.import('./guideInfo.js');
+var Channel = sequelize.import('./channel.js');
 
   User.sync({force: true}).then(function () {
       // Table created, add a test user when the server starts

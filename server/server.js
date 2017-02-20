@@ -1,8 +1,8 @@
 import Express from 'express';
 import compression from 'compression';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-var Sequelize = require('sequelize');
+let Sequelize = require('sequelize');
 import path from 'path';
 import IntlWrapper from '../client/modules/Intl/IntlWrapper';
 
@@ -33,17 +33,16 @@ import Helmet from 'react-helmet';
 // Import required modules
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
-import posts from './routes/post.routes';
 import users from './routes/user.routes';
 import tours from './routes/tour.routes';
 import guideInfos from './routes/guideInfo.routes';
 import authRoutes from './routes/auth.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
-var passport = require('passport');
+let passport = require('passport');
 
 // Set native promises as mongoose promise
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 // Sequelize and (still) MongoDB Connection
 
@@ -54,15 +53,15 @@ mongoose.Promise = global.Promise;
 //	  console.log("USERS: ", users);
 //})
 
-mongoose.connect(serverConfig.mongoURL, (error) => {
-  if (error) {
-    console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
-    throw error;
-  }
-
-  // feed some dummy data in DB.
-  dummyData();
-});
+// mongoose.connect(serverConfig.mongoURL, (error) => {
+//   if (error) {
+//     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
+//     throw error;
+//   }
+//
+//   // feed some dummy data in DB.
+//   dummyData();
+// });
 
 // Apply body Parser and server public assets and routes
 app.use(compression());
@@ -70,11 +69,11 @@ app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
 
-//initialize passport
+// initialize passport
 app.use(passport.initialize());
 require('./auth/auth.js')(passport);
 
-//app.use('/api', posts);
+// app.use('/api', posts);
 app.use('/api', users);
 app.use('/api', tours);
 app.use('/api', guideInfos);
