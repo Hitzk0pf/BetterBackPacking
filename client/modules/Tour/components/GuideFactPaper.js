@@ -31,7 +31,7 @@ export class GuideFactPaper extends Component {
                     </Box>
                     <Box direction="column" basis="3/4" textAlign="left">
                         <Box direction="row">
-                            <Heading tag="h4" strong="true">
+                            <Heading tag="h4" strong={true}>
                                 Max Muster
                             </Heading>
                         </Box>

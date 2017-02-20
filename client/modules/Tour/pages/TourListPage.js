@@ -57,7 +57,7 @@ export class TourSearchPage extends Component {
 // Retrieve data from store as props
 const mapStateToProps = (store) => {
     return {
-    
+
     };
 };
 
