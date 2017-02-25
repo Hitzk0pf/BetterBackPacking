@@ -16,26 +16,31 @@ import CheckBox from 'grommet/components/CheckBox';
 import AvatarCropper from '../../components/AvatarCropper';
 import styles from './RegisterPage.css';
 import {Router, browserHistory} from 'react-router';
+import Avatar from 'react-avatar';
 
 export class RegisterPage extends Component {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+      super(props);
 
-        this.state = {
-            firstname: "",
-            lastname: "",
-            email: "",
-            password: "",
-            passwordRepeat: "",
-            birthDay: "",
-            birthMonth: "",
-            birthYear: "",
-            isGuide: "",
-            avatar: null
-        };
+      this.state = {
+          firstname: "",
+          lastname: "",
+          email: "",
+          password: "",
+          passwordRepeat: "",
+          birthDay: "",
+          birthMonth: "",
+          birthYear: "",
+          isGuide: "",
+          avatar: null,
+      };
 
-    }
+  }
+
+  setAvatar(avatar) {
+    // this.setState({ avatar });
+  }
 
     render() {
 
@@ -58,6 +63,24 @@ export class RegisterPage extends Component {
           this.props.addUser(user)
           browserHistory.push("/login")
         };
+
+        let avatarUpload = (
+            <div style={{margin: 'auto', textAlign: 'center'}}>
+              <Heading strong={true}
+                align='center'
+                margin='medium'>
+                You look great!
+              </Heading>
+              <div>
+                <Avatar src={this.state.avatar} round="true" size={300}/>
+              </div>
+              <div style={{margin: 'auto',  paddingTop: 20}}>
+                <div style={{margin: 'auto',  padding: 5, display: 'inline'}}>
+                  <Button label="Change Avatar" onClick={() => this.setState({ avatar: null })} />
+                </div>
+              </div>
+            </div>
+        );
 
         const handleChange = (event) => {
 
@@ -178,7 +201,7 @@ export class RegisterPage extends Component {
                         </FormFields>
 
                         <div className={styles.avatarCropper}>
-                            <AvatarCropper saveImage={(avatar) => this.setState({ avatar })} />
+                            {this.state.avatar ? avatarUpload : <AvatarCropper saveImage={(avatar) => this.setState({ avatar })} />}
                         </div>
 
                         <Footer pad={{"vertical": "medium"}}>

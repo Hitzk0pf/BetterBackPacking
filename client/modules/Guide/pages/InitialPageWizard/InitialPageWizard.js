@@ -58,7 +58,7 @@ export class UploadProfilePicture extends Component {
         let characterTraitDescription = []
 
         characterTraits.push(ct1, ct2, ct3)
-        characterTraitDescription.push(ct1, ct2, ct3)
+        characterTraitDescription.push(ct1Description, ct2Description, ct3Description)
 
         const guideInfo = {
           description,

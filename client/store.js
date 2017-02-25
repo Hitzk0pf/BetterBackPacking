@@ -9,14 +9,14 @@ import createSocketIoMiddleware from 'redux-socket.io';
 import io from 'socket.io-client';
 
 export function configureStore(initialState = {}) {
-  let socket = io('http://localhost:3000');
-  let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
+  const socket = io('http://localhost:3000');
+  const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
 
   // Middleware and store enhancers
   const enhancers = [
     applyMiddleware(thunk),
-    applyMiddleware(socketIoMiddleware)
+    applyMiddleware(socketIoMiddleware),
   ];
 
   if (process.env.CLIENT && process.env.NODE_ENV === 'development') {

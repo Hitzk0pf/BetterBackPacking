@@ -6,7 +6,7 @@ import colors from 'colors';
 /**
  * Get all GuideInfos
  * @param req
- * @param res 
+ * @param res
  * @returns void
  */
 export function getGuideInfos(req, res) {
@@ -50,6 +50,29 @@ export function addGuideInfo(req, res) {
   }
 }
 
+function getUserInfo(userCuid, cb, res) {
+  models.User.findOne({ where: { cuid: userCuid } }).then((user) => {
+    if (user) {
+      let avatar = '';
+      if (user.avatar) {
+        avatar = user.avatar.toString();
+      }
+      const { firstname, lastname, isGuide, birthdate, facebook_id } = user;
+      const info = {
+        firstname,
+        lastname,
+        isGuide,
+        avatar,
+        birthdate,
+        facebookId: facebook_id,
+      };
+      cb(info, res);
+    }
+  }).catch((err) => {
+    console.log('error', err)
+    return { err };
+  });
+}
 /**
  * Get a GuideInfo
  * @param req
@@ -57,15 +80,21 @@ export function addGuideInfo(req, res) {
  * @returns void
  */
 export function getGuideInfo(req, res) {
-  models.GuideInfo.findOne({ where: {userCuid: req.params.cuid} }).then((guideInfo) => {
-    if(guideInfo) {
-      res.json({guideInfo});
+  models.GuideInfo.findOne({ where: { userCuid: req.params.cuid } }).then((guideInfo) => {
+    console.log('INFOOO:', guideInfo);
+    if (guideInfo) {
+      const cb = (userInfo, response) => {
+        const info = Object.assign({}, userInfo, guideInfo.dataValues);
+        console.log('info', info)
+        response.json({ guideInfo: info });
+      }
+      getUserInfo(req.params.cuid, cb, res);
     } else {
       res.status(404).send();
     }
   }).catch(err => res.status(500).send(err));
-
 }
+
 
 /**
  * Delete a GuideInfo

@@ -24,7 +24,6 @@ export class App extends Component {
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
     this.props.dispatch(authUser());
-    this.props.dispatch({ type: 'server/hello', data: 'Hello!' });
   }
 
   toggleAddPostSection = () => {
@@ -58,7 +57,9 @@ export class App extends Component {
             avatar={this.props.user.avatar}
             isGuide={this.props.user.user ? this.props.user.user.isGuide : null}
             isLoggedIn={this.props.user.loggedIn}
+            cuid={this.props.user.user ? this.props.user.user.cuid : null}
             logoutUser={() => this.props.dispatch(logoutUser())}
+            chat={() => this.props.dispatch({ type: 'server/hello', data: 'Hello!' })}
           />
           <div className={styles.container}>
             {this.props.children}
