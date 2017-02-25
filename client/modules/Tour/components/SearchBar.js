@@ -36,10 +36,10 @@ export class SearchBar extends Component {
 
                 <Box direction="row">
                     <Box direction="row" margin="small">
-                        <Select placeHolder='Search' 
+                        <Select placeholder='Area' 
                         multiple={false} 
                         inline={false} 
-                        options={['AUSTRIA', 'RUSSIA', 'CURRY']}
+                        options={['Northern India', 'RUSSIA', 'CURRY']}
                         onChange={(selection) => {
                             console.log("mystate:", this.state)
                             this.setState({area: selection.value})
@@ -47,18 +47,26 @@ export class SearchBar extends Component {
                         value={this.state.area} />
                     </Box>
                     <Box direction="row" margin="small">
-                        <Select placeholder='Search' 
+                        <Select placeholder='Tourstyle' 
                         multiple={false} 
                         inline={false} 
-                        options={['BERLIN', 'RUSSIA', 'three']}
-                        value={undefined} />
+                        options={['Camping', 'City', 'three']}
+                        onChange={(selection) => {
+                            console.log("mystate:", this.state)
+                            this.setState({tourstyle: selection.value})
+                        }}
+                        value={this.state.tourstyle} />
                     </Box>
                     <Box direction="row" margin="small">
-                        <Select placeHolder='Search' 
+                        <Select placeholder='Difficulty' 
                         multiple={false} 
                         inline={false} 
-                        options={['EASY', 'GIRL', 'COWARD']}
-                        value={undefined} />
+                        options={['one', 'two', 'three']}
+                        onChange={(selection) => {
+                            console.log("mystate:", this.state)
+                            this.setState({difficulty: selection.value})
+                        }}
+                        value={this.state.difficulty} />
                     </Box>
                     <Box direction="row" margin="small">
                         <Button icon={<SearchIcon />} label='Search!' onClick={() => this.props.searchTour(this.state.area, this.state.tourstyle, this.state.difficulty)} primary={true} secondary={false} accent={false} plain={false} type='submit' 

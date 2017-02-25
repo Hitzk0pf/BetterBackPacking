@@ -25,6 +25,8 @@ export class TourSearchPage extends Component {
 
         };
 
+        this.props.name
+
         return (
             <div style={{textAlign: "center"}}>
 
@@ -57,7 +59,11 @@ export class TourSearchPage extends Component {
 // Retrieve data from store as props
 const mapStateToProps = (store) => {
     return {
+<<<<<<< HEAD
+        name: store.activeChannel.name
+=======
 
+>>>>>>> 324831a1da8984db31619324e8cedb87c816fa2a
     };
 };
 
