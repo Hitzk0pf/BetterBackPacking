@@ -40,11 +40,18 @@ export function searchTourStarted() {
   };
 }
 
-export function searchTour(area, tourstyle, difficulty) {
+export function searchTour(limit, date, area, tourstyle, difficulty) {
   return (dispatch) => {
     dispatch(searchTourStarted())
+    let timestamp = + new Date();
+    if (date) {
+      // if initial loading, reset tour data in redux store
+      timestamp = + new Date(date);
+    } else {
+      // dispatch(resetSearchTourPayload());
+    }
     // TODO: implement backend for searchTours
-    return callApi(`guideInfos/${cuid}`, 'get').then(res => dispatch(searchTourResult(res)));
+    return callApi(`tours/?limit=${limit}`, 'get').then(res => dispatch(searchTourResult(res)));
   };
 }
 
@@ -85,7 +92,7 @@ export function resetAllToursPayload() {
   };
 }
 
-export function getAllTours(limit, date) {
+export function getAllTours(limit, date, area = '', tourStyle = '', difficulty = '') {
   return (dispatch) => {
     dispatch(getAllToursStarted());
     let timestamp = + new Date();
@@ -95,7 +102,8 @@ export function getAllTours(limit, date) {
     } else {
       dispatch(resetAllToursPayload());
     }
-    return callApi(`tours?timestamp=${timestamp}&limit=${limit}`, 'get').then(res => dispatch(getAllToursResult(res)));
+    console.log(`tours?timestamp=${timestamp}&limit=${limit}&area=${area}&tourStyle=${tourStyle}&difficulty=${difficulty}`);
+    return callApi(`tours?timestamp=${timestamp}&limit=${limit}&area=${area}&tourStyle=${tourStyle}&difficulty=${difficulty}`, 'get').then(res => dispatch(getAllToursResult(res)));
   };
 }
 

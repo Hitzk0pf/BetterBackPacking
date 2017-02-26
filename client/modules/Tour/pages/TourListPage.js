@@ -15,9 +15,21 @@ import Spinning from 'grommet/components/icons/Spinning';
 
 export class TourSearchPage extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterView: false,
+    };
+  }
+
   componentDidMount() {
     this.props.getAllTours(4, null);
     this.attempting = true;
+  }
+
+  searchTours (area, tourstyle, difficulty) {
+    this.props.searchTour(4, null, area, tourstyle, difficulty);
+    this.setState({ filterView: true, area, tourstyle, difficulty });
   }
 
     render() {
@@ -32,7 +44,11 @@ export class TourSearchPage extends Component {
         };
 
         const loadMore = () => {
-          this.props.getAllTours(4, new Date(this.props.allTours[this.props.allTours.length - 1].createdAt));
+          if (this.state.filterView) {
+            this.props.searchTour(4, new Date(this.props.allTours[this.props.allTours.length - 1]), this.state.area, this.state.tourstyle, this.state.difficulty);
+          } else {
+            this.props.getAllTours(4, new Date(this.props.allTours[this.props.allTours.length - 1].createdAt));
+          }
         }
 
         let spinner = ''
@@ -55,6 +71,7 @@ export class TourSearchPage extends Component {
         }
 
 
+
         return (
             <div style={{textAlign: "center"}}>
 
@@ -65,7 +82,7 @@ export class TourSearchPage extends Component {
                 </div>
 
                 <div>
-                    <SearchBar searchTour={this.props.searchTour} />
+                    <SearchBar searchTour={(area, tourstyle, difficulty) => this.searchTours(area, tourstyle, difficulty)} />
                 </div>
 
                 <div>
@@ -94,7 +111,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchTour: (area, tourstyle, difficulty) => dispatch(searchTour(area, tourstyle, difficulty)),
+    searchTour: (limit, date, area, tourstyle, difficulty) => dispatch(getAllTours(limit, date, area, tourstyle, difficulty)),
     getAllTours: (limit, date) => dispatch(getAllTours(limit, date)),
   }
 };

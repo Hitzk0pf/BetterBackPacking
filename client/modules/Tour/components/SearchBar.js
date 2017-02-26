@@ -36,10 +36,10 @@ export class SearchBar extends Component {
 
                 <Box direction="row">
                     <Box direction="row" margin="small">
-                        <Select placeholder='Area' 
-                        multiple={false} 
-                        inline={false} 
-                        options={['Northern India', 'RUSSIA', 'CURRY']}
+                        <Select placeholder='Area'
+                        multiple={false}
+                        inline={false}
+                        options={['Northern India', 'Mumbai', 'CURRY']}
                         onChange={(selection) => {
                             console.log("mystate:", this.state)
                             this.setState({area: selection.value})
@@ -47,9 +47,9 @@ export class SearchBar extends Component {
                         value={this.state.area} />
                     </Box>
                     <Box direction="row" margin="small">
-                        <Select placeholder='Tourstyle' 
-                        multiple={false} 
-                        inline={false} 
+                        <Select placeholder='Tourstyle'
+                        multiple={false}
+                        inline={false}
                         options={['Camping', 'City', 'three']}
                         onChange={(selection) => {
                             console.log("mystate:", this.state)
@@ -58,18 +58,18 @@ export class SearchBar extends Component {
                         value={this.state.tourstyle} />
                     </Box>
                     <Box direction="row" margin="small">
-                        <Select placeholder='Difficulty' 
-                        multiple={false} 
-                        inline={false} 
-                        options={['one', 'two', 'three']}
+                        <Select placeholder='Difficulty'
+                        multiple={false}
+                        inline={false}
+                        options={[{ value: 1, label: 'Easy'}, { value: 2, label: 'Intermediate' }, { value: 3, label: 'Hard' }]}
                         onChange={(selection) => {
-                            console.log("mystate:", this.state)
+                            console.log("mystate:", selection)
                             this.setState({difficulty: selection.value})
                         }}
                         value={this.state.difficulty} />
                     </Box>
                     <Box direction="row" margin="small">
-                        <Button icon={<SearchIcon />} label='Search!' onClick={() => this.props.searchTour(this.state.area, this.state.tourstyle, this.state.difficulty)} primary={true} secondary={false} accent={false} plain={false} type='submit' 
+                        <Button icon={<SearchIcon />} label='Search!' onClick={() => this.props.searchTour(this.state.area, this.state.tourstyle, this.state.difficulty.value)} primary={true} secondary={false} accent={false} plain={false} type='submit'
                         />
                     </Box>
                 </Box>
