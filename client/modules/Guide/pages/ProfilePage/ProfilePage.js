@@ -32,10 +32,10 @@ export class ProfilePage extends Component {
 
     render() {
       const calculateAge = (birthday) => { // birthday is a date
-        let ageDifMs = Date.now() - birthday.getTime();
-        let ageDate = new Date(ageDifMs); // miliseconds from epoch
+        const ageDifMs = Date.now() - birthday.getTime();
+        const ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
-      }
+      };
       let mainComponent = (
         <div style={{ textAlign: 'center' }}>
           <Spinning size="large" />
@@ -48,13 +48,15 @@ export class ProfilePage extends Component {
         mainComponent = (
             <div style={{textAlign: "center"}}>
 
-                <Helmet title={"GuideProfile"}/>
+                <Helmet title="GuideProfile" />
 
                 <div>
                     <Box direction="row">
                         <Box basis="1/3" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small" pad="medium" align="center" justify="center">
-                            <Box basis="3/4" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} colorIndex="neutral-1">
-                              <Avatar facebookId={guide.facebookId} round="true" size={280} name={guide.firstname + " " + guide.lastname} src={guide.avatar ? guide.avatar : ''}/>
+                            <Box basis="3/4" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}}>
+                              <div style={{ textAlign: 'center' }}>
+                                <Avatar facebookId={guide.facebookId} round={true} size={280} name={guide.firstname + " " + guide.lastname} src={guide.avatar ? guide.avatar : ''}/>
+                              </div>
                             </Box>
                             <Box basis="1/4" direction="row" size={{"width": {"min": "medium"}}} pad="medium" align="center" justify="center">
                                 <StarIcon size="large" colorIndex="accent-2"/>

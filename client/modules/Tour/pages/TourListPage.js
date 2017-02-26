@@ -8,13 +8,19 @@ import ImageSlider from '../../App/components/ImageSlider';
 import SearchBar from '../components/SearchBar';
 import GuideFactPaper from '../components/GuideFactPaper';
 import Columns from 'grommet/components/Columns';
+import {searchTour, getAllTours} from '../TourActions'
 
 import InfoIcon from 'grommet/components/icons/base/Info';
+import Spinning from 'grommet/components/icons/Spinning';
 
 export class TourSearchPage extends Component {
 
-    render() {
+  componentDidMount() {
+    this.props.getAllTours(4, null);
+    this.attempting = true;
+  }
 
+    render() {
         const styles = {
 
             wrapper: {
@@ -25,7 +31,29 @@ export class TourSearchPage extends Component {
 
         };
 
-        this.props.name
+        const loadMore = () => {
+          this.props.getAllTours(4, new Date(this.props.allTours[this.props.allTours.length - 1].createdAt));
+        }
+
+        let spinner = ''
+        if (this.attempting && this.props.getAllToursFetching) {
+          spinner = <Spinning size="large" />
+        }
+        const tourArray = this.props.allTours.map(tour => <GuideFactPaper key={tour.cuid} tour={tour} />);
+
+        let tourPapers = (
+                      {tourArray}
+        );
+
+        if (this.attempting && !this.props.getAllToursFetching) {
+          spinner = (
+            <Button label="Load more"
+              primary
+              onClick={loadMore}
+            />
+          );
+        }
+
 
         return (
             <div style={{textAlign: "center"}}>
@@ -42,10 +70,9 @@ export class TourSearchPage extends Component {
 
                 <div>
                     <Columns size='medium' masonry={false} justify="center">
-                        <GuideFactPaper />
-                        <GuideFactPaper />
-                        <GuideFactPaper />
+                      {tourArray}
                     </Columns>
+                      {spinner}
                 </div>
 
             </div>
@@ -58,15 +85,18 @@ export class TourSearchPage extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = (store) => {
-    return {
-        name: store.activeChannel.name
-    };
+  return {
+    // name: store.activeChannel.name
+    allTours: store.tour.getAllToursPayload,
+    getAllToursFetching: store.tour.getAllToursFetching,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        searchTour: (area, tourstyle, difficulty) => dispatch(searchTour(area, tourstyle, difficulty)),
-    }
+  return {
+    searchTour: (area, tourstyle, difficulty) => dispatch(searchTour(area, tourstyle, difficulty)),
+    getAllTours: (limit, date) => dispatch(getAllTours(limit, date)),
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TourSearchPage);

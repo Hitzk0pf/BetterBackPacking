@@ -6,14 +6,26 @@ import colors from 'colors';
 /**
  * Get all Tours
  * @param req
- * @param res 
+ * @param res
  * @returns void
  */
 export function getTours(req, res) {
-    models.Tour.findAll().then((tours) => {
-      console.log("Perfetto".green, tours);
-
-
+  // expecting ?timestamp='javascript timestamp in miliseconds'
+  let timestamp = parseInt(req.query.timestamp);
+  console.log('TIMESTAMP', timestamp);
+  const whereClause = {};
+  if (req.query.area) {
+    whereClause.area = req.query.area;
+  }
+  if (req.query.tourStyle) {
+    whereClause.tourStyle = req.query.tourStyle;
+  }
+  if (req.query.difficulty) {
+    whereClause.difficulty = req.query.difficulty;
+  }
+  const date = new Date(timestamp);
+  whereClause.createdAt = { $lt: date };
+    models.Tour.findAll({ where: whereClause, limit: req.query.limit, order: [['createdAt', 'DESC']] }).then((tours) => {
       res.json(tours);
     }).catch((err) => {
       console.log("Ojee da geht was nit", err);
@@ -89,8 +101,7 @@ export function getTour(req, res) {
  * @returns void
  */
 export function deleteTour(req, res) {
-
-  models.Tour.findOne({ where: {cuid: req.params.cuid} }).then((tour) => {
+  models.Tour.findOne({ where: { cuid: req.params.cuid } }).then((tour) => {
     if(tour) {
       tour.destroy();
       res.status(200).end();
@@ -98,15 +109,24 @@ export function deleteTour(req, res) {
       res.status(404).send();
     }
   }).catch(err => res.status(500).send(err));
-
 }
 
 export function searchTours(req, res) {
-    models.Tour.findAll().then((tours) => {
-        res.json(tours);
-    }).catch((err) => {
-
-    });
+  const whereClause = {};
+  if (req.query.area) {
+    whereClause.area = req.query.area;
+  }
+  if (req.query.tourStyle) {
+    whereClause.tourStyle = req.query.tourStyle;
+  }
+  if (req.query.difficulty) {
+    whereClause.difficulty = req.query.difficulty;
+  }
+  models.Tour.findAll({ where: whereClause }).then((tours) => {
+    res.json(tours);
+  }).catch((err) => {
+    res.status(500).send(err);
+  });
 }
 
 /**

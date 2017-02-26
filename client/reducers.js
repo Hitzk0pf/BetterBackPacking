@@ -10,6 +10,7 @@ import intl from './modules/Intl/IntlReducer';
 import user from './modules/User/UserReducer';
 import guide from './modules/Guide/GuideReducer';
 import chat from './modules/Chat/ChatReducer';
+import tour from './modules/Tour/TourReducer';
 
 // Combine all reducers into one root reducer
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
   intl,
   user,
   guide,
+  tour,
   chat,
 });

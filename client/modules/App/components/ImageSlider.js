@@ -29,7 +29,7 @@ export class ImageSlider extends Component {
             <Box direction="row" size={{"height": "medium"}}>
 
                 <Carousel persistentNav={false}>
-                    <Hero backgroundImage="/modules/App/components/guide.JPG" size='medium' backgroundColorIndex='dark'>
+                    <Hero size='medium' backgroundColorIndex='dark'>
                         <Box direction='row' justify='center' align='center' texture={img1} style={{border: '1rem solid red'}}>
                             <Box basis='1/2' align='end' pad='medium' style={{border: '1rem solid ýellow'}}/>
                             <Box basis='1/2' align='start' pad='medium' style={{border: '1rem solid blue'}}>
@@ -39,7 +39,6 @@ export class ImageSlider extends Component {
                             </Box>
                         </Box>
                     </Hero>
-                    <Box texture='./guide.JPG' justify='center' align='center' />
                     <Image src={img1} />
                     <Image src={img1} />
                 </Carousel>

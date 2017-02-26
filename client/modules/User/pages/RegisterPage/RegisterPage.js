@@ -72,7 +72,7 @@ export class RegisterPage extends Component {
                 You look great!
               </Heading>
               <div>
-                <Avatar src={this.state.avatar} round="true" size={300}/>
+                <Avatar src={this.state.avatar} round={true} size={300}/>
               </div>
               <div style={{margin: 'auto',  paddingTop: 20}}>
                 <div style={{margin: 'auto',  padding: 5, display: 'inline'}}>
