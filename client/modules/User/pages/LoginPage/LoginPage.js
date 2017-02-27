@@ -9,6 +9,7 @@ import Box from 'grommet/components/Box';
 import Notification from 'grommet/components/Notification';
 import styles from './Login.css';
 import {Router, browserHistory} from 'react-router';
+import {Link} from 'react-router';
 
 import {loginRequest} from '../../UserActions';
 
