@@ -10,6 +10,7 @@ router.route('/tours').get(TourController.getTours);
 // Get one Tour by cuid
 router.route('/tours/:cuid').get(TourController.getTour);
 
+router.route('/tours/search/:query').get(TourController.searchTours);
 // Add a new Tour
 router.route('/tours').post(TourController.addTour);
 
@@ -20,4 +21,3 @@ router.route('/tours/:cuid').put(TourController.changeTour);
 router.route('/tours/:cuid').delete(TourController.deleteTour);
 
 export default router;
-

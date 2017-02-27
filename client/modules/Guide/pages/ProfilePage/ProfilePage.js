@@ -18,23 +18,45 @@ import styles from './ProfilePage.css';
 import InfoIcon from 'grommet/components/icons/base/Info';
 import StarIcon from 'grommet/components/icons/base/Star';
 import StarHalfIcon from 'grommet/components/icons/base/StarHalf';
+import Spinning from 'grommet/components/icons/Spinning';
+import Avatar from 'react-avatar';
 
-import {loginRequest} from '../../GuideActions';
+import {loginRequest, fetchGuideProfile} from '../../GuideActions';
 
 export class ProfilePage extends Component {
 
-    render() {
+  componentDidMount () {
+    this.props.fetchGuideProfile(this.props.params.guideCuid);
+    this.attempting = true;
+  }
 
-        return (
+    render() {
+      const calculateAge = (birthday) => { // birthday is a date
+        const ageDifMs = Date.now() - birthday.getTime();
+        const ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+      };
+      let mainComponent = (
+        <div style={{ textAlign: 'center' }}>
+          <Spinning size="large" />
+        </div>
+      );
+
+      if (this.attempting && !this.props.guideProfileFetching) {
+        const guide = this.props.guideProfilePayload.guideInfo;
+        const age = calculateAge(new Date(guide.birthdate))
+        mainComponent = (
             <div style={{textAlign: "center"}}>
 
-                <Helmet title={"GuideProfile"}/>
+                <Helmet title="GuideProfile" />
 
                 <div>
                     <Box direction="row">
                         <Box basis="1/3" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small" pad="medium" align="center" justify="center">
-                            <Box basis="3/4" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} colorIndex="neutral-1">
-                                <img src={this.props.avatar} style={{height: '18rem', width: '18rem', borderRadius: '50%'}}></img>
+                            <Box basis="3/4" size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}}>
+                              <div style={{ textAlign: 'center' }}>
+                                <Avatar facebookId={guide.facebookId} round={true} size={280} name={guide.firstname + " " + guide.lastname} src={guide.avatar ? guide.avatar : ''}/>
+                              </div>
                             </Box>
                             <Box basis="1/4" direction="row" size={{"width": {"min": "medium"}}} pad="medium" align="center" justify="center">
                                 <StarIcon size="large" colorIndex="accent-2"/>
@@ -45,10 +67,11 @@ export class ProfilePage extends Component {
                         </Box>
                         <Box basis="2/3" size={{"height": {"min": "medium"}}}>
                             <Box basis="1/4" margin="small" align="start" justify="center" separator="bottom">
-                                <Heading>Daryl Dixon</Heading>
+                                <Heading>{guide.firstname + " " + guide.lastname}</Heading>
+                                {guide.description} <br />
                             </Box>
                             <Box basis="1/2" margin="small" align="start" justify="start" textAlign="left">
-                                Age: 22 <br />
+                                Age: {age} <br />
                                 Language(s): English, German <br />
                                 Area(s): North India <br />
                                 Difficulty: Easy, Medium <br />
@@ -76,11 +99,11 @@ export class ProfilePage extends Component {
                                     </Box>
                                     <Box size={{"width": {"max": "small"}}} separator="bottom">
                                         <Heading tag="h3">
-                                            Title
+                                            {guide.characterTraits[0]}
                                         </Heading>
                                     </Box>
                                     <Paragraph size="medium">
-                                        This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph!
+                                      {guide.characterTraitDescription[0]}
                                     </Paragraph>
                                 </Box>
                             </Box>
@@ -91,11 +114,11 @@ export class ProfilePage extends Component {
                                     </Box>
                                     <Box size={{"width": {"max": "small"}}} separator="bottom">
                                         <Heading tag="h3">
-                                            Title
+                                            {guide.characterTraits[1]}
                                         </Heading>
                                     </Box>
                                     <Paragraph size="medium">
-                                        This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph!
+                                      {guide.characterTraitDescription[1]}
                                     </Paragraph>
                                 </Box>
                             </Box>
@@ -106,11 +129,11 @@ export class ProfilePage extends Component {
                                     </Box>
                                     <Box size={{"width": {"max": "small"}}} separator="bottom">
                                         <Heading tag="h3">
-                                            Title
+                                            {guide.characterTraits[2]}
                                         </Heading>
                                     </Box>
                                     <Paragraph size="medium">
-                                        This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph! This is a paragraph!
+                                      {guide.characterTraitDescription[2]}
                                     </Paragraph>
                                 </Box>
                             </Box>
@@ -394,7 +417,15 @@ export class ProfilePage extends Component {
                 </div>
 
             </div>
-        );
+
+        )
+      }
+
+      return (
+        <div>
+          {mainComponent}
+        </div>
+      );
 
     }
 
@@ -405,11 +436,16 @@ export class ProfilePage extends Component {
 const mapStateToProps = (store) => {
     return {
       avatar: store.user.avatar,
+      guideProfileFetching: store.guide.guideProfileFetching,
+      guideProfileFailed: store.guide.guideProfileFailed,
+      guideProfilePayload: store.guide.guideProfilePayload,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+      fetchGuideProfile: (cuid) => dispatch(fetchGuideProfile(cuid))
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

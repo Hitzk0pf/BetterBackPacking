@@ -168,4 +168,28 @@ app.listen(serverConfig.port, (error) => {
   }
 });
 
+// start socket.io server on port 3000
+
+const http = require('http');
+const server = http.createServer();
+const socketIo = require('socket.io');
+server.listen(3000);
+const io = socketIo();
+io.attach(server);
+io.on('connection', function (socket) {
+  console.log('Socket connected: ', socket.id);
+  setTimeout(() => {
+    socket.emit('action', { type: 'message', data: 'good day!' });
+    console.log('EMMITED ACTION')
+  }
+  , 8000);
+  socket.on('action', (action) => {
+    console.log('ACTION', action)
+    if (action.type === 'server/hello') {
+      console.log('Got hello data!', action.data);
+      socket.emit('action', { type: 'message', data: 'good day!' });
+    }
+  });
+});
+
 export default app;

@@ -22,6 +22,20 @@ export class GuideFactPaper extends Component {
 
         };
 
+        const { tour } = this.props
+
+        let difficulty = '';
+
+        if (tour.difficulty === 1) {
+          difficulty = 'Easy';
+        }
+        if (tour.difficulty === 2) {
+          difficulty = 'Intermediate';
+        }
+        if (tour.difficulty === 3) {
+          difficulty = 'Hard';
+        }
+
         return (
             <div style={{textAlign: "center"}}>
 
@@ -31,25 +45,25 @@ export class GuideFactPaper extends Component {
                     </Box>
                     <Box direction="column" basis="3/4" textAlign="left">
                         <Box direction="row">
-                            <Heading tag="h4" strong="true">
-                                Max Muster
+                            <Heading tag="h4" strong={true}>
+                                {tour.description}
                             </Heading>
                         </Box>
                         <Box>
                             <Box>
-                                Area: North India
+                                Area: {tour.area}
                             </Box>
                             <Box>
-                                Difficulty: North India
+                                Difficulty: {difficulty}
                             </Box>
                             <Box>
-                                Tourstyle: North India
+                                Tourstyle: {tour.tourStyle}
                             </Box>
                             <Box>
-                                Languages: North India
+                                Price: {tour.price}
                             </Box>
                             <Box>
-                                TourName: North India
+                                Guide: 'Not implemented yet'
                             </Box>
                             <Box direction="row">
                                 Average Rating:

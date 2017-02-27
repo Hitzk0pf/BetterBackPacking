@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Button from 'grommet/components/Button';
 import logo from './Logo_single.jpg';
@@ -57,12 +57,16 @@ export function Header(props, context) {
         <ul>
 
           <li>
+            <Button label="Chat" primary onClick={props.chat} />
+          </li>
+
+          <li>
             <Button label="Search Tours" primary path="/search" />
           </li>
 
           {initialPageWizard}
 
-          {avatar ? <img style={{borderRadius: '50%', width: '2.5rem', height: '2.5rem'}}src={props.avatar}></img> : ""}
+          {avatar ? <Link to={'/guide/' + props.cuid} ><img style={{ borderRadius: '50%', width: '2.5rem', height: '2.5rem' }} src={props.avatar}></img></Link> : ""}
 
           {loginButtons}
 

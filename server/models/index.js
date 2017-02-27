@@ -72,7 +72,7 @@ var GuideInfo = sequelize.import('./guideInfo.js');
     GuideInfo.belongsTo(User);
     //GuideInfo.sync()
 
-    GuideInfo.sync({force: true}).then(function () {
+    GuideInfo.sync({force: false}).then(function () {
       // Testtour at serverstart
       return GuideInfo.create({
         cuid: cuid(),
