@@ -37,9 +37,12 @@ export function addGuideInfo(req, res) {
     //only pick wanted attributes
     newGuideInfo.cuid = cuid();
     newGuideInfo.description = requestGuideInfo.description;
-    newGuideInfo.characterTraits = requestGuideInfo.characterTraits;
+    newGuideInfo.characterTraits = requestGuideInfo.characterTraits; äcf
+
+    
     newGuideInfo.characterTraitDescription = requestGuideInfo.characterTraitDescription;
     newGuideInfo.userCuid = requestGuideInfo.userCuid;
+
 
 
     models.GuideInfo.create({...newGuideInfo}).then(guideInfo => {

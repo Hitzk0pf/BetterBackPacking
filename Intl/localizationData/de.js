@@ -1,8 +1,55 @@
 export default {
-  locale: 'fr',
+  locale: 'de',
   messages: {
+
+
+    /**
+    * Login
+    */
+    login: 'Einloggen',
+    register: 'Registrieren',
+    editMyPage: 'Meine Seite bearbeiten',
+    searchTours: 'Touren durchsuchen',
+    logout: 'Ausloggen',
+    chat: 'Chat',
+    awesome: 'Wooow',
+    loginWithFacebook: 'Mit Facebook anmelden',
+
+
+        /**
+    * RegisterPage
+    */
+
+    createAccount: 'Account erstellen',
+    firstname:'Vorname',
+    lastname:'Nachname',
+    day:'Tag',
+    month:'Monat',
+    year:'Jahr',
+    email:'E-Mail',
+    offers:'Ich möchte als Guide Angebote erstellen',
+    password: 'Passwort',
+    repeatPassword: 'Passwort wiederholen',
+    dropZone: 'Ziehe ein Foto unter 2MB in dieses Fenster oder klicke darauf, um ein Foto auszuwählen.',
+
+    /**
+    * Tour Page
+    */
+    loadMore: 'Weitere Anzeigen',
+    area:'Gebiet',
+    tourstyle:'Tourstil',
+    difficulty:'Schwierigkeit',
+    price:'Kosten',
+    difficulty_easy:'Leicht',
+
+
+    /**
+    * other stuff
+    */
     siteTitle: 'MERN blog de démarrage',
+    socialfacebook: 'Sidentifier avec Facebook',
     addPost: 'Ajouter Poster',
+    Email: 'E-mail ',
     switchLanguage: 'Changer de langue',
     twitterMessage: 'Nous sommes sur Twitter',
     by: 'Par',

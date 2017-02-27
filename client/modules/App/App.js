@@ -38,7 +38,7 @@ export class App extends Component {
         <div>
           <Helmet
             title="MERN Starter - Blog App"
-            titleTemplate="%s - Blog App"
+            titleTemplate="%s - BBP"
             meta={[
               { charset: 'utf-8' },
               {
