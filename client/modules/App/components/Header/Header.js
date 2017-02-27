@@ -66,6 +66,8 @@ export function Header(props, context) {
 
           {loginButtons}
 
+          {languageNodes}
+
         </ul>
       </div>
     </div>
