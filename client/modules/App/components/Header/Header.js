@@ -39,7 +39,7 @@ export function Header(props, context) {
     loginButtons = (
       <div style={{display: 'inline'}}>
           <li>
-            <Link to='/' onClick={() => {
+            <Link to='/' primary onClick={() => {
               props.logoutUser();
             }}><FormattedMessage id="logout" /></Link>
           </li>
@@ -57,7 +57,7 @@ export function Header(props, context) {
         <ul>
 
           <li>
-            <Link to='/' onClick={props.chat}><FormattedMessage id="chat" /></Link>
+            <Button label="Chat" primary onClick={props.chat} />
           </li>
 
           <li>
