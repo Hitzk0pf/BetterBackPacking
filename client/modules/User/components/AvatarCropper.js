@@ -85,7 +85,7 @@ export class AvatarCropper extends Component {
                       accept="image/*"
                       maxSize={maxSize}
                       onDrop={onDrop}>
-                      <div>Drop an image under 2MB here. You can also click me to select one!</div>
+                      <div>{<FormattedMessage id="dropZone"/>}</div>
                     </Dropzone>
           );
 

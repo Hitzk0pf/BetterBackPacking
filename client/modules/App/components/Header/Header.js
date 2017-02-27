@@ -14,16 +14,16 @@ export function Header(props, context) {
 
   let initialPageWizard = "";
   let loginButtons = "";
-  let avatar = "";
+  let avatar = '';
 
   if (!props.isLoggedIn) {
     loginButtons = (
       <div style={{display: 'inline'}}>
           <li>
-            <Button label='Login' primary path="/login"/>
+            <Link to='/login'><FormattedMessage id="login" /></Link>
           </li>
           <li>
-            <Button label='Register' primary path="/register" />
+            <Link to='/register'><FormattedMessage id="register" /></Link>
           </li>
       </div>
     )
@@ -32,16 +32,16 @@ export function Header(props, context) {
     if (props.isGuide) {
       initialPageWizard = (
         <li>
-          <Button label="Edit my Page" primary path="/initialPageWizard" />
+          <Link to='/initialPageWizard'><FormattedMessage id="editMyPage" /></Link>
         </li>
       )
     }
     loginButtons = (
       <div style={{display: 'inline'}}>
           <li>
-            <Button label='Logout' primary onClick={() => {
+            <Link to='/' primary onClick={() => {
               props.logoutUser();
-            }} path="/"/>
+            }}><FormattedMessage id="logout" /></Link>
           </li>
       </div>
     )
@@ -61,7 +61,7 @@ export function Header(props, context) {
           </li>
 
           <li>
-            <Button label="Search Tours" primary path="/search" />
+            <Link to='/search'><FormattedMessage id="searchTours" /></Link>
           </li>
 
           {initialPageWizard}
@@ -69,6 +69,8 @@ export function Header(props, context) {
           {avatar ? <Link to={'/guide/' + props.cuid} ><img style={{ borderRadius: '50%', width: '2.5rem', height: '2.5rem' }} src={props.avatar}></img></Link> : ""}
 
           {loginButtons}
+
+          {languageNodes}
 
         </ul>
       </div>

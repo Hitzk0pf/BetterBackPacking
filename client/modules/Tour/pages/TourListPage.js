@@ -8,7 +8,8 @@ import ImageSlider from '../../App/components/ImageSlider';
 import SearchBar from '../components/SearchBar';
 import GuideFactPaper from '../components/GuideFactPaper';
 import Columns from 'grommet/components/Columns';
-import {searchTour, getAllTours} from '../TourActions'
+import {searchTour, getAllTours} from '../TourActions';
+import {Link} from 'react-router';
 
 import InfoIcon from 'grommet/components/icons/base/Info';
 import Spinning from 'grommet/components/icons/Spinning';
@@ -73,7 +74,7 @@ export class TourSearchPage extends Component {
 
         if (this.attempting && !this.props.getAllToursFetching) {
           spinner = (
-            <Button label="Load more"
+            <Button label={<FormattedMessage id="loadMore"/>}
               primary
               onClick={loadMore}
             />

@@ -17,6 +17,7 @@ import AvatarCropper from '../../components/AvatarCropper';
 import styles from './RegisterPage.css';
 import {Router, browserHistory} from 'react-router';
 import Avatar from 'react-avatar';
+import {Link} from 'react-router';
 
 export class RegisterPage extends Component {
 
@@ -128,22 +129,22 @@ export class RegisterPage extends Component {
 
                         <Header>
                             <Heading>
-                                Account erstellen
+                               <FormattedMessage id="createAccount"/>
                             </Heading>
                         </Header>
 
                         <FormFields>
 
-                            <FormField label="Vorname">
+                            <FormField label={<FormattedMessage id="firstname"/>}>
                                 <TextInput name="firstname" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Nachname">
+                            <FormField label={<FormattedMessage id="lastname"/>}>
                                 <TextInput name="lastname" onDOMChange={handleChange}/>
                             </FormField>
 
                             <select className={styles.select} name="birthDay" onChange={handleChange}>
-                                <option selected disabled>Tag</option>
+                                <option selected disabled>{<FormattedMessage id="day"/>}</option>
                                 {
                                     days.map(function (day) {
                                         return <option key={"day." + day}
@@ -153,7 +154,7 @@ export class RegisterPage extends Component {
                             </select>
 
                             <select className={styles.select} name="birthMonth" onChange={handleChange}>
-                                <option selected disabled>Monat</option>
+                                <option selected disabled>{<FormattedMessage id="month"/>}</option>
                                 {
                                     months.map(function (month) {
                                         return <option key={"month." + month}
@@ -163,7 +164,7 @@ export class RegisterPage extends Component {
                             </select>
 
                             <select className={styles.select} name="birthYear" onChange={handleChange}>
-                                <option selected disabled>Jahr</option>
+                                <option selected disabled>{<FormattedMessage id="year"/>}</option>
                                 {
                                     years.map(function (year) {
                                         return <option key={"year." + year}
@@ -172,12 +173,12 @@ export class RegisterPage extends Component {
                                 }
                             </select>
 
-                            <FormField label="E-Mail">
+                            <FormField label={<FormattedMessage id="email"/>}>
                                 <TextInput name="email" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Bist du ein Back-Packer oder ein Guide?">
-                                <CheckBox label="Ich möchte als Guide Angebote erstellen"
+                            <FormField>
+                                <CheckBox label={<FormattedMessage id="offers"/>}
                                           toggle={true}
                                           disabled={false}
                                           reverse={false}
@@ -190,11 +191,11 @@ export class RegisterPage extends Component {
                                 }
                             </FormField>
 
-                            <FormField label="Passwort">
+                            <FormField label={<FormattedMessage id="password"/>}>
                                 <TextInput type="password" name="password" onDOMChange={handleChange}/>
                             </FormField>
 
-                            <FormField label="Passwort wiederholen">
+                            <FormField label={<FormattedMessage id="repeatPassword"/>}>
                                 <TextInput type="password" name="passwordRepeat" onDOMChange={handleChange}/>
                             </FormField>
 
