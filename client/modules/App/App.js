@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import ChatButton from '../Chat/components/ChatButton';
 
 // Import Style
 import styles from './App.css';
@@ -37,7 +38,7 @@ export class App extends Component {
         <div>
           <Helmet
             title="MERN Starter - Blog App"
-            titleTemplate="%s - Blog App"
+            titleTemplate="%s - BBP"
             meta={[
               { charset: 'utf-8' },
               {
@@ -66,6 +67,7 @@ export class App extends Component {
           </div>
           <Footer />
         </div>
+          <ChatButton />
       </div>
     );
   }
