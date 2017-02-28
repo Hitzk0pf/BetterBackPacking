@@ -173,18 +173,21 @@ app.listen(serverConfig.port, (error) => {
 const http = require('http');
 const server = http.createServer();
 const socketIo = require('socket.io');
+let connectedUsers = [];
 server.listen(3000);
 const io = socketIo();
 io.attach(server);
 io.on('connection', function (socket) {
   console.log('Socket connected: ', socket.id);
-  setTimeout(() => {
-    socket.emit('action', { type: 'message', data: 'good day!' });
-    console.log('EMMITED ACTION')
-  }
-  , 8000);
   socket.on('action', (action) => {
     console.log('ACTION', action)
+    if (action.type === 'server/is_online') {
+      console.log('Got is_online!', action.token);
+      // const user = passport.authenticate('jwt', {session: false})
+      connectedUsers.push({cuid: 'test', socket});
+      console.log(user)
+      socket.emit('action', { type: 'message', data: 'got token!' });
+    }
     if (action.type === 'server/hello') {
       console.log('Got hello data!', action.data);
       socket.emit('action', { type: 'message', data: 'good day!' });

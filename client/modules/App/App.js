@@ -59,7 +59,7 @@ export class App extends Component {
             isLoggedIn={this.props.user.loggedIn}
             cuid={this.props.user.user ? this.props.user.user.cuid : null}
             logoutUser={() => this.props.dispatch(logoutUser())}
-            chat={() => this.props.dispatch({ type: 'server/hello', data: 'Hello!' })}
+            chat={() => this.props.dispatch({ type: 'server/is_online', token: this.props.user.token })}
           />
           <div className={styles.container}>
             {this.props.children}

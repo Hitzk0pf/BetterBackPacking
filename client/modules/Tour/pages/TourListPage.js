@@ -62,12 +62,17 @@ export class TourSearchPage extends Component {
         );
 
         if (this.attempting && !this.props.getAllToursFetching) {
-          spinner = (
-            <Button label="Load more"
-              primary
-              onClick={loadMore}
-            />
-          );
+          if (this.props.allTours.length) {
+            spinner = (
+              <Button
+                label="Load more"
+                primary
+                onClick={loadMore}
+              />
+            );
+          } else {
+            spinner = '0 Results found'
+          }
         }
 
 
