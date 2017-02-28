@@ -19,10 +19,11 @@ export class ClientList extends Component {
                             alignItems: "center"
                         }}>
                             <div>
-                                <Avatar facebookId={""} round={true} size={40} name={"Thomas Wedenig"} src={''}/>
+                                <Avatar facebookId={""} round={true} size={40} textSizeRatio={2.1} name={"Thomas Wedenig"} src={''}/>
                             </div>
-                            <div>
-                                <h3>Thomas Wedenig</h3>
+                            <div style={{marginLeft: "0.7rem"}}>
+                                <h3 style={{fontSize: "0.95rem", color: "#666", margin: "0"}}>Thomas Wedenig</h3>
+                                <span style={{fontSize: "0.9rem", color: "#888", margin: "0.25rem 0 0 0"}}>latest message her...</span>
                             </div>
                         </div>
                     </div>
