@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import ChatButton from '../Chat/components/ChatButton';
+import Chat from '../Chat/components/Chat';
 
 // Import Style
 import styles from './App.css';
@@ -67,7 +67,7 @@ export class App extends Component {
           </div>
           <Footer />
         </div>
-          <ChatButton />
+          <Chat />
       </div>
     );
   }

@@ -4,7 +4,7 @@ import CloseIcon from 'grommet/components/icons/base/Close';
 import ChatIcon from 'grommet/components/icons/base/Chat';
 import ChatBox from "./ChatBox";
 
-export class ChatButton extends Component {
+export class Chat extends Component {
 
     render() {
 
@@ -32,32 +32,37 @@ export class ChatButton extends Component {
                     right: "0",
                     bottom: "5rem",
                     width: "20rem",
-                    height: "25rem",
                     backgroundColor: "#fff",
                     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
                     zIndex: 99999
                 },
                 content: {
-                    position: "relative",
                     width: "100%",
-                    height: "100%"
+                    height: "20rem",
+                    overflow: "auto"
                 },
                 header: {
-                    position: "absolute",
-                    top: "0",
-                    left: "0",
                     width: "100%",
                     height: "3.5rem",
                     boxSizing: "border-box",
                     backgroundColor: "#FF6F00"
                 },
                 footer: {
-                    position: "absolute",
-                    bottom: "0",
-                    left: "0",
                     width: "100%",
                     height: "3rem",
                     backgroundColor: "#f5f5f5"
+                }
+            },
+            clients: {
+                wrapper: {
+
+                },
+                client: {
+                    padding: "1rem",
+                    boxSizing: "border-box"
+                },
+                clientWrapper: {
+                    borderBottom: "0.1rem solid #eee"
                 }
             }
         };
@@ -65,7 +70,7 @@ export class ChatButton extends Component {
         return (
             <div style={styles.wrapper}>
                 <div style={{position: "relative"}}>
-                    <ChatBox styles={styles.chatBox}/>
+                    <ChatBox styles={styles.chatBox} clientsStyles={styles.clients}/>
                     <div style={styles.chatButton.wrapper}>
                         <ChatIcon colorIndex={"light-1"}/>
                     </div>
@@ -75,4 +80,4 @@ export class ChatButton extends Component {
     }
 }
 
-export default ChatButton;
+export default Chat;
