@@ -185,7 +185,7 @@ io.on('connection', function (socket) {
       console.log('Got is_online!', action.token);
       // const user = passport.authenticate('jwt', {session: false})
       connectedUsers.push({cuid: 'test', socket});
-      console.log(user)
+      console.log(connectedUsers)
       socket.emit('action', { type: 'message', data: 'got token!' });
     }
     if (action.type === 'server/hello') {
