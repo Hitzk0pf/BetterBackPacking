@@ -11,7 +11,7 @@ import webpack from 'webpack';
 import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-
+import callApi from '../client/util/apiCaller'
 // Initialize the Express App
 const app = new Express();
 
@@ -183,11 +183,28 @@ io.on('connection', function (socket) {
     console.log('ACTION', action)
     if (action.type === 'server/is_online') {
       console.log('Got is_online!', action.token);
-      // const user = passport.authenticate('jwt', {session: false})
-      connectedUsers.push({cuid: 'test', socket});
-      console.log(connectedUsers)
-      socket.emit('action', { type: 'message', data: 'got token!' });
+
+      callApi(`users/${action.cuid}/online`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
+      ).then(res => {
+        if (res.success) {
+          socket.emit('action', { type: 'message', data: 'got token!' });
+          console.log('AUTH SUCCESS');
+        }
+      });
     }
+
+    if (action.type === 'server/is_offline') {
+      console.log('Got is_offline!', action.token);
+
+      callApi(`users/${action.cuid}/offline`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
+      ).then(res => {
+        if (res.success) {
+          socket.emit('action', { type: 'message', data: 'got token!' });
+          console.log('AUTH SUCCESS');
+        }
+      });
+    }
+
     if (action.type === 'server/hello') {
       console.log('Got hello data!', action.data);
       socket.emit('action', { type: 'message', data: 'good day!' });

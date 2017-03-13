@@ -19,9 +19,27 @@ router.route('/auth').post(passport.authenticate('jwt', {session: false}), (req,
 // Get all Users
 router.route('/users').get(UserController.getUsers);
 
-// get all guides
-// Get one post by cuid
+// get one user
 router.route('/users/:cuid').get(UserController.getUser);
+
+// set LastSeen property of user to current timestamp
+router.route('/users/:cuid/online').get(passport.authenticate('jwt', {session: false}), (req, res) => {
+  if(req.user.cuid === req.params.cuid) {
+    // if user in JWT token is the same than he/she is trying to update, allow it
+    UserController.wentOnline(req, res);
+  } else {
+    res.status(403).send();
+  }
+});
+
+router.route('/users/:cuid/offline').get(passport.authenticate('jwt', {session: false}), (req, res) => {
+  if(req.user.cuid === req.params.cuid) {
+    // if user in JWT token is the same than he/she is trying to update, allow it
+    UserController.wentOffline(req, res);
+  } else {
+    res.status(403).send();
+  }
+});
 
 // Add a new User
 router.route('/users').post(UserController.addUser);

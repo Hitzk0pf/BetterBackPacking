@@ -19,6 +19,38 @@ export function getUsers(req, res) {
 
 }
 
+export function wentOffline(req, res) {
+  models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
+    if(user) {
+      user.last_seen = new Date();
+
+      user.save().then(updatedUser => {
+        res.json({success: true});
+      }).catch(err => {
+        res.status(500).send();
+      });
+    } else {
+      res.status(404).send();
+    }
+  }).catch(err => res.status(500).send(err));
+}
+
+export function wentOnline(req, res) {
+  models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
+    if(user) {
+      user.last_seen = null;
+
+      user.save().then(updatedUser => {
+        res.json({success: true});
+      }).catch(err => {
+        res.status(500).send();
+      });
+    } else {
+      res.status(404).send();
+    }
+  }).catch(err => res.status(500).send(err));
+}
+
 /**
  * Save a User
  * @param req
@@ -90,7 +122,7 @@ export function getUser(req, res) {
   models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
     if(user) {
       user['password_digest'] = ""
-      
+
       if(user['avatar']) {
         user['avatar'] = user['avatar'].toString()
       }
@@ -155,7 +187,7 @@ export function changeUser(req, res) {
 
 
 
-                user.update({...updatedUser }).then(user => {
+                user.update({ ...updatedUser }).then(user => {
                     res.json({ user });
                 }).catch(err => {
                     failed = 500;
@@ -197,4 +229,3 @@ export function deleteUser(req, res) {
   }).catch(err => res.status(500).send(err));
 
 }
-
