@@ -90,6 +90,9 @@ export function addUser(req, res) {
       newUser.lastname = requestUser.lastname;
       newUser.email = requestUser.email;
       newUser.isGuide = requestUser.isGuide;
+      if(requestUser.isGuide === "") {
+        newUser.isGuide = false;
+      }
       if (requestUser.avatar === true && requestUser.facebook_id) {
         newUser.avatar = "graph.facebook.com/" + requestUser.facebook_id + "/picture?height=500&width=500"
       } else if (requestUser.avatar) {

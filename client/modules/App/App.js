@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Chat from '../Chat/components/Chat';
+import NotificationSystem from 'react-notification-system';
 
 // Import Style
 import styles from './App.css';
@@ -30,6 +31,21 @@ export class App extends Component {
         // this.props.isOnline(this.props.user.token);
     }
 
+    componentWillReceiveProps(newProps) {
+      if (newProps.notifyMessage !== this.props.notifyMessage) {
+        this._addNotification(newProps.notifyMessage)
+      }
+    }
+
+    _addNotification (message) {
+      this.refs.notificationSystem.addNotification({
+          title: message.sender,
+          message: message.message,
+          level: 'success',
+          position: 'tr',
+      })
+    }
+
     render() {
 
         return (
@@ -53,6 +69,7 @@ export class App extends Component {
             ]}
 
                     />
+                    <NotificationSystem ref="notificationSystem" />
                     <Header
                         switchLanguage={lang => this.props.switchLanguage(lang)}
                         intl={this.props.intl}
@@ -93,7 +110,8 @@ function mapStateToProps(store) {
         currentChatUser: store.app.currentChatUser,
         usersFetching: store.user.usersFetching,
         usersPayload: store.user.usersPayload,
-        usersFailed: store.user.usersFailed
+        usersFailed: store.user.usersFailed,
+        notifyMessage: store.chat.notifyMessage,
     };
 }
 
@@ -105,7 +123,7 @@ const mapDispatchToProps = (dispatch) => {
         authUser: () => dispatch(authUser()),
         logoutUser: () => dispatch(logoutUser()),
         switchLanguage: (lang) => dispatch(switchLanguage(lang)),
-        testChat: () => dispatch(({ type: 'server/send_message', message: 'Hello there. This is a messäge.', receivers: ['123'] }))
+        testChat: () => dispatch(({ type: 'server/send_message', message: 'Hello there. This is a messäge.', receivers: ['123', 'cj0fuhdym000cyalguh2vhbzp', 'cj0fuhdyh000byalgo8x7d24n'] }))
     }
 };
 
