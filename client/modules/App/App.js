@@ -70,6 +70,7 @@ export class App extends Component {
                 </div>
                 <Chat
                     updateCurrentChatUser={this.props.updateCurrentChatUser}
+                    currentChatUser={this.props.currentChatUser}
                     fetchUsers={this.props.fetchUsers}
                     usersFetching={this.props.usersFetching}
                     usersPayload={this.props.usersPayload}
@@ -100,7 +101,7 @@ function mapStateToProps(store) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateCurrentChatUser: (userCuid) => dispatch(updateCurrentChatUser(userCuid)),
+        updateCurrentChatUser: (user) => dispatch(updateCurrentChatUser(user)),
         fetchUsers: () => dispatch(fetchUsers()),
         authUser: () => dispatch(authUser()),
         logoutUser: () => dispatch(logoutUser()),

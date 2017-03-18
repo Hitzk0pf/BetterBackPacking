@@ -8,55 +8,48 @@ import Radium from "radium";
 export class ClientList extends Component {
 
     componentDidMount() {
-        this.props.fetchUsers();
-        this.attempting = true;
     }
-
-    updateChatUser = (user) => {
-        this.props.updateCurrentChatUser(user);
-    };
 
     render() {
 
-        if (!this.attempting || this.props.usersFetching) {
-            return (<div>loading...</div>);
-        }
-
-        let users = this.props.usersPayload;
-
-        const clients = [];
-
-        users.map((user, i) => {
-            clients.push(
-                <div key={i} style={i < 11 ? this.props.styles.clientWrapper : {}}>
-                    <div
-                        key={i}
-                        style={this.props.styles.client}
-                        onClick={() => this.updateChatUser(user)}
-                    >
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center"
-                            }}
-                        >
-                            <div>
-                                <Avatar facebookId={""} round={true} size={40} textSizeRatio={2.1}
-                                        name={"Thomas Wedenig"} src={''}/>
-                            </div>
-                            <div style={{marginLeft: "0.7rem"}}>
-                                <h3 style={{fontSize: "0.95rem", color: "#666", margin: "0"}}>{user.firstname} {user.lastname}</h3>
-                                <span style={{fontSize: "0.9rem", color: "#888", margin: "0.25rem 0 0 0"}}>latest message her...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        });
+        const styles = {
+            message: {
+                position: "relative",
+                width: "100%",
+                padding: "0 0.7rem",
+                boxSizing: "border-box"
+            },
+            messageSent: {
+                display: "inline-block",
+                maxWidth: "80%",
+                margin: "0.25rem 0",
+                padding: "0.5rem",
+                float: "right",
+                backgroundColor: "#f5f5f5",
+                borderRadius: "0.2rem",
+                border: "0.1rem solid #eee"
+            },
+            messageReceived: {
+                display: "inline-block",
+                maxWidth: "80%",
+                margin: "0.25rem 0",
+                padding: "0.5rem",
+                float: "left",
+                backgroundColor: "#fff",
+                borderRadius: "0.2rem",
+                border: "0.1rem solid #eee"
+            }
+        };
 
         return (
-            <div style={this.props.styles.wrapper}>
-                {clients}
+            <div style={{padding: "0.7rem 0"}}>
+                <div style={styles.message}>
+                    <div style={styles.messageSent}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam!
+                    </div>
+                </div>
+                <div style={styles.message}>
+                    <div style={styles.messageReceived}>Consetetur sadipscing elitr, sed diam nonumy.</div>
+                </div>
             </div>
         );
     }
