@@ -9,9 +9,7 @@ import ClientList from "./ClientList";
 export class ChatButton extends Component {
 
     render() {
-
-        const styles = {};
-
+        
         return (
             <div style={this.props.styles.wrapper}>
 
@@ -32,7 +30,14 @@ export class ChatButton extends Component {
                         width: "100%",
                         margin: "auto"
                     }}>
-                        <ClientList styles={this.props.clientsStyles} />
+                        <ClientList
+                            styles={this.props.clientsStyles}
+                            updateCurrentChatUser={this.props.updateCurrentChatUser}
+                            fetchUsers={this.props.fetchUsers}
+                            usersFetching={this.props.usersFetching}
+                            usersPayload={this.props.usersPayload}
+                            usersFailed={this.props.usersFailed}
+                        />
                     </div>
                 </div>
 
@@ -40,17 +45,21 @@ export class ChatButton extends Component {
 
                  </div>*/}
 
-                {<div style={this.props.styles.footer.newConversationWrap}>
+                {/*
 
-                    <Button label='New Conversation'
-                            href='#'
-                            primary={true}
-                            accent={false}
-                            secondary={false}
-                            plain={false}
-                    />
+                 <div style={this.props.styles.footer.newConversationWrap}>
 
-                </div>}
+                 <Button label='New Conversation'
+                 href='#'
+                 primary={true}
+                 accent={false}
+                 secondary={false}
+                 plain={false}
+                 />
+
+                 </div>
+
+                 */}
 
             </div>
         );

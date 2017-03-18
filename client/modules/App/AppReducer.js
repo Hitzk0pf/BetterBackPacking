@@ -1,24 +1,27 @@
 // Import Actions
-import { TOGGLE_ADD_POST } from './AppActions';
+import {TOGGLE_ADD_POST, UPDATE_CURRENT_CHAT_USER} from './AppActions';
 
 // Initial State
 const initialState = {
-  showAddPost: false,
+    showAddPost: false,
+    currentChatUser: null
 };
 
 const AppReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case TOGGLE_ADD_POST:
-      return {
-        showAddPost: !state.showAddPost,
-      };
+    switch (action.type) {
+        case TOGGLE_ADD_POST:
+            return {
+                showAddPost: !state.showAddPost,
+            };
 
-    default:
-      return state;
-  }
+        case UPDATE_CURRENT_CHAT_USER:
+            return Object.assign({}, state, {
+                currentChatUser: action.userCuid
+            });
+        default:
+            return state;
+    }
 };
-
-/* Selectors */
 
 // Get showAddPost
 export const getShowAddPost = state => state.app.showAddPost;

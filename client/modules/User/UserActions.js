@@ -16,6 +16,46 @@ export const FETCH_AVATAR_SUCCESS = "FETCH_AVATAR_SUCCESS";
 export const EDIT_USER_FAILED = "EDIT_USER_FAILED";
 export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
 
+export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+export const FETCH_USERS_FAILED = 'FETCH_USERS_FAILED';
+export const FETCH_USERS_STARTED = 'FETCH_USERS_STARTED';
+
+export function fetchUsers() {
+    return (dispatch) => {
+        dispatch(fetchUsersStarted())
+        return callApi(`users/`, 'get').then(res => dispatch(fetchUsersResult(res)));
+    };
+}
+
+export function fetchUsersStarted() {
+    return {
+        type: FETCH_USERS_STARTED
+    }
+}
+
+export function fetchUsersResult(users) {
+    return (dispatch) => {
+        if(users) {
+            dispatch(fetchUsersSuccess(users))
+        } else {
+            dispatch(fetchUsersFailed)
+        }
+    }
+}
+
+export function fetchUsersSuccess(users) {
+    return {
+        type: FETCH_USERS_SUCCESS,
+        users
+    }
+}
+
+export function fetchUsersFailed() {
+    return {
+        type: FETCH_USERS_FAILED
+    }
+}
+
 export function checkAddUser(user) {
   return (dispatch) => {
     console.log(user);
