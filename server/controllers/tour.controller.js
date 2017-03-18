@@ -30,8 +30,9 @@ export function getTours(req, res) {
     }).catch((err) => {
       console.log("Ojee da geht was nit", err);
     });
-
 }
+
+
 
 /**
  * Save a Tour
@@ -157,8 +158,8 @@ export function changeTour(req, res) {
       transportation: requestTour.transportation,
       tourStyle: requestTour.tourStyle,
 
-})
-res.status(200).end();
+    })
+    res.status(200).end();
 
     } else {
       res.status(404).send();

@@ -20,35 +20,44 @@ export function getUsers(req, res) {
 }
 
 export function wentOffline(req, res) {
-  models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
-    if(user) {
-      user.last_seen = new Date();
-
-      user.save().then(updatedUser => {
-        res.json({success: true});
-      }).catch(err => {
-        res.status(500).send();
-      });
-    } else {
-      res.status(404).send();
+  models.User.update({
+    last_seen: new Date(),
+  }, {
+    where: {
+      cuid: req.params.cuid
     }
-  }).catch(err => res.status(500).send(err));
+  }).then(updatedUser => {
+    res.json({success: true});
+  }).catch(err => {
+    res.status(500).send();
+  });
 }
 
 export function wentOnline(req, res) {
-  models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
-    if(user) {
-      user.last_seen = null;
-
-      user.save().then(updatedUser => {
-        res.json({success: true});
-      }).catch(err => {
-        res.status(500).send();
-      });
-    } else {
-      res.status(404).send();
+  models.User.update({
+    last_seen: new Date(0),
+  }, {
+    where: {
+      cuid: req.params.cuid
     }
-  }).catch(err => res.status(500).send(err));
+  }).then(updatedUser => {
+    res.json({success: true});
+  }).catch(err => {
+    res.status(500).send();
+  });
+//   models.User.findOne({ where: {cuid: req.params.cuid} }).then((user) => {
+//     if(user) {
+//       user.last_seen = new Date(0);
+//
+//       user.update({...user}).then(updatedUser => {
+//         res.json({success: true, user});
+//       }).catch(err => {
+//         res.status(500).send();
+//       });
+//     } else {
+//       res.status(404).send();
+//     }
+//   }).catch(err => res.status(500).send(err));
 }
 
 /**
