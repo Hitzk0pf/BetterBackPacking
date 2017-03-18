@@ -18,21 +18,21 @@ export class ClientList extends Component {
 
     render() {
 
-        if (this.props.usersFetching) {
-            return(<div>loading...</div>);
+        if (!this.attempting || this.props.usersFetching) {
+            return (<div>loading...</div>);
         }
 
-        console.log(this.props.usersPayload);
+        let users = this.props.usersPayload;
 
         const clients = [];
 
-        for (let i = 0; i < 12; i++) {
+        users.map((user, i) => {
             clients.push(
                 <div key={i} style={i < 11 ? this.props.styles.clientWrapper : {}}>
                     <div
                         key={i}
                         style={this.props.styles.client}
-                        onClick={(userCuid) => this.updateChatUser(123)}
+                        onClick={(userCuid) => this.updateChatUser(user.cuid)}
                     >
                         <div
                             style={{
@@ -45,14 +45,14 @@ export class ClientList extends Component {
                                         name={"Thomas Wedenig"} src={''}/>
                             </div>
                             <div style={{marginLeft: "0.7rem"}}>
-                                <h3 style={{fontSize: "0.95rem", color: "#666", margin: "0"}}>Thomas Wedenig1</h3>
+                                <h3 style={{fontSize: "0.95rem", color: "#666", margin: "0"}}>{user.firstname} {user.lastname}</h3>
                                 <span style={{fontSize: "0.9rem", color: "#888", margin: "0.25rem 0 0 0"}}>latest message her...</span>
                             </div>
                         </div>
                     </div>
                 </div>
             );
-        }
+        });
 
         return (
             <div style={this.props.styles.wrapper}>
@@ -62,4 +62,4 @@ export class ClientList extends Component {
     }
 }
 
-export default ClientList;
+export default Radium(ClientList);

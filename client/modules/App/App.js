@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 import Chat from '../Chat/components/Chat';
 
 // Import Style
@@ -12,37 +12,35 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
 // Import Actions
-import { toggleAddPost, updateCurrentChatUser } from './AppActions';
-import { switchLanguage } from '../../modules/Intl/IntlActions';
-import { authUser, logoutUser, fetchUsers } from '../User/UserActions';
+import {updateCurrentChatUser} from './AppActions';
+import {switchLanguage} from '../../modules/Intl/IntlActions';
+import {authUser, logoutUser, fetchUsers} from '../User/UserActions';
 
 export class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { isMounted: false };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {isMounted: false};
+    }
 
-  componentDidMount() {
-    this.setState({isMounted: true}); // eslint-disable-line
-    this.props.dispatch(authUser());
-    // tell socket server that the user is online - ready to chat
-    this.props.dispatch({ type: 'server/is_online', token: this.props.user.token });
-  }
+    componentDidMount() {
+        this.setState({isMounted: true}); // eslint-disable-line
+        this.props.authUser();
+        // tell socket server that the user is online - ready to chat
+        // this.props.dispatch({type: 'server/is_online', token: this.props.user.token});
+        // this.props.isOnline(this.props.user.token);
+    }
 
-  toggleAddPostSection = () => {
-    this.props.dispatch(toggleAddPost());
-  };
+    render() {
 
-  render() {
-
-    return (
-      <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
-        <div>
-          <Helmet
-            title="MERN Starter - Blog App"
-            titleTemplate="%s - BBP"
-            meta={[
+        return (
+            <div>
+                {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' &&
+                <DevTools />}
+                <div>
+                    <Helmet
+                        title="MERN Starter - Blog App"
+                        titleTemplate="%s - BBP"
+                        meta={[
               { charset: 'utf-8' },
               {
                 'http-equiv': 'X-UA-Compatible',
@@ -53,58 +51,61 @@ export class App extends Component {
                 content: 'width=device-width, initial-scale=1',
               },
             ]}
-          />
-          <Header
-            switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
-            intl={this.props.intl}
-            toggleAddPost={this.toggleAddPostSection}
-            avatar={this.props.user.avatar}
-            isGuide={this.props.user.user ? this.props.user.user.isGuide : null}
-            isLoggedIn={this.props.user.loggedIn}
-            cuid={this.props.user.user ? this.props.user.user.cuid : null}
-            logoutUser={() => this.props.dispatch(logoutUser())}
-            chat={() => console.log('clicked chat')}
-          />
-          <div className={styles.container}>
-            {this.props.children}
-          </div>
-          <Footer />
-        </div>
-          <Chat
-              updateCurrentChatUser={this.props.updateCurrentChatUser}
-              fetchUsers={this.props.fetchUsers}
-              usersFetching={this.props.usersFetching}
-              usersPayload={this.props.usersPayload}
-              usersFailed={this.props.usersFailed}
-          />
-      </div>
-    );
-  }
+                    />
+                    <Header
+                        switchLanguage={lang => this.props.switchLanguage(lang)}
+                        intl={this.props.intl}
+                        avatar={this.props.user.avatar}
+                        isGuide={this.props.user.user ? this.props.user.user.isGuide : null}
+                        isLoggedIn={this.props.user.loggedIn}
+                        cuid={this.props.user.user ? this.props.user.user.cuid : null}
+                        logoutUser={() => this.props.logoutUser()}
+                        chat={() => console.log('clicked chat')}
+                    />
+                    <div className={styles.container}>
+                        {this.props.children}
+                    </div>
+                    <Footer />
+                </div>
+                <Chat
+                    updateCurrentChatUser={this.props.updateCurrentChatUser}
+                    fetchUsers={this.props.fetchUsers}
+                    usersFetching={this.props.usersFetching}
+                    usersPayload={this.props.usersPayload}
+                    usersFailed={this.props.usersFailed}
+                />
+            </div>
+        );
+    }
 }
 
 App.propTypes = {
-  children: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired,
+    children: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    intl: PropTypes.object.isRequired,
 };
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
-  return {
-    intl: store.intl,
-    user: store.user,
-    currentChatUser: store.app.currentChatUser,
-    usersFetching: store.user.usersFetching,
-    usersPayload: store.user.usersPayload,
-    usersFailed: store.user.usersFailed
-  };
+    return {
+        intl: store.intl,
+        user: store.user,
+        currentChatUser: store.app.currentChatUser,
+        usersFetching: store.user.usersFetching,
+        usersPayload: store.user.usersPayload,
+        usersFailed: store.user.usersFailed
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    updateCurrentChatUser: (userCuid) => dispatch(updateCurrentChatUser(userCuid)),
-    fetchUsers: () => dispatch(fetchUsers())
-  }
+    return {
+        updateCurrentChatUser: (userCuid) => dispatch(updateCurrentChatUser(userCuid)),
+        fetchUsers: () => dispatch(fetchUsers()),
+        authUser: () => dispatch(authUser()),
+        logoutUser: () => dispatch(logoutUser()),
+        switchLanguage: (lang) => dispatch(switchLanguage(lang))
+        // isOnline: (token) => dispatch({type: 'server/is_online', token: token})
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
