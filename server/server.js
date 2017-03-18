@@ -186,6 +186,7 @@ io.on('connection', function (socket) {
       console.log('Got is_online!', action.token);
       allClients.push({ socket, cuid: action.cuid });
       // socket.emit('action', { type: 'user_online', data: action.cuid });
+      // broadcast that the user has gone online to every other client
       io.sockets.emit('action', { type: 'user_online', data: action.cuid });
 
       callApi(`users/${action.cuid}/online`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
@@ -202,7 +203,15 @@ io.on('connection', function (socket) {
       const receiverClients = allClients.filter(client => action.receivers.indexOf(client.cuid) !== -1)
       const sender = allClients.filter(client => socket.id === client.socket.id)[0].cuid;
       // receiverClients.map(receiver => socket.emit('action', {
-      receiverClients[0].socket.emit('action', { type: 'user_online', data: action.message });
+      for (let i = 0; i < receiverClients.length; i++) {
+        receiverClients[i].socket.emit('action', {
+          type: 'receive_message',
+          data: {
+            message: action.message,
+            sender,
+          }
+        });
+      }
       receiverClients.map(receiver => receiver.socket.emit('action', {
         type: 'receive_message',
         data: {
