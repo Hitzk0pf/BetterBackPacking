@@ -11,7 +11,7 @@ import webpack from 'webpack';
 import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-
+import callApi from '../client/util/apiCaller'
 // Initialize the Express App
 const app = new Express();
 
@@ -177,17 +177,54 @@ let connectedUsers = [];
 server.listen(3000);
 const io = socketIo();
 io.attach(server);
+let allClients = [];
 io.on('connection', function (socket) {
   console.log('Socket connected: ', socket.id);
   socket.on('action', (action) => {
     console.log('ACTION', action)
     if (action.type === 'server/is_online') {
       console.log('Got is_online!', action.token);
-      // const user = passport.authenticate('jwt', {session: false})
-      connectedUsers.push({cuid: 'test', socket});
-      console.log(connectedUsers)
-      socket.emit('action', { type: 'message', data: 'got token!' });
+      allClients.push({ socket, cuid: action.cuid });
+
+      callApi(`users/${action.cuid}/online`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
+      ).then(res => {
+        if (res.success) {
+          socket.emit('action', { type: 'user_online', data: action.cuid });
+          console.log('AUTH SUCCESS');
+        }
+      });
     }
+    if (action.type === 'server/send_message') {
+      console.log('Got msg!', action.message);
+      // expects an action with message (string) and receiver (array of cuids)
+      const receiverClients = allClients.filter(client => action.receivers.indexOf(client.cuid) !== -1)
+      const sender = allClients.filter(client => socket.id === client.socket.id).cuid;
+      receiverClients.map(receiver => socket.to(receiver.socket.id).emit('action', {
+        type: 'receive_message',
+        data: {
+          message: action.message,
+          sender,
+        }
+      }));
+      // callApi(`users/${action.cuid}/online`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
+      // ).then(res => {
+      //   if (res.success) {
+      //     socket.emit('action', { type: 'user_online', data: action.cuid });
+      //     console.log('AUTH SUCCESS');
+      //   }
+      // });
+    }
+
+    socket.on('disconnect', () => {
+      allClients = allClients.filter(client => client.socket !== socket);
+      callApi(`users/${action.cuid}/offline`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
+      ).then(res => {
+        if (res.success) {
+          socket.emit('action', { type: 'user_offline', data: socket.id });
+        }
+      });
+    })
+
     if (action.type === 'server/hello') {
       console.log('Got hello data!', action.data);
       socket.emit('action', { type: 'message', data: 'good day!' });

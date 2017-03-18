@@ -143,13 +143,10 @@ export function authUser() {
       console.log("now /api/auth is called with this token: ", token);
       return callApi('auth', 'post', token, {} // send JWT Token to authenticate (otherwise its '')
       ).then(res => {
-        if(res.authenticationSuccess)
-        {
+        if (res.authenticationSuccess) {
           dispatch(authSuccess(res.authenticatedUser, token));
           dispatch(fetchAvatar(res.authenticatedUser));
-        }
-        else
-        {
+        } else {
           dispatch(authFailed());
         }
       });

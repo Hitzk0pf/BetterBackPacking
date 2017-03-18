@@ -37,6 +37,11 @@ const UserModel = (sequelize, Sequelize) => {
 		defaultValue: false,
     allowNull: false,
 	},
+	last_seen: {
+		type: Sequelize.DATE,
+		allowNull: false,
+    defaultValue: new Date(),
+	},
 	birthdate: {
 		type: Sequelize.DATE,
 		allowNull: true,

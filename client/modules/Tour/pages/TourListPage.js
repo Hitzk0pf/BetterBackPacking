@@ -56,7 +56,8 @@ export class TourSearchPage extends Component {
 
         const loadMore = () => {
           if (this.state.filterView) {
-            this.props.searchTour(4, new Date(this.props.allTours[this.props.allTours.length - 1]), this.state.area, this.state.tourstyle, this.state.difficulty);
+            console.log(this.props.allTours)
+            this.props.searchTour(4, new Date(this.props.allTours[this.props.allTours.length - 1].createdAt), this.state.area, this.state.tourstyle, this.state.difficulty);
           } else {
             this.props.getAllTours(4, new Date(this.props.allTours[this.props.allTours.length - 1].createdAt));
           }

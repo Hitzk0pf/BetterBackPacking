@@ -25,6 +25,8 @@ export class App extends Component {
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
     this.props.dispatch(authUser());
+    // tell socket server that the user is online - ready to chat
+    this.props.dispatch({ type: 'server/is_online', token: this.props.user.token });
   }
 
   toggleAddPostSection = () => {
@@ -61,7 +63,7 @@ export class App extends Component {
             isLoggedIn={this.props.user.loggedIn}
             cuid={this.props.user.user ? this.props.user.user.cuid : null}
             logoutUser={() => this.props.dispatch(logoutUser())}
-            chat={() => this.props.dispatch({ type: 'server/is_online', token: this.props.user.token })}
+            chat={() => console.log('clicked chat')}
           />
           <div className={styles.container}>
             {this.props.children}
