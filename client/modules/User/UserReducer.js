@@ -11,6 +11,9 @@ import {
     FETCH_AVATAR_SUCCESS,
     EDIT_USER_FAILED,
     EDIT_USER_SUCCESS,
+    FETCH_USERS_FAILED,
+    FETCH_USERS_STARTED,
+    FETCH_USERS_SUCCESS
 } from './UserActions';
 
 // Initial State
@@ -25,20 +28,41 @@ const initialState = {
     user: null,
     avatar: null,
     editUserError: null,
+    usersFetching: false,
+    usersPayload: null,
+    usersFailed: null,
 };
 
 const UserReducer = (state = initialState, action) => {
     switch (action.type) {
-         case ADD_USER_FINISHED :
-           return Object.assign({}, state, {
-           addUserFinished: true,
-           addUserError: false,
-           });
-         case ADD_USER_ERROR :
-           return Object.assign({}, state, {
-           addUserError: true,
-           addUserFinished: false
-           });
+        case FETCH_USERS_STARTED :
+            return Object.assign({}, state, {
+                usersFetching: true,
+                usersFailed: null,
+                usersPayload: null
+            });
+        case FETCH_USERS_SUCCESS :
+            return Object.assign({}, state, {
+                usersFetching: false,
+                usersFailed: false,
+                usersPayload: action.users
+            });
+        case FETCH_USERS_FAILED :
+            return Object.assign({}, state, {
+                usersFetching: false,
+                usersFailed: true,
+                usersPayload: null
+            });
+        case ADD_USER_FINISHED :
+            return Object.assign({}, state, {
+                addUserFinished: true,
+                addUserError: false,
+            });
+        case ADD_USER_ERROR :
+            return Object.assign({}, state, {
+                addUserError: true,
+                addUserFinished: false
+            });
         case AUTH_SUCCESS :
             return Object.assign({}, state, {
                 loginSuccess: true,

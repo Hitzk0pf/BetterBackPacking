@@ -3,11 +3,12 @@ import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 import CloseIcon from 'grommet/components/icons/base/Close';
 import ChatIcon from 'grommet/components/icons/base/Chat';
 import ChatBox from "./ChatBox";
+import Radium from "radium";
 
 export class Chat extends Component {
 
     render() {
-
+        
         const styles = {
             wrapper: {
                 position: "fixed",
@@ -74,7 +75,13 @@ export class Chat extends Component {
                 },
                 client: {
                     padding: "1rem",
-                    boxSizing: "border-box"
+                    boxSizing: "border-box",
+                    cursor: "pointer",
+
+                    ":hover": {
+                        backgroundColor: "#fafafa"
+                    }
+
                 },
                 clientWrapper: {
                     borderBottom: "0.1rem solid #eee"
@@ -85,7 +92,15 @@ export class Chat extends Component {
         return (
             <div style={styles.wrapper}>
                 <div style={{position: "relative"}}>
-                    <ChatBox styles={styles.chatBox} clientsStyles={styles.clients}/>
+                    <ChatBox
+                        styles={styles.chatBox}
+                        clientsStyles={styles.clients}
+                        updateCurrentChatUser={this.props.updateCurrentChatUser}
+                        fetchUsers={this.props.fetchUsers}
+                        usersFetching={this.props.usersFetching}
+                        usersPayload={this.props.usersPayload}
+                        usersFailed={this.props.usersFailed}
+                    />
                     <div style={styles.chatButton.wrapper}>
                         <ChatIcon colorIndex={"light-1"}/>
                     </div>

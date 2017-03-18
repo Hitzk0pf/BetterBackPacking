@@ -12,9 +12,9 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
 // Import Actions
-import { toggleAddPost } from './AppActions';
+import { toggleAddPost, updateCurrentChatUser } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
-import { authUser, logoutUser } from '../User/UserActions';
+import { authUser, logoutUser, fetchUsers } from '../User/UserActions';
 
 export class App extends Component {
   constructor(props) {
@@ -32,6 +32,7 @@ export class App extends Component {
   };
 
   render() {
+
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
@@ -67,7 +68,13 @@ export class App extends Component {
           </div>
           <Footer />
         </div>
-          <Chat />
+          <Chat
+              updateCurrentChatUser={this.props.updateCurrentChatUser}
+              fetchUsers={this.props.fetchUsers}
+              usersFetching={this.props.usersFetching}
+              usersPayload={this.props.usersPayload}
+              usersFailed={this.props.usersFailed}
+          />
       </div>
     );
   }
@@ -84,7 +91,18 @@ function mapStateToProps(store) {
   return {
     intl: store.intl,
     user: store.user,
+    currentChatUser: store.app.currentChatUser,
+    usersFetching: store.user.usersFetching,
+    usersPayload: store.user.usersPayload,
+    usersFailed: store.user.usersFailed
   };
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentChatUser: (userCuid) => dispatch(updateCurrentChatUser(userCuid)),
+    fetchUsers: () => dispatch(fetchUsers())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
