@@ -34,7 +34,9 @@ export class Chat extends Component {
                     width: "20rem",
                     backgroundColor: "#fff",
                     boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
-                    zIndex: 99999
+                    zIndex: 99999,
+                    borderRadius: "0.3rem",
+                    overflow: "hidden"
                 },
                 content: {
                     width: "100%",
@@ -43,14 +45,27 @@ export class Chat extends Component {
                 },
                 header: {
                     width: "100%",
-                    height: "3.5rem",
+                    padding: "0.3rem 0.7rem 0.8rem",
                     boxSizing: "border-box",
                     backgroundColor: "#FF6F00"
                 },
                 footer: {
                     width: "100%",
-                    height: "3rem",
-                    backgroundColor: "#f5f5f5"
+
+                    inputWrap: {
+                        height: "4rem",
+                        backgroundColor: "#f5f5f5"
+                    },
+
+                    newConversationWrap: {
+                        width: "100%",
+                        height: "4rem",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#f5f5f5"
+                    }
+
                 }
             },
             clients: {
