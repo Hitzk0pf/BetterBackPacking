@@ -5,13 +5,13 @@ import { TOGGLE_ADD_POST } from './ChatActions';
 const initialState = {
   socketID: null,
   memberTyping: false,
-  message: null,
+  messageArray: null,
 };
 
 const ChatReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'message':
-      return Object.assign({}, { message: action.data });
+    case 'receive_message':
+      return Object.assign({}, { messageArray: state.messageArray.concat(state.messageArray, action.data) });
     default:
       return state;
   }

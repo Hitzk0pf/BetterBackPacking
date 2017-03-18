@@ -144,6 +144,7 @@ export function authUser() {
       return callApi('auth', 'post', token, {} // send JWT Token to authenticate (otherwise its '')
       ).then(res => {
         if (res.authenticationSuccess) {
+          dispatch(sendIsOnline(token, res.authenticatedUser.cuid));
           dispatch(authSuccess(res.authenticatedUser, token));
           dispatch(fetchAvatar(res.authenticatedUser));
         } else {
@@ -240,6 +241,13 @@ export function fetchAvatarFailed(error) {
     type: FETCH_AVATAR_FAILED,
     error,
   };
+}
+
+export function sendIsOnline(token, cuid) {
+  return (dispatch) => {
+    // tell socket server that the user is online - ready to chat
+    dispatch({ type: 'server/is_online', token, cuid });
+  }
 }
 
 export function authSuccess(user, token) {

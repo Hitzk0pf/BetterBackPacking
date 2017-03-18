@@ -51,6 +51,7 @@ export class App extends Component {
                 content: 'width=device-width, initial-scale=1',
               },
             ]}
+
                     />
                     <Header
                         switchLanguage={lang => this.props.switchLanguage(lang)}
@@ -60,7 +61,7 @@ export class App extends Component {
                         isLoggedIn={this.props.user.loggedIn}
                         cuid={this.props.user.user ? this.props.user.user.cuid : null}
                         logoutUser={() => this.props.logoutUser()}
-                        chat={() => console.log('clicked chat')}
+                        chat={this.props.testChat}
                     />
                     <div className={styles.container}>
                         {this.props.children}
@@ -81,8 +82,7 @@ export class App extends Component {
 
 App.propTypes = {
     children: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
+    intl: PropTypes.object.isRequired
 };
 
 // Retrieve data from store as props
@@ -97,14 +97,15 @@ function mapStateToProps(store) {
     };
 }
 
+
 const mapDispatchToProps = (dispatch) => {
     return {
         updateCurrentChatUser: (userCuid) => dispatch(updateCurrentChatUser(userCuid)),
         fetchUsers: () => dispatch(fetchUsers()),
         authUser: () => dispatch(authUser()),
         logoutUser: () => dispatch(logoutUser()),
-        switchLanguage: (lang) => dispatch(switchLanguage(lang))
-        // isOnline: (token) => dispatch({type: 'server/is_online', token: token})
+        switchLanguage: (lang) => dispatch(switchLanguage(lang)),
+        testChat: () => dispatch(({ type: 'server/send_message', message: 'Hello there. This is a messäge.', receivers: ['123'] }))
     }
 };
 

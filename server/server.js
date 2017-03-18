@@ -185,6 +185,8 @@ io.on('connection', function (socket) {
     if (action.type === 'server/is_online') {
       console.log('Got is_online!', action.token);
       allClients.push({ socket, cuid: action.cuid });
+      // socket.emit('action', { type: 'user_online', data: action.cuid });
+      io.sockets.emit('action', { type: 'user_online', data: action.cuid });
 
       callApi(`users/${action.cuid}/online`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
       ).then(res => {
@@ -198,8 +200,10 @@ io.on('connection', function (socket) {
       console.log('Got msg!', action.message);
       // expects an action with message (string) and receiver (array of cuids)
       const receiverClients = allClients.filter(client => action.receivers.indexOf(client.cuid) !== -1)
-      const sender = allClients.filter(client => socket.id === client.socket.id).cuid;
-      receiverClients.map(receiver => socket.to(receiver.socket.id).emit('action', {
+      const sender = allClients.filter(client => socket.id === client.socket.id)[0].cuid;
+      // receiverClients.map(receiver => socket.emit('action', {
+      receiverClients[0].socket.emit('action', { type: 'user_online', data: action.message });
+      receiverClients.map(receiver => receiver.socket.emit('action', {
         type: 'receive_message',
         data: {
           message: action.message,
