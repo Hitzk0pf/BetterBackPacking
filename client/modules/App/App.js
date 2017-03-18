@@ -98,11 +98,11 @@ function mapStateToProps(store) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return {
     updateCurrentChatUser: (userCuid) => dispatch(updateCurrentChatUser(userCuid)),
     fetchUsers: () => dispatch(fetchUsers())
   }
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
