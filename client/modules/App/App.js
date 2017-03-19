@@ -123,7 +123,7 @@ const mapDispatchToProps = (dispatch) => {
         authUser: () => dispatch(authUser()),
         logoutUser: () => dispatch(logoutUser()),
         switchLanguage: (lang) => dispatch(switchLanguage(lang)),
-        testChat: () => dispatch(({ type: 'server/send_message', message: 'Hello there. This is a messäge.', receivers: ['123', 'cj0fuhdym000cyalguh2vhbzp', 'cj0fuhdyh000byalgo8x7d24n'] }))
+        testChat: () => dispatch(({ type: 'server/send_message', message: 'Hello there. This is a messäge.', receivers: ['123'] }))
     }
 };
 
