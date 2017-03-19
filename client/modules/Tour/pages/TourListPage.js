@@ -14,7 +14,6 @@ import {Link} from 'react-router';
 import InfoIcon from 'grommet/components/icons/base/Info';
 import Spinning from 'grommet/components/icons/Spinning';
 
-import NotificationSystem from 'react-notification-system';
 
 export class TourSearchPage extends Component {
 
@@ -35,14 +34,6 @@ export class TourSearchPage extends Component {
     this.setState({ filterView: true, area, tourstyle, difficulty });
   }
 
-  _addNotification (notification) {
-    this.refs.notificationSystem.addNotification({
-        title: 'Firstname Lastname',
-        message: 'Notification message',
-        level: 'success',
-        position: 'tr',
-    })
-  }
     render() {
         const styles = {
 
@@ -95,7 +86,6 @@ export class TourSearchPage extends Component {
 
                 <Helmet title={"TourSearchPage"}/>
 
-                <NotificationSystem ref="notificationSystem" />
 
                 <Button label="Test Notification" onClick={() => this._addNotification("test")} />
 
