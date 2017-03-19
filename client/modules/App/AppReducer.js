@@ -16,7 +16,7 @@ const AppReducer = (state = initialState, action) => {
 
         case UPDATE_CURRENT_CHAT_USER:
             return Object.assign({}, state, {
-                currentChatUser: action.userCuid
+                currentChatUser: action.user
             });
         default:
             return state;

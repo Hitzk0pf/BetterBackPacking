@@ -9,9 +9,9 @@ export function toggleAddPost() {
     };
 }
 
-export function updateCurrentChatUser(userCuid) {
+export function updateCurrentChatUser(user) {
     return {
         type: UPDATE_CURRENT_CHAT_USER,
-        userCuid
+        user
     }
 }

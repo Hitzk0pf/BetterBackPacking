@@ -12,8 +12,8 @@ export class ClientList extends Component {
         this.attempting = true;
     }
 
-    updateChatUser = (userCuid) => {
-        this.props.updateCurrentChatUser(userCuid);
+    updateChatUser = (user) => {
+        this.props.updateCurrentChatUser(user);
     };
 
     render() {
@@ -32,7 +32,7 @@ export class ClientList extends Component {
                     <div
                         key={i}
                         style={this.props.styles.client}
-                        onClick={(userCuid) => this.updateChatUser(user.cuid)}
+                        onClick={() => this.updateChatUser(user)}
                     >
                         <div
                             style={{

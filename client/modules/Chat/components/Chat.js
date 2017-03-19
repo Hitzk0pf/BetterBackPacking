@@ -54,8 +54,9 @@ export class Chat extends Component {
                     width: "100%",
 
                     inputWrap: {
-                        height: "4rem",
-                        backgroundColor: "#f5f5f5"
+                        padding: "0.7rem 0",
+                        textAlign: "center",
+                        borderTop: "0.1rem solid #eee"
                     },
 
                     newConversationWrap: {
@@ -96,6 +97,7 @@ export class Chat extends Component {
                         styles={styles.chatBox}
                         clientsStyles={styles.clients}
                         updateCurrentChatUser={this.props.updateCurrentChatUser}
+                        currentChatUser={this.props.currentChatUser}
                         fetchUsers={this.props.fetchUsers}
                         usersFetching={this.props.usersFetching}
                         usersPayload={this.props.usersPayload}
