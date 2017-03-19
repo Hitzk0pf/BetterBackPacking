@@ -7,8 +7,20 @@ import Radium from "radium";
 
 export class Chat extends Component {
 
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        showChat: false,
+      }
+    }
+
+    toggleChat() {
+      this.setState({showChat: !this.state.showChat});
+    }
+
     render() {
-        
+
         const styles = {
             wrapper: {
                 position: "fixed",
@@ -93,7 +105,7 @@ export class Chat extends Component {
         return (
             <div style={styles.wrapper}>
                 <div style={{position: "relative"}}>
-                    <ChatBox
+                    {this.state.showChat && <ChatBox
                         styles={styles.chatBox}
                         clientsStyles={styles.clients}
                         updateCurrentChatUser={this.props.updateCurrentChatUser}
@@ -102,9 +114,12 @@ export class Chat extends Component {
                         usersFetching={this.props.usersFetching}
                         usersPayload={this.props.usersPayload}
                         usersFailed={this.props.usersFailed}
-                    />
+                        sendMessage={this.props.sendMessage}
+                        messageArray={this.props.messageArray}
+                        onlineList={this.props.onlineList}
+                    />}
                     <div style={styles.chatButton.wrapper}>
-                        <ChatIcon colorIndex={"light-1"}/>
+                        <ChatIcon colorIndex={"light-1"} onClick={() => this.toggleChat()}/>
                     </div>
                 </div>
             </div>

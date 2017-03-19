@@ -17,10 +17,11 @@ export class ClientList extends Component {
                 position: "relative",
                 width: "100%",
                 padding: "0 0.7rem",
-                boxSizing: "border-box"
+                boxSizing: "border-box",
+                display: "block"
             },
             messageSent: {
-                display: "inline-block",
+                display: "block",
                 maxWidth: "80%",
                 margin: "0.25rem 0",
                 padding: "0.5rem",
@@ -41,6 +42,14 @@ export class ClientList extends Component {
             }
         };
 
+        let newMessages = this.props.messageArray.map(msg => (
+            <div style={{display: 'block', width: '100%'}}>
+              <div style={styles.message}>
+                  <div key={msg.sender + new Date().getTime()} style={msg.sender ? styles.messageReceived : styles.messageSent}>{msg.message}</div>
+              </div>
+            </div>
+        ))
+
         return (
             <div style={{padding: "0.7rem 0"}}>
                 <div style={styles.message}>
@@ -50,6 +59,7 @@ export class ClientList extends Component {
                 <div style={styles.message}>
                     <div style={styles.messageReceived}>Consetetur sadipscing elitr, sed diam nonumy.</div>
                 </div>
+                {newMessages}
             </div>
         );
     }

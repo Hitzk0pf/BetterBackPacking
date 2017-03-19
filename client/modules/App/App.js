@@ -16,6 +16,7 @@ import Footer from './components/Footer/Footer';
 import {updateCurrentChatUser} from './AppActions';
 import {switchLanguage} from '../../modules/Intl/IntlActions';
 import {authUser, logoutUser, fetchUsers} from '../User/UserActions';
+import { sendMessage } from '../Chat/ChatActions';
 
 export class App extends Component {
     constructor(props) {
@@ -32,14 +33,16 @@ export class App extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-      if (newProps.notifyMessage !== this.props.notifyMessage) {
-        this._addNotification(newProps.notifyMessage)
+      if (newProps.notifyMessage !== this.props.notifyMessage && newProps.notifyMessage !== undefined) {
+        this._addNotification(newProps.notifyMessage, newProps.usersPayload)
       }
     }
 
-    _addNotification (message) {
+    _addNotification (message, users) {
+      const senderUser = users.filter(user => user.cuid === message.sender)[0]
+      const title = senderUser.firstname + " " + senderUser.lastname;
       this.refs.notificationSystem.addNotification({
-          title: message.sender,
+          title,
           message: message.message,
           level: 'success',
           position: 'tr',
@@ -92,6 +95,9 @@ export class App extends Component {
                     usersFetching={this.props.usersFetching}
                     usersPayload={this.props.usersPayload}
                     usersFailed={this.props.usersFailed}
+                    sendMessage={this.props.sendMessage}
+                    messageArray={this.props.messageArray}
+                    onlineList={this.props.onlineList}
                 />
             </div>
         );
@@ -113,6 +119,8 @@ function mapStateToProps(store) {
         usersPayload: store.user.usersPayload,
         usersFailed: store.user.usersFailed,
         notifyMessage: store.chat.notifyMessage,
+        messageArray: store.chat.messageArray,
+        onlineList: store.chat.onlineList,
     };
 }
 
@@ -124,7 +132,8 @@ const mapDispatchToProps = (dispatch) => {
         authUser: () => dispatch(authUser()),
         logoutUser: () => dispatch(logoutUser()),
         switchLanguage: (lang) => dispatch(switchLanguage(lang)),
-        testChat: () => dispatch(({ type: 'server/send_message', message: 'Hello there. This is a messäge.', receivers: ['123'] }))
+        testChat: () => dispatch(({ type: 'server/send_message', message: 'Hello there. This is a messäge.', receivers: ['123'] })),
+        sendMessage: (message, receivers) => dispatch(sendMessage(message, receivers)),
     }
 };
 

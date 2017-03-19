@@ -4,6 +4,7 @@ import CloseIcon from 'grommet/components/icons/base/Close';
 import ChatIcon from 'grommet/components/icons/base/Chat';
 import Avatar from 'react-avatar';
 import Radium from "radium";
+import Spinning from 'grommet/components/icons/Spinning';
 
 export class ClientList extends Component {
 
@@ -19,7 +20,9 @@ export class ClientList extends Component {
     render() {
 
         if (!this.attempting || this.props.usersFetching) {
-            return (<div>loading...</div>);
+            return (<div style={{ textAlign: 'center', paddingTop: '1rem' }}>
+                      <Spinning size="large"/>
+                    </div>)
         }
 
         let users = this.props.usersPayload;
@@ -42,11 +45,11 @@ export class ClientList extends Component {
                         >
                             <div>
                                 <Avatar facebookId={""} round={true} size={40} textSizeRatio={2.1}
-                                        name={"Thomas Wedenig"} src={''}/>
+                                        name={user.firstname + " " + user.lastname} src={''}/>
                             </div>
                             <div style={{marginLeft: "0.7rem"}}>
                                 <h3 style={{fontSize: "0.95rem", color: "#666", margin: "0"}}>{user.firstname} {user.lastname}</h3>
-                                <span style={{fontSize: "0.9rem", color: "#888", margin: "0.25rem 0 0 0"}}>latest message her...</span>
+                                <span style={{fontSize: "0.9rem", color: "#888", margin: "0.25rem 0 0 0"}}>{this.props.calculateLastSeen(user, this.props.onlineList, this.props.wentOffline)}</span>
                             </div>
                         </div>
                     </div>

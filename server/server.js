@@ -192,7 +192,7 @@ io.on('connection', function (socket) {
       callApi(`users/${action.cuid}/online`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
       ).then(res => {
         if (res.success) {
-          socket.emit('action', { type: 'user_online', data: action.cuid });
+          // socket.emit('action', { type: 'user_online', data: action.cuid });
           console.log('AUTH SUCCESS');
         }
       });
@@ -212,13 +212,6 @@ io.on('connection', function (socket) {
           }
         });
       }
-      receiverClients.map(receiver => receiver.socket.emit('action', {
-        type: 'receive_message',
-        data: {
-          message: action.message,
-          sender,
-        }
-      }));
       // callApi(`users/${action.cuid}/online`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
       // ).then(res => {
       //   if (res.success) {
@@ -229,6 +222,12 @@ io.on('connection', function (socket) {
     }
 
     socket.on('disconnect', () => {
+      const disconnectedUser = allClients.filter(client => socket.id === client.socket.id)[0];
+      if (!disconnectedUser) {
+        return;
+      }
+
+      io.sockets.emit('action', { type: 'user_offline', data: disconnectedUser.cuid });
       allClients = allClients.filter(client => client.socket !== socket);
       callApi(`users/${action.cuid}/offline`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
       ).then(res => {

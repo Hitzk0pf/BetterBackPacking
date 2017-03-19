@@ -6,20 +6,93 @@ import CloseIcon from 'grommet/components/icons/base/Close';
 import ChatIcon from 'grommet/components/icons/base/Chat';
 import Button from 'grommet/components/Button';
 import TextInput from 'grommet/components/TextInput';
+import FormField from 'grommet/components/FormField';
+import Form from 'grommet/components/Form';
 import CaretNextIcon from 'grommet/components/icons/base/CaretNext';
 import ClientList from "./ClientList";
 
 export class ChatButton extends Component {
 
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        chatInput: '',
+        wentOffline: [],
+      }
+    }
+
+    componentWillReceiveProps(newProps) {
+      if (newProps.onlineList !== this.props.onlineList) {
+        const wentOffline = this.props.onlineList.filter(onlineUser => newProps.onlineList.indexOf(onlineUser) === -1)
+        const currDate = new Date();
+
+        wentOffline.map(offlineUser => this.setState({ wentOffline: this.state.wentOffline.concat([{ user: offlineUser, date: currDate }]) }));
+      }
+    }
+
     leaveChat = () => {
         this.props.updateCurrentChatUser(null);
     };
 
+    calculateLastSeen(currentChatUser, onlineList, wentOffline) {
+      // calculate lastSeen
+      if (onlineList.indexOf(currentChatUser.cuid) !== -1) {
+        return "online";
+      }
+
+      let lastSeen = currentChatUser.last_seen;
+      let lastSeenFormatted = new Date(lastSeen);
+      // if the user isn't in the onlineList, check if he was before to display current date:
+      const offlineUser = wentOffline.filter(user => user.user === currentChatUser.cuid);
+      if (offlineUser.length > 0) {
+        lastSeenFormatted = offlineUser[0].date;
+      }
+
+      let lastSeenChat = "zuletzt gesehen am " + lastSeenFormatted.getDate() + "." + (lastSeenFormatted.getMonth() + 1) + "." + lastSeenFormatted.getDay();
+      // call setHours to take the time out of the comparison
+      if(new Date(lastSeen).setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+          // Date equals today's date - print time only
+          lastSeenChat = "zuletzt gesehen um " + lastSeenFormatted.getHours() + ":" + lastSeenFormatted.getMinutes();
+      }
+
+      // if timestamp is equal to zero, the user is currently online
+      if (lastSeenFormatted.getTime() === 0)
+          lastSeenChat = "online";
+
+      return lastSeenChat;
+    }
+
+    sendMessage() {
+      event.preventDefault();
+      this.props.sendMessage(this.state.chatInput, [this.props.currentChatUser.cuid])
+      this.setState({chatInput: ''});
+      // console.log(this.state.chatInput, this.props.currentChatUser)
+
+    }
+
+    handleChange(event) {
+
+        let newState = {};
+
+        if(event.target.type == "checkbox") {
+            newState[event.target.name] = event.target.checked;
+        } else {
+            newState[event.target.name] = event.target.value;
+        }
+
+        this.setState(newState);
+
+    }
+
     render() {
+
+        console.log('chatbox props', this.props)
 
         let header = "Chat";
         let subheader = "Contacts";
         let prev = "";
+
         let content = <ClientList
             styles={this.props.clientsStyles}
             updateCurrentChatUser={this.props.updateCurrentChatUser}
@@ -27,40 +100,44 @@ export class ChatButton extends Component {
             usersFetching={this.props.usersFetching}
             usersPayload={this.props.usersPayload}
             usersFailed={this.props.usersFailed}
+            calculateLastSeen={this.calculateLastSeen}
+            onlineList={this.props.onlineList}
+            wentOffline={this.state.wentOffline}
         />;
 
-        const currentChatUser = this.props.currentChatUser;
 
         let chatInputSection = "";
+        const currentChatUser = this.props.currentChatUser;
 
         if (currentChatUser !== null) {
-
-            let lastSeen = currentChatUser.last_seen;
-            let lastSeenFormatted = new Date(lastSeen);
-            let lastSeenChat = "zuletzt gesehen am " + lastSeenFormatted.getDate() + "." + lastSeenFormatted.getMonth() + "." + lastSeenFormatted.getDay();
-
-            if (lastSeenFormatted.getTime() === 0)
-                lastSeenChat = "online";
-
             header = currentChatUser.firstname + " " + currentChatUser.lastname;
-            subheader = lastSeenChat;
+            subheader = this.calculateLastSeen(currentChatUser, this.props.onlineList, this.state.wentOffline);
             prev = (<PreviousIcon style={{stroke: "#fff", marginRight: "0.5rem", cursor: "pointer"}}
                                   onClick={this.leaveChat}/>);
 
             chatInputSection = (
                 <div style={this.props.styles.footer.inputWrap}>
                     <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                  <Form onSubmit={(event) => {
+                    event.preventDefault();
+                    this.sendMessage();
+                  }}>
+                    <FormField>
                         <TextInput id='chatInput'
                                    name='chatInput'
                                    placeHolder="Schreibe eine Nachricht..."
+                                   value={this.state.chatInput}
+                                   onDOMChange={(event) => this.handleChange(event)}
                                    style={{marginRight: "0.5rem"}}
                         />
-                        <CaretNextIcon size={"medium"} style={{cursor: "pointer"}} />
+                    </FormField>
+                  </Form>
+                        <CaretNextIcon size={"medium"} style={{cursor: "pointer"}} onClick={() => this.sendMessage()}/>
                     </div>
                 </div>
             );
 
-            content = <ClientConversation />;
+            content = <ClientConversation messageArray={this.props.messageArray}/>;
         }
 
         let heading = (
@@ -74,7 +151,7 @@ export class ChatButton extends Component {
                         fontSize: "0.9rem",
                         fontWeight: "400",
                         lineHeight: "0.5rem",
-                        margin: "0"
+                        margin: "0",
                     }}>{subheader}</h3>
                     </div>
                 </div>
