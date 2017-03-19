@@ -26,21 +26,45 @@ export class ImageSlider extends Component {
         return (
             <div style={{textAlign: "center"}}>
 
-            <Box direction="row" size={{"height": "medium"}}>
+            <Box size={{"height": "medium"}}>
 
                 <Carousel persistentNav={false}>
-                    <Hero size='medium' backgroundColorIndex='dark'>
-                        <Box direction='row' justify='center' align='center' texture={img1} style={{border: '1rem solid red'}}>
-                            <Box basis='1/2' align='end' pad='medium' style={{border: '1rem solid ýellow'}}/>
-                            <Box basis='1/2' align='start' pad='medium' style={{border: '1rem solid blue'}}>
+                    <Hero backgroundColorIndex='dark'>
+                        <Box direction='row' size={{"height": "medium"}} justify='center' align='center' texture={img1}>
+                            <Box basis='1/2' align='end' pad='medium'/>
+                            <Box basis='1/2' align='start' pad='medium'>
                                 <Heading margin='none'>
-                                    Connect with Localguides
+                                    <div style={{color: 'white'}}>
+                                        Connect with Localguides
+                                    </div>
                                 </Heading>
                             </Box>
                         </Box>
                     </Hero>
-                    <Image src={img1} />
-                    <Image src={img1} />
+                    <Hero backgroundColorIndex='dark'>
+                        <Box direction='row' size={{"height": "medium"}} justify='center' align='center' texture={img1}>
+                            <Box basis='1/2' align='end' pad='medium'/>
+                            <Box basis='1/2' align='start' pad='medium'>
+                                <Heading margin='none'>
+                                    <div style={{color: 'white'}}>
+                                        Experience Adventure
+                                    </div>
+                                </Heading>
+                            </Box>
+                        </Box>
+                    </Hero>
+                    <Hero backgroundColorIndex='dark'>
+                        <Box direction='row' size={{"height": "medium"}} justify='center' align='center' texture={img1}>
+                            <Box basis='1/2' align='end' pad='medium'/>
+                            <Box basis='1/2' align='start' pad='medium'>
+                                <Heading margin='none'>
+                                    <div style={{color: 'white'}}>
+                                        Study new Cultures
+                                    </div>
+                                </Heading>
+                            </Box>
+                        </Box>
+                    </Hero>
                 </Carousel>
 
             </Box>
