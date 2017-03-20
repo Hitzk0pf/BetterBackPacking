@@ -117,22 +117,22 @@ export class ChatButton extends Component {
 
             chatInputSection = (
                 <div style={this.props.styles.footer.inputWrap}>
-                    <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                  <Form onSubmit={(event) => {
-                    event.preventDefault();
-                    this.sendMessage();
-                  }}>
-                    <FormField>
-                        <TextInput id='chatInput'
-                                   name='chatInput'
-                                   placeHolder="Schreibe eine Nachricht..."
-                                   value={this.state.chatInput}
-                                   onDOMChange={(event) => this.handleChange(event)}
-                                   style={{marginRight: "0.5rem"}}
-                        />
-                    </FormField>
-                  </Form>
-                        <CaretNextIcon size={"medium"} style={{cursor: "pointer"}} onClick={() => this.sendMessage()}/>
+                  <div style={{width: '80%', margin: 'auto', display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    <Form onSubmit={(event) => {
+                      event.preventDefault();
+                      this.sendMessage();
+                    }}>
+                      <FormField>
+                          <TextInput id='chatInput'
+                                     name='chatInput'
+                                     placeHolder="Schreibe eine Nachricht..."
+                                     value={this.state.chatInput}
+                                     onDOMChange={(event) => this.handleChange(event)}
+                                     style={{marginRight: "0.5rem"}}
+                          />
+                      </FormField>
+                    </Form>
+                    <CaretNextIcon size={"medium"} style={{cursor: "pointer"}} onClick={() => this.sendMessage()}/>
                     </div>
                 </div>
             );

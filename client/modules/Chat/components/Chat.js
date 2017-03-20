@@ -118,8 +118,8 @@ export class Chat extends Component {
                         messageArray={this.props.messageArray}
                         onlineList={this.props.onlineList}
                     />}
-                    <div style={styles.chatButton.wrapper}>
-                        <ChatIcon colorIndex={"light-1"} onClick={() => this.toggleChat()}/>
+                    <div style={styles.chatButton.wrapper} onClick={() => this.toggleChat()}>
+                        <ChatIcon colorIndex={"light-1"} />
                     </div>
                 </div>
             </div>

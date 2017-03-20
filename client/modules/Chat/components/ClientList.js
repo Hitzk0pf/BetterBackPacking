@@ -31,7 +31,6 @@ export class ClientList extends Component {
 
 
         users.map((user, i) => {
-          console.log(user.avatar);
             clients.push(
                 <div key={i} style={i < 11 ? this.props.styles.clientWrapper : {}}>
                     <div

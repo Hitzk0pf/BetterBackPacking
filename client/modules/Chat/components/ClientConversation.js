@@ -18,7 +18,8 @@ export class ClientList extends Component {
                 width: "100%",
                 padding: "0 0.7rem",
                 boxSizing: "border-box",
-                display: "block"
+                display: "block",
+                clear: "both",
             },
             messageSent: {
                 display: "block",

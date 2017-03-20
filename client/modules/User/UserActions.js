@@ -103,7 +103,7 @@ export function loginRequest(user) {
             } else {
                 dispatch(loginSuccess(res.token));
                 toastr.success("Login successful");
-                browserHistory.push('/dashboard');
+                browserHistory.push('/guide/' + res.user.cuid);
             }
 
         });
