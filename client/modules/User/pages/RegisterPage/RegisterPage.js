@@ -206,7 +206,7 @@ export class RegisterPage extends Component {
                         </div>
 
                         <Footer pad={{"vertical": "medium"}}>
-                            <Button label="Submit"
+                            <Button label={<FormattedMessage id="submit"/>}
                                     primary={true}
                                     onClick={(data) => submit(data)}/>
                         </Footer>

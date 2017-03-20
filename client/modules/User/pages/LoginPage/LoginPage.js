@@ -52,7 +52,7 @@ export class LoginPage extends Component {
                     <Box className={styles.buttonBox} pad='medium' basis="full" align="start">
                         <Button className={styles.button} icon={<SocialFacebook />}
                             fill={true}
-                            label="Login with Facebook"
+                            label={<FormattedMessage id="loginWithFacebook"/>}
                             href="/api/login/facebook"
                             primary={true} />
                     </Box>
