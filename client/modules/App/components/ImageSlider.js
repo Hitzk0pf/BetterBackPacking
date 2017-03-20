@@ -6,6 +6,8 @@ import Hero from 'grommet/components/Hero';
 import Heading from 'grommet/components/Heading';
 import Carousel from 'grommet/components/Carousel';
 import img1 from './guide.JPG';
+import img2 from './monk.jpeg';
+import img3 from './flags.JPG';
 
 export class ImageSlider extends Component {
 
@@ -42,8 +44,7 @@ export class ImageSlider extends Component {
                         </Box>
                     </Hero>
                     <Hero backgroundColorIndex='dark'>
-                        <Box direction='row' size={{"height": "medium"}} justify='center' align='center' texture={img1}>
-                            <Box basis='1/2' align='end' pad='medium'/>
+                        <Box direction='row' size={{"height": "medium"}} justify='center' align='center' texture={img3}>
                             <Box basis='1/2' align='start' pad='medium'>
                                 <Heading margin='none'>
                                     <div style={{color: 'white'}}>
@@ -51,18 +52,19 @@ export class ImageSlider extends Component {
                                     </div>
                                 </Heading>
                             </Box>
+                            <Box basis='1/2' align='end' pad='medium'/>
                         </Box>
                     </Hero>
                     <Hero backgroundColorIndex='dark'>
-                        <Box direction='row' size={{"height": "medium"}} justify='center' align='center' texture={img1}>
-                            <Box basis='1/2' align='end' pad='medium'/>
+                        <Box direction='row' size={{"height": "medium"}} justify='center' align='center' texture={img2}>
                             <Box basis='1/2' align='start' pad='medium'>
                                 <Heading margin='none'>
                                     <div style={{color: 'white'}}>
-                                        Study new Cultures
+                                        Explore new Cultures
                                     </div>
                                 </Heading>
                             </Box>
+                            <Box basis='1/2' align='end' pad='medium'/>
                         </Box>
                     </Hero>
                 </Carousel>
