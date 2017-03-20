@@ -57,7 +57,7 @@ export function Header(props, context) {
         <ul>
 
           <li>
-            <Button label="Chat" primary onClick={props.chat} />
+            <Link to={props.isGuide ? '/guide/' + props.cuid : '/dashboard'}><FormattedMessage id="dashboard" /></Link>
           </li>
 
           <li>

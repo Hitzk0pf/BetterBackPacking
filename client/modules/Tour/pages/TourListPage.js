@@ -87,8 +87,6 @@ export class TourSearchPage extends Component {
                 <Helmet title={"TourSearchPage"}/>
 
 
-                <Button label="Test Notification" onClick={() => this._addNotification("test")} />
-
                 <div>
                     <ImageSlider />
                 </div>

@@ -10,6 +10,7 @@ export default {
     register: 'Registrieren',
     editMyPage: 'Meine Seite bearbeiten',
     searchTours: 'Touren durchsuchen',
+    dashboard: 'Übersicht',
     logout: 'Ausloggen',
     chat: 'Chat',
     awesome: 'Wooow',

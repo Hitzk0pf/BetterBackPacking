@@ -29,7 +29,9 @@ export class ClientList extends Component {
 
         const clients = [];
 
+
         users.map((user, i) => {
+          console.log(user.avatar);
             clients.push(
                 <div key={i} style={i < 11 ? this.props.styles.clientWrapper : {}}>
                     <div
@@ -45,7 +47,7 @@ export class ClientList extends Component {
                         >
                             <div>
                                 <Avatar facebookId={""} round={true} size={40} textSizeRatio={2.1}
-                                        name={user.firstname + " " + user.lastname} src={''}/>
+                                        name={user.firstname + " " + user.lastname} src={''} />
                             </div>
                             <div style={{marginLeft: "0.7rem"}}>
                                 <h3 style={{fontSize: "0.95rem", color: "#666", margin: "0"}}>{user.firstname} {user.lastname}</h3>

@@ -9,6 +9,7 @@ export default {
     register: 'Register',
     editMyPage: 'Edit My Page',
     searchTours: 'Search Tours',
+    dashboard: 'Dashboard',
     logout: 'Logout',
     chat: 'Chat',
     awesome: 'Wooow',
@@ -31,7 +32,7 @@ export default {
     password: 'Password',
     repeatPassword: 'Repeat Passwort',
     dropZone: 'Drop an image under 2MB here. You can also click me to select one!',
-    
+
         /**
     * Tour Page
     */

@@ -70,6 +70,7 @@ export function loginFailed() {
 }
 
 export function addGuideInfoSuccess(guideInfo) {
+  // browserHistory.push('/guide' + )
   return {
     type: ADD_GUIDE_INFO_SUCCESS,
     guideInfo,
