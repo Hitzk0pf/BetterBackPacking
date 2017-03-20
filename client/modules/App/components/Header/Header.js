@@ -57,7 +57,7 @@ export function Header(props, context) {
         <ul>
 
           <li>
-            <Link to={props.isGuide ? '/guide/' + props.cuid : '/dashboard'}><FormattedMessage id="dashboard" /></Link>
+            {props.isLoggedIn && <Link to={props.isGuide ? '/guide/' + props.cuid : '/dashboard'}><FormattedMessage id="dashboard" /></Link>}
           </li>
 
           <li>
