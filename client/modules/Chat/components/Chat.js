@@ -12,7 +12,7 @@ export class Chat extends Component {
 
       this.state = {
         showChat: false,
-      }
+      };
     }
 
     toggleChat() {
@@ -117,6 +117,10 @@ export class Chat extends Component {
                         sendMessage={this.props.sendMessage}
                         messageArray={this.props.messageArray}
                         onlineList={this.props.onlineList}
+                        fetchMessages={this.props.fetchMessages}
+                        messagesAreFetching={this.props.messagesAreFetching}
+                        messagesFetchingError={this.props.messagesFetchingError}
+                        messages={this.props.messages}
                     />}
                     <div style={styles.chatButton.wrapper} onClick={() => this.toggleChat()}>
                         <ChatIcon colorIndex={"light-1"} />

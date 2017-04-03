@@ -16,7 +16,7 @@ import Footer from './components/Footer/Footer';
 import {updateCurrentChatUser} from './AppActions';
 import {switchLanguage} from '../../modules/Intl/IntlActions';
 import {authUser, logoutUser, fetchUsers} from '../User/UserActions';
-import { sendMessage } from '../Chat/ChatActions';
+import { sendMessage, fetchMessages } from '../Chat/ChatActions';
 
 export class App extends Component {
     constructor(props) {
@@ -98,6 +98,10 @@ export class App extends Component {
                     sendMessage={this.props.sendMessage}
                     messageArray={this.props.messageArray}
                     onlineList={this.props.onlineList}
+                    fetchMessages={this.props.fetchMessages}
+                    messagesAreFetching={this.props.messagesAreFetching}
+                    messagesFetchingError={this.props.messagesFetchingError}
+                    messages={this.props.messages}
                 />
             </div>
         );
@@ -121,6 +125,10 @@ function mapStateToProps(store) {
         notifyMessage: store.chat.notifyMessage,
         messageArray: store.chat.messageArray,
         onlineList: store.chat.onlineList,
+        messages: store.chat.messages,
+        messagesAreFetching: store.chat.messagesAreFetching,
+        messagesFetchingError: store.chat.messagesFetchingError,
+        messages: store.chat.messages
     };
 }
 
@@ -134,6 +142,7 @@ const mapDispatchToProps = (dispatch) => {
         switchLanguage: (lang) => dispatch(switchLanguage(lang)),
         testChat: () => dispatch(({ type: 'server/send_message', message: 'Hello there. This is a messäge.', receivers: ['123'] })),
         sendMessage: (message, receivers) => dispatch(sendMessage(message, receivers)),
+        fetchMessages: (userCuid) => dispatch(fetchMessages(userCuid))
     }
 };
 

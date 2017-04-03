@@ -7,10 +7,27 @@ import Radium from "radium";
 
 export class ClientList extends Component {
 
+    constructor(props) {
+        super(props);
+        console.log("convProps", this.props);
+        if (this.props.user !== null)
+            this.props.fetchMessages(this.props.user.cuid);
+    }
+
     componentDidMount() {
+
     }
 
     render() {
+
+        let messages = [];
+
+        if (this.props.messagesAreFetching || this.props.messagesFetchingError)
+            return null;
+
+        messages = this.props.messages;
+
+        console.log(messages);
 
         const styles = {
             message: {
@@ -43,24 +60,32 @@ export class ClientList extends Component {
             }
         };
 
+        let oldMessages = messages.map(msg => (
+            <div style={{display: 'block', width: '100%'}}>
+                <div style={styles.message}>
+                    <div key={msg.senderCuid + new Date().getTime()}
+                         style={msg.senderCuid ? styles.messageReceived : styles.messageSent}>{msg.message}</div>
+                </div>
+            </div>
+        ));
+
         let newMessages = this.props.messageArray.map(msg => (
             <div style={{display: 'block', width: '100%'}}>
-              <div style={styles.message}>
-                  <div key={msg.sender + new Date().getTime()} style={msg.sender ? styles.messageReceived : styles.messageSent}>{msg.message}</div>
-              </div>
+                <div style={styles.message}>
+                    <div key={msg.sender + new Date().getTime()}
+                         style={msg.sender ? styles.messageReceived : styles.messageSent}>{msg.message}</div>
+                </div>
             </div>
-        ))
+        ));
 
         return (
-            <div style={{padding: "0.7rem 0"}}>
-                <div style={styles.message}>
-                    <div style={styles.messageSent}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam!
-                    </div>
+            <div>
+                <div>
+                    {oldMessages}
                 </div>
-                <div style={styles.message}>
-                    <div style={styles.messageReceived}>Consetetur sadipscing elitr, sed diam nonumy.</div>
+                <div>
+                    {newMessages}
                 </div>
-                {newMessages}
             </div>
         );
     }

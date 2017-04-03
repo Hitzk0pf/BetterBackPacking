@@ -14,21 +14,26 @@ import ClientList from "./ClientList";
 export class ChatButton extends Component {
 
     constructor(props) {
-      super(props);
+        super(props);
 
-      this.state = {
-        chatInput: '',
-        wentOffline: [],
-      }
+        this.state = {
+            chatInput: '',
+            wentOffline: [],
+        };
     }
 
     componentWillReceiveProps(newProps) {
-      if (newProps.onlineList !== this.props.onlineList) {
-        const wentOffline = this.props.onlineList.filter(onlineUser => newProps.onlineList.indexOf(onlineUser) === -1)
-        const currDate = new Date();
+        if (newProps.onlineList !== this.props.onlineList) {
+            const wentOffline = this.props.onlineList.filter(onlineUser => newProps.onlineList.indexOf(onlineUser) === -1)
+            const currDate = new Date();
 
-        wentOffline.map(offlineUser => this.setState({ wentOffline: this.state.wentOffline.concat([{ user: offlineUser, date: currDate }]) }));
-      }
+            wentOffline.map(offlineUser => this.setState({
+                wentOffline: this.state.wentOffline.concat([{
+                    user: offlineUser,
+                    date: currDate
+                }])
+            }));
+        }
     }
 
     leaveChat = () => {
@@ -36,38 +41,38 @@ export class ChatButton extends Component {
     };
 
     calculateLastSeen(currentChatUser, onlineList, wentOffline) {
-      // calculate lastSeen
-      if (onlineList.indexOf(currentChatUser.cuid) !== -1) {
-        return "online";
-      }
+        // calculate lastSeen
+        if (onlineList.indexOf(currentChatUser.cuid) !== -1) {
+            return "online";
+        }
 
-      let lastSeen = currentChatUser.last_seen;
-      let lastSeenFormatted = new Date(lastSeen);
-      // if the user isn't in the onlineList, check if he was before to display current date:
-      const offlineUser = wentOffline.filter(user => user.user === currentChatUser.cuid);
-      if (offlineUser.length > 0) {
-        lastSeenFormatted = offlineUser[0].date;
-      }
+        let lastSeen = currentChatUser.last_seen;
+        let lastSeenFormatted = new Date(lastSeen);
+        // if the user isn't in the onlineList, check if he was before to display current date:
+        const offlineUser = wentOffline.filter(user => user.user === currentChatUser.cuid);
+        if (offlineUser.length > 0) {
+            lastSeenFormatted = offlineUser[0].date;
+        }
 
-      let lastSeenChat = "zuletzt gesehen am " + lastSeenFormatted.getDate() + "." + (lastSeenFormatted.getMonth() + 1) + "." + lastSeenFormatted.getDay();
-      // call setHours to take the time out of the comparison
-      if(new Date(lastSeen).setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
-          // Date equals today's date - print time only
-          lastSeenChat = "zuletzt gesehen um " + lastSeenFormatted.getHours() + ":" + lastSeenFormatted.getMinutes();
-      }
+        let lastSeenChat = "zuletzt gesehen am " + lastSeenFormatted.getDate() + "." + (lastSeenFormatted.getMonth() + 1) + "." + lastSeenFormatted.getDay();
+        // call setHours to take the time out of the comparison
+        if (new Date(lastSeen).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)) {
+            // Date equals today's date - print time only
+            lastSeenChat = "zuletzt gesehen um " + lastSeenFormatted.getHours() + ":" + lastSeenFormatted.getMinutes();
+        }
 
-      // if timestamp is equal to zero, the user is currently online
-      if (lastSeenFormatted.getTime() === 0)
-          lastSeenChat = "online";
+        // if timestamp is equal to zero, the user is currently online
+        if (lastSeenFormatted.getTime() === 0)
+            lastSeenChat = "online";
 
-      return lastSeenChat;
+        return lastSeenChat;
     }
 
     sendMessage() {
-      event.preventDefault();
-      this.props.sendMessage(this.state.chatInput, [this.props.currentChatUser.cuid])
-      this.setState({chatInput: ''});
-      // console.log(this.state.chatInput, this.props.currentChatUser)
+        event.preventDefault();
+        this.props.sendMessage(this.state.chatInput, [this.props.currentChatUser.cuid])
+        this.setState({chatInput: ''});
+        // console.log(this.state.chatInput, this.props.currentChatUser)
 
     }
 
@@ -75,7 +80,7 @@ export class ChatButton extends Component {
 
         let newState = {};
 
-        if(event.target.type == "checkbox") {
+        if (event.target.type == "checkbox") {
             newState[event.target.name] = event.target.checked;
         } else {
             newState[event.target.name] = event.target.value;
@@ -88,6 +93,8 @@ export class ChatButton extends Component {
     render() {
 
         console.log('chatbox props', this.props)
+
+        this.messages = [];
 
         let header = "Chat";
         let subheader = "Contacts";
@@ -103,41 +110,56 @@ export class ChatButton extends Component {
             calculateLastSeen={this.calculateLastSeen}
             onlineList={this.props.onlineList}
             wentOffline={this.state.wentOffline}
+            fetchMessages={this.props.fetchMessages}
         />;
 
 
         let chatInputSection = "";
-        const currentChatUser = this.props.currentChatUser;
 
-        if (currentChatUser !== null) {
-            header = currentChatUser.firstname + " " + currentChatUser.lastname;
-            subheader = this.calculateLastSeen(currentChatUser, this.props.onlineList, this.state.wentOffline);
+        if (this.props.currentChatUser !== null) {
+            header = this.props.currentChatUser.firstname + " " + this.props.currentChatUser.lastname;
+            subheader = this.calculateLastSeen(this.props.currentChatUser, this.props.onlineList, this.state.wentOffline);
             prev = (<PreviousIcon style={{stroke: "#fff", marginRight: "0.5rem", cursor: "pointer"}}
                                   onClick={this.leaveChat}/>);
 
             chatInputSection = (
                 <div style={this.props.styles.footer.inputWrap}>
-                  <div style={{width: '80%', margin: 'auto', display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    <Form onSubmit={(event) => {
-                      event.preventDefault();
-                      this.sendMessage();
+                    <div style={{
+                        width: '80%',
+                        margin: 'auto',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
                     }}>
-                      <FormField>
-                          <TextInput id='chatInput'
-                                     name='chatInput'
-                                     placeHolder="Schreibe eine Nachricht..."
-                                     value={this.state.chatInput}
-                                     onDOMChange={(event) => this.handleChange(event)}
-                                     style={{marginRight: "0.5rem"}}
-                          />
-                      </FormField>
-                    </Form>
-                    <CaretNextIcon size={"medium"} style={{cursor: "pointer"}} onClick={() => this.sendMessage()}/>
+                        <Form onSubmit={(event) => {
+                            event.preventDefault();
+                            this.sendMessage();
+                        }}>
+                            <FormField>
+                                <TextInput id='chatInput'
+                                           name='chatInput'
+                                           placeHolder="Schreibe eine Nachricht..."
+                                           value={this.state.chatInput}
+                                           onDOMChange={(event) => this.handleChange(event)}
+                                           style={{marginRight: "0.5rem"}}
+                                />
+                            </FormField>
+                        </Form>
+                        <CaretNextIcon size={"medium"} style={{cursor: "pointer"}} onClick={() => this.sendMessage()}/>
                     </div>
                 </div>
             );
 
-            content = <ClientConversation messageArray={this.props.messageArray}/>;
+
+            content =
+                <ClientConversation
+                    user={this.props.currentChatUser}
+                    fetchMessages={this.props.fetchMessages}
+                    messageArray={this.props.messageArray}
+                    messagesAreFetching={this.props.messagesAreFetching}
+                    messagesFetchingError={this.props.messagesFetchingError}
+                    messages={this.props.messages}
+                />;
         }
 
         let heading = (
@@ -147,12 +169,12 @@ export class ChatButton extends Component {
                     <div>
                         <h2 style={{color: "#fff", fontSize: "1.1rem", margin: "0"}}>{header}</h2>
                         <h3 style={{
-                        color: "#fff",
-                        fontSize: "0.9rem",
-                        fontWeight: "400",
-                        lineHeight: "0.5rem",
-                        margin: "0",
-                    }}>{subheader}</h3>
+                            color: "#fff",
+                            fontSize: "0.9rem",
+                            fontWeight: "400",
+                            lineHeight: "0.5rem",
+                            margin: "0",
+                        }}>{subheader}</h3>
                     </div>
                 </div>
 
