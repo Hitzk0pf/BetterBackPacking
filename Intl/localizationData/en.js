@@ -43,6 +43,18 @@ export default {
     price:'Price',
     difficulty_easy:'Leicht',
 
+
+
+            /**
+    * Dashboard
+    */
+    contactMe: 'Contact Me',
+    aboutMe: 'About Me',
+    myTours: 'My Tours',
+    reviews: 'Reviews',
+    send: 'Send',
+    getInTouch: 'Get In touch',
+
     /**
     * other stuff
     */

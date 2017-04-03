@@ -44,6 +44,17 @@ export default {
     difficulty_easy:'Leicht',
 
 
+                /**
+    * Dashboard
+    */
+    contactMe: 'Kontaktiere mich',
+    aboutMe: 'Über mich',
+    myTours: 'Meine Touren',
+    reviews: 'Rezensionen',
+    send: 'Senden',
+    getInTouch: 'In Kontakt treten',
+
+
     /**
     * other stuff
     */
@@ -59,7 +70,7 @@ export default {
     authorName: 'Nom de l\'auteur',
     postTitle: 'Titre de l\'article',
     postContent: 'Contenu après',
-    submit: 'Soumettre',
+    submit: 'Absenden',
     comment: `user {name} {value, plural,
     	  =0 {does not have any comments}
     	  =1 {has # comment}

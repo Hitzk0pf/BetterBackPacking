@@ -82,7 +82,7 @@ export class ProfilePage extends Component {
                                     Tourstyle: City, Sightseeing
                                 </Box>
                                 <Box basis="1/4">
-                                    <Button label="Contact Me" href="#" accent={false} secondary={false}
+                                    <Button label={<FormattedMessage id="contactMe"/>} href="#" accent={false} secondary={false}
                                             primary={true}/>
                                 </Box>
                             </Box>
@@ -94,7 +94,7 @@ export class ProfilePage extends Component {
                             <Box size={{"height": {"min": "medium"}}, {"width": {"max": "medium"}}} margin="small"
                                  align="center" justify="center" separator="bottom">
                                 <Heading strong={true}>
-                                    About Me
+                                    {<FormattedMessage id="aboutMe"/>}
                                 </Heading>
                             </Box>
                             <Box direction="row" size={{"height": {"min": "medium"}}, {"width": {"min": "large"}}}
@@ -146,7 +146,7 @@ export class ProfilePage extends Component {
                                 </Box>
                             </Box>
                             <Box size={{"width": {"min": "small"}}}>
-                                <Button label="Get in touch" href="#" accent={false} secondary={false} primary={true}/>
+                                <Button label={<FormattedMessage id="getInTouch"/>} href="#" accent={false} secondary={false} primary={true}/>
                             </Box>
                         </Box>
                     </div>
@@ -156,7 +156,7 @@ export class ProfilePage extends Component {
                             <Box size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small"
                                  align="center" justify="center" separator="bottom">
                                 <Heading strong={true}>
-                                    My Tours
+                                    {<FormattedMessage id="myTours"/>}
                                 </Heading>
                             </Box>
                             <Box size={{"height": {"min": "medium"}}, {"width": {"min": "xxlarge"}}} margin="small"
@@ -259,7 +259,7 @@ export class ProfilePage extends Component {
                             <Box size={{"height": {"min": "medium"}}, {"width": {"min": "medium"}}} margin="small"
                                  align="center" justify="center" separator="bottom">
                                 <Heading strong={true}>
-                                    Reviews
+                                    {<FormattedMessage id="reviews"/>}
                                 </Heading>
                             </Box>
                             <Columns justify="center">
@@ -425,7 +425,7 @@ export class ProfilePage extends Component {
                                         <FormField>
                                             <TextInput id="item1" name="item-1" placeholder="Write a comment..."/>
                                         </FormField>
-                                        <Button label="Send" href="#" accent={false} secondary={false} primary={true}/>
+                                        <Button label={<FormattedMessage id="send"/>} href="#" accent={false} secondary={false} primary={true}/>
                                     </Box>
                                 </Box>
                             </Box>
