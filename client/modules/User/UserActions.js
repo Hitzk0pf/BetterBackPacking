@@ -169,14 +169,17 @@ export function logoutUser() {
 
 
 export function editUserSuccess(user) {
-  const avatar = user['avatar']
-  user['avatar'] = null
+  return (dispatch, getState) => {
+    browserHistory.push('/guide' + getState.user.user.cuid)
+    const avatar = user['avatar']
+    user['avatar'] = null
 
-  return {
-    type: EDIT_USER_SUCCESS,
-    user,
-    avatar
-  };
+    return {
+      type: EDIT_USER_SUCCESS,
+      user,
+      avatar
+    };
+  }
 }
 
 export function editUserFailed(error) {

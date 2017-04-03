@@ -4,7 +4,40 @@ import sanitizeHtml from 'sanitize-html';
 import models from '../models/index';
 
 /**
- * Get all User
+ * Get all Messages
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function getMessages(req, res) {
+    models.Message.findAll({ where: {
+      $or: [{receiverCuid: req.user.cuid}, {senderCuid: req.user.cuid}]
+    },
+    order: [['createdAt', 'DESC']]
+    }).then((messages) => {
+      console.log("msg", messages);
+      res.json(messages);
+    }).catch((err) => {
+      console.log("FUCKED UP", err);
+    });
+
+}
+
+export function saveMessage(req, res) {
+  let newMsg = {}
+  newMsg.message = req.body.message;
+  newMsg.senderCuid = req.body.senderCuid,
+  newMsg.receiverCuid = req.body.receiverCuid;
+  newMsg.cuid = cuid();
+  models.Message.create({ ...newMsg }).then(msg => {
+    res.json({ msg });
+  }).catch(err => {
+    res.status(500).send(err);
+  });
+}
+
+/**
+ * Get all Users
  * @param req
  * @param res
  * @returns void

@@ -1,4 +1,5 @@
 import callApi from '../../util/apiCaller';
+import { browserHistory } from 'react-router'
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
@@ -9,12 +10,12 @@ export const FETCH_GUIDE_PROFILE_FAILED = 'FETCH_GUIDE_PROFILE_FAILED';
 export const FETCH_GUIDE_PROFILE_STARTED = 'FETCH_GUIDE_PROFILE_STARTED';
 
 export function loginRequest(user) {
-    return (dispatch) => {
-        return callApi('login', 'post', {
-            emai: user.email,
-            password: user.password
-        }).then(res => dispatch(loginSuccess(res))).catch(res => dispatch(loginFailed()));
-    };
+  return (dispatch) => {
+    return callApi('login', 'post', {
+      email: user.email,
+      password: user.password
+    }).then(res => dispatch(loginSuccess(res))).catch(res => dispatch(loginFailed()));
+  };
 }
 
 // FETCH GUIDE PROFILE
@@ -70,11 +71,14 @@ export function loginFailed() {
 }
 
 export function addGuideInfoSuccess(guideInfo) {
-  // browserHistory.push('/guide' + )
-  return {
-    type: ADD_GUIDE_INFO_SUCCESS,
-    guideInfo,
-  };
+  return (dispatch, getState) => {
+    browserHistory.push('/guide' + getState.user.user.cuid)
+    return {
+      type: ADD_GUIDE_INFO_SUCCESS,
+      guideInfo,
+    };
+
+  }
 }
 
 export function addGuideInfoFailed(error) {

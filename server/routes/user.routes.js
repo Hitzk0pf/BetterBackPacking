@@ -81,11 +81,8 @@ router.route('/failedLogin').get((req, res) => {
 });
 
 // Delete a post by cuid
-
 router.route('/users/:cuid').delete(passport.authenticate('jwt', {session: false}), (req, res) => {
-
     let userFromJWT = req.user.cuid;
-
 
     if(req.params.cuid === userFromJWT)
     {
@@ -94,5 +91,13 @@ router.route('/users/:cuid').delete(passport.authenticate('jwt', {session: false
       res.status(403).end();
     }
 });
+
+// get Messages from a user
+router.route('/chatMessages/:cuid').get(passport.authenticate('jwt', {session: false}), (req, res) => {
+    UserController.getMessages(req, res);
+});
+
+// get Messages from a user
+router.route('/chatMessages').post(UserController.saveMessage);
 
 export default router;

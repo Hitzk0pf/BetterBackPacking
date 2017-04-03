@@ -212,6 +212,16 @@ io.on('connection', function (socket) {
           }
         });
       }
+
+      let message = {
+          senderCuid: sender,
+          receiverCuid: receiverClients[0].cuid,
+          message: action.message,
+      };
+
+      callApi(`chatMessages`, 'post', '', message).then(res => {
+        console.log('saving msg done:', res);
+      });
       // callApi(`users/${action.cuid}/online`, 'get', action.token, {} // send JWT Token to authenticate (otherwise its '')
       // ).then(res => {
       //   if (res.success) {
